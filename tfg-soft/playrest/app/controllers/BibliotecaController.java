@@ -24,7 +24,7 @@ public class BibliotecaController extends Controller {
     private static final Logger logger = LoggerFactory.getLogger("controller");
 
 
-    public Result create(Http.Request request) throws SQLException, ClassNotFoundException {
+ /**   public Result create(Http.Request request) throws SQLException, ClassNotFoundException {
         JsonNode json = request.body().asJson();
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting JSON data", false));
@@ -33,7 +33,16 @@ public class BibliotecaController extends Controller {
         Biblioteca biblioteca = BibliotecaBD.getInstance().addBiblioteca(Json.fromJson(json, Biblioteca.class));
         JsonNode jsonObject = Json.toJson(biblioteca);
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,biblioteca.getUrl());
+    }*/
+
+    public Result retrieve(int id) {
+        Biblioteca result = BibliotecaBD.getInstance().getBiblioteca(id);
+
+        JsonNode jsonObjects = Json.toJson(result);
+        logger.debug("In BibliotecaController.getBiblioteca(id), result is: {}",result.toString());
+        return ok(ApplicationUtil.createResponse(jsonObjects, true));
     }
+
 /**
     public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
         logger.debug("In BibliotecaController.update()");
@@ -70,14 +79,14 @@ public class BibliotecaController extends Controller {
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 
-    //public Result retrieve(int id) {
-    // ArrayLis<Biblioteca> result = BibliotecaBD.getInstance().getBiblioteca(id);
-    //   logger.debug("In BibliotecaController.getBiblioteca(id), result is: {}",result.toString());
-    // ObjectMapper mapper = new ObjectMapper();
+    public Result retrieve(int id) {
+     ArrayLis<Biblioteca> result = BibliotecaBD.getInstance().getBiblioteca(id);
+       logger.debug("In BibliotecaController.getBiblioteca(id), result is: {}",result.toString());
+     ObjectMapper mapper = new ObjectMapper();
 
-    // JsonNode jsonData = mapper.convertValue(result, JsonNode.class);
-    // return ok(ApplicationUtil.createResponse(jsonData, true));
-    // }
+     JsonNode jsonData = mapper.convertValue(result, JsonNode.class);
+     return ok(ApplicationUtil.createResponse(jsonData, true));
+     }
 
 
 

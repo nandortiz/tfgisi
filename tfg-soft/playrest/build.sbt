@@ -9,7 +9,7 @@ scalaVersion := "2.13.2"
 
 libraryDependencies += guice
 
-libraryDependencies += "org.webjars" % "swagger-ui" % "2.2.0"
+libraryDependencies += "org.webjars" % "swagger-ui" % "4.15.0"
 
 swaggerDomainNameSpaces := Seq("entities")
 swaggerPlayJava := true
@@ -19,7 +19,7 @@ libraryDependencies ++= Seq(
   javaJdbc
 )
 libraryDependencies ++= Seq(
-  "mysql" % "mysql-connector-java" % "8.0.29"
+  "mysql" % "mysql-connector-java" % "8.0.30"
 )
 
 

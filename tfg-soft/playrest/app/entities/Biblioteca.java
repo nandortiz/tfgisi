@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Biblioteca {
     public int id;
-    private String nombreBiblioteca;
-    private String descripcionBiblioteca;
+    private String nombreBiblioteca="";
+    private String descripcionBiblioteca="";
 
     //horas de apertura y cierre 01/01/2021-10:00 ?¿?¿?¿?¿?¿
     // private ArrayList<Puesto> listaPuesto = new ArrayList<>();

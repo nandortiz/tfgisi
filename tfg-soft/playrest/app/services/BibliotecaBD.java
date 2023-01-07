@@ -59,7 +59,7 @@ public class BibliotecaBD extends ConexionBD {
         //return biblioteca;
         return getBiblioteca(identificador);
         //return url;
-    }
+        }
 
 
     public Biblioteca getBiblioteca(int id) {
@@ -68,13 +68,17 @@ public class BibliotecaBD extends ConexionBD {
         try {
             if (conector() == true) {
 
-                String queryBD = "select id, nombre,descripcion, from biblioteca where id="+ id+";";
-                int i = 0;
+                String queryBD = "SELECT id,nombre,descripcion FROM biblioteca WHERE id=1;";//+id;
 
                 try {
 
                     rS = createStatement.executeQuery(queryBD);
+
+                    //Cogemos el primer valor.
+                    rS.next();
+
                     biblioteca.setId(rS.getInt("id"));
+                    System.out.println("Cogemos ID");
                     biblioteca.setNombreBiblioteca(rS.getString("nombre"));
                     biblioteca.setDescripcionBiblioteca(rS.getString("descripcion"));
 

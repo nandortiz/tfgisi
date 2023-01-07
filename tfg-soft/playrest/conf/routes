@@ -17,8 +17,8 @@ GET     /inicio                controllers.Inicio.index()
 
 
 #Colección Bibliotecas
-POST /bibliotecas   controllers.BibliotecaController.create(request:Request)
-
+#POST /bibliotecas   controllers.BibliotecaController.create(request:Request)
+GET /bibliotecas/:id controllers.BibliotecaController.retrieve(id:Int)
 
 
 
