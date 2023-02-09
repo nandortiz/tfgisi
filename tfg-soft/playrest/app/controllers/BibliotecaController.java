@@ -6,6 +6,8 @@ import entities.Biblioteca;
 //import freemarker.template.Template;
 //import freemarker.template.TemplateException;
 //import freemarker.template.TemplateExceptionHandler;
+import entities.BibliotecaShort;
+import entities.CambioBiblioteca;
 import play.mvc.Http;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
@@ -16,7 +18,6 @@ import play.mvc.Result;
 import services.BibliotecaBD;
 import utils.ApplicationUtil;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -24,7 +25,7 @@ public class BibliotecaController extends Controller {
     private static final Logger logger = LoggerFactory.getLogger("controller");
 
 
- /**   public Result create(Http.Request request) throws SQLException, ClassNotFoundException {
+   public Result create(Http.Request request) throws SQLException, ClassNotFoundException {
         JsonNode json = request.body().asJson();
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting JSON data", false));
@@ -33,15 +34,52 @@ public class BibliotecaController extends Controller {
         Biblioteca biblioteca = BibliotecaBD.getInstance().addBiblioteca(Json.fromJson(json, Biblioteca.class));
         JsonNode jsonObject = Json.toJson(biblioteca);
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,biblioteca.getUrl());
-    }*/
-
-    public Result retrieve(int id) {
+    }
+    public Result retrieve (int id) {
         Biblioteca result = BibliotecaBD.getInstance().getBiblioteca(id);
 
+        if  (result == null) {
+            return notFound(ApplicationUtil.createResponse("Biblioteca with id:" + id + " not found", false));
+        } else {
+            JsonNode jsonObjects = Json.toJson(result);
+            logger.debug("In BibliotecaController.getBiblioteca(id), result is: {}", result.toString());
+
+            return ok(ApplicationUtil.createResponse(jsonObjects, true));
+        }
+    }
+    public Result retrieveAll (){
+        Collection<BibliotecaShort> result = BibliotecaBD.getInstance().getAllBibliotecas();
+
         JsonNode jsonObjects = Json.toJson(result);
-        logger.debug("In BibliotecaController.getBiblioteca(id), result is: {}",result.toString());
+        logger.debug("In BibliotecaController.getAllBibliotecas(), result is: {}",result.toString());
+
         return ok(ApplicationUtil.createResponse(jsonObjects, true));
     }
+
+    public Result delete(int id) throws SQLException, ClassNotFoundException {
+        logger.debug("In BibliotecaController.retrieve(), delete Biblioteca with id: {}",id);
+        if (!BibliotecaBD.getInstance().deleteBiblioteca(id)) {
+            return notFound(ApplicationUtil.createResponse("Biblioteca with id:" + id + " not found", false));
+        }
+        return ok(ApplicationUtil.createResponse("Biblioteca with id:" + id + " deleted", true));
+    }
+
+    public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
+        logger.debug("In BibliotecaController.update()");
+        JsonNode json = request.body().asJson();
+
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+        }
+        CambioBiblioteca cambioBiblioteca = BibliotecaBD.getInstance().modify(Json.fromJson(json, CambioBiblioteca.class),id);
+        if (cambioBiblioteca == null) {
+            return notFound(ApplicationUtil.createResponse("Biblioteca not found", false));
+        }
+
+        JsonNode jsonObject = Json.toJson(cambioBiblioteca);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
+
 
 /**
     public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
@@ -77,21 +115,11 @@ public class BibliotecaController extends Controller {
 
         JsonNode jsonObject = Json.toJson(cam);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
-    }
-
-    public Result retrieve(int id) {
-     ArrayLis<Biblioteca> result = BibliotecaBD.getInstance().getBiblioteca(id);
-       logger.debug("In BibliotecaController.getBiblioteca(id), result is: {}",result.toString());
-     ObjectMapper mapper = new ObjectMapper();
-
-     JsonNode jsonData = mapper.convertValue(result, JsonNode.class);
-     return ok(ApplicationUtil.createResponse(jsonData, true));
-     }
+    }*/
 
 
 
-
-
+/*
     public Result retrieve(int id) {
         logger.debug("In BibliotecaController.retrieve(), retrieve biblioteca with id: {}",id);
         Biblioteca result = BibliotecaBD.getInstance().getBiblioteca(id);
@@ -166,11 +194,12 @@ public class BibliotecaController extends Controller {
 
         logger.debug("In BibliotecaController.retrieve(), result is: {}",jsonObjects.toString());
         return ok(ApplicationUtil.createResponse(jsonObjects, true));
+  */
 
         // }
 
 
-    }
+   // }
 /**
 
     public Result listBibliotecas() throws IOException{//}, TemplateException {
@@ -212,20 +241,14 @@ public class BibliotecaController extends Controller {
 
         //  }
     }
-
-    public Result delete(int id) throws SQLException, ClassNotFoundException {
-        logger.debug("In BibliotecaController.retrieve(), delete Biblioteca with id: {}",id);
-        if (!BibliotecaBD.getInstance().deleteBiblioteca(id)) {
-            return notFound(ApplicationUtil.createResponse("Biblioteca with id:" + id + " not found", false));
-        }
-        return ok(ApplicationUtil.createResponse("Biblioteca with id:" + id + " deleted", true));
-    }
+**/
 
 
+
+/**
     public Result methodNotAllowed() {
 
         return status(405,ApplicationUtil.createResponse("Method Not Allowed", true));
     }
 **/
-
 }

@@ -3,77 +3,89 @@ package entities;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Biblioteca {
-    public int id;
-    private String nombreBiblioteca="";
-    private String descripcionBiblioteca="";
-
+public class Biblioteca extends RecursoWeb {
+    private String nombre = "";
+    private String descripcion = "";
+    private LocalDateTime apertura;
+    private LocalDateTime cierre;
     //horas de apertura y cierre 01/01/2021-10:00 ?¿?¿?¿?¿?¿
     // private ArrayList<Puesto> listaPuesto = new ArrayList<>();
     //  private ArrayList<String> listaPuesto = new ArrayList<>();
 
-    private ArrayList<SalaShort> listaSala = new ArrayList<>();
+    private ArrayList<SalaShort> salas = new ArrayList<>();
 
-    public Biblioteca(){
+    public Biblioteca() {
+        super();
     }
 
 
-    public Biblioteca(String nombreBiblioteca, String descripcionBiblioteca) {
-        this.nombreBiblioteca=nombreBiblioteca;
-        this.descripcionBiblioteca=descripcionBiblioteca;
-
+    public Biblioteca(String nombreBiblioteca, String descripcionBiblioteca, LocalDateTime aperturaBiblioteca, LocalDateTime cierreBiblioteca) {
+        this.nombre = nombreBiblioteca;
+        this.descripcion = descripcionBiblioteca;
+        this.apertura  = aperturaBiblioteca;
+        this.cierre  = cierreBiblioteca;
     }
 
-    public String getNombreBiblioteca() {
-        return nombreBiblioteca;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreBiblioteca(String nombreBiblioteca) {
-        this.nombreBiblioteca = nombreBiblioteca;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getDescripcionBiblioteca() {
-        return descripcionBiblioteca;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripcionBiblioteca(String descripcionBiblioteca) {
-        this.descripcionBiblioteca = descripcionBiblioteca;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-
-
-
-    public ArrayList<SalaShort> getListaSala() {
-        return listaSala;
+    public LocalDateTime getApertura() {
+        return apertura;
     }
 
-
-    public void setListaSala(ArrayList<SalaShort> listaSala) {
-        this.listaSala = listaSala;
+    public void setApertura(LocalDateTime apertura) {
+        this.apertura = apertura;
     }
 
-
-    public void annadirListaSala(SalaShort sala){
-        listaSala.add(sala);
-    }
-    @Override
-    public String toString() {
-        return "Biblioteca{" +
-                "id de la biblioteca= 'B." + id +
-                ", nombre de la biblioteca='" + nombreBiblioteca + '\'' +
-                ", descripción de la biblioteca ='" + descripcionBiblioteca +
-              //", horarios disponibles='" + listaDisponibilidadBiblioteca+
-                '}';
+    public LocalDateTime getCierre() {
+        return cierre;
     }
 
-    public String getUrl() {
-        return "/bibliotecas/" + this.id;
+    public void setCierre(LocalDateTime cierre) {
+        this.cierre = cierre;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public ArrayList<SalaShort> getSalas() { return salas; }
+
+    public void setSalas(ArrayList<SalaShort> salas) { this.salas = salas; }
+
+    public void annadirListaSala(SalaShort sala){ salas.add(sala); }
+
+        @Override
+        public String toString () { //TODO Date para apertura y cierre?
+            return "Biblioteca{" +
+                    "id = '" + id +
+                    "', nombre ='" + nombre + '\'' +
+                    "', descripción ='" + descripcion +
+                    "', apertura ='" + apertura +
+                    "', cierre ='" + cierre +
+                    ", url = '" + getUrl() +//", horarios disponibles='" + listaDisponibilidadBiblioteca+
+                    '}';
+        }
+
+        public String getUrl () {
+            return "/bibliotecas/" + this.id;
+        }
+
+        public void setId ( int id){
+            this.id = id;
+        }
+        public int getId () {
+            return this.id;
+        }
+
+
     }
-    public int getId(){
-        return this.id;
-    }
-}

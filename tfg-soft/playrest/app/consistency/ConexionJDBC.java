@@ -25,10 +25,7 @@ public class ConexionJDBC {
         try {
             // make the connection
             Class.forName(driver);
-
-            System.out.println("Intentando conectar a la BBDD 1");
             Connection cn = DriverManager.getConnection(url, username, pass);
-            System.out.println("Intentando conectar a la BBDD 2");
             return cn;
         } catch (SQLException throwables) {
             throwables.printStackTrace();

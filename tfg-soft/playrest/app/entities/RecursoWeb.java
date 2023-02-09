@@ -6,8 +6,10 @@ public class RecursoWeb {
     protected String url;
 
     public RecursoWeb(){
-
+        this.id=-1;
+        this.url="";
     }
+
     public RecursoWeb(int id, String url){
         this.id = id;
         this.url = url;
@@ -21,11 +23,12 @@ public class RecursoWeb {
     public void setId(int id){
         this.id = id;
     }
+
     public String getUrl(){
         return url;
     }
 
-    public void setUrl(String Url){
+    public void setUrl(String url){
         this.url = url;
     }
 
@@ -33,5 +36,4 @@ public class RecursoWeb {
     public String toString(){
         return"RecursoWeb{" +"id= "+id +", URL= '" + url +'}';
     }
-
 }

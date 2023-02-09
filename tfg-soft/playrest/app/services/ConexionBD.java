@@ -13,7 +13,6 @@ public class ConexionBD {
 
     protected static Connection con;
     protected static final String driver = "com.mysql.cj.jdbc.Driver";
-
     protected static final String user = "root";
     protected static final String pass = "root";
     protected static final String url = "jdbc:mysql://localhost:3306/gestion?useSSL=false";
@@ -31,45 +30,31 @@ public class ConexionBD {
             int i = 0; //----String valor="fallo";
             Class.forName(driver);
             //Nos conectamos a BD
-            con= (com.mysql.cj.jdbc.JdbcConnection) DriverManager.getConnection("jdbc:mysql://localhost/gestion?" +
-                    "user=root&password=root");
-
-
-                    //(url, user, pass);
+            con= (com.mysql.cj.jdbc.JdbcConnection) DriverManager.getConnection(url, user, pass);
             //con= DriverManager.getConnection(url, user, pass);
             //Si se conecta correctamente, se muestra mensaje de conexión establecida
             if (con != null) ;
             {
 
                 createStatement = con.createStatement();
-
-                String uso = "use gestion;";
-                createStatement.executeUpdate(uso);
-
-                /*
-                //Prueba de conexion
-                String crearSala = "create table prueba(id int(100) primary key auto_increment not null);";
-                createStatement.executeUpdate(crearSala);
-                System.out.println("Prueba creada");
-                /*
-
-                /*
                   String crear = "create database if not exists gestion;";
                 String uso = "use gestion;";
-                String crearUsuario = "create table if not exists usuario(\n" +
+             /*   String crearUsuario = "create table if not exists usuario(\n" +
                         "id int(100)primary key auto_increment not null, \n" +
                         "url varchar (40), \n" +
                         "nombre varchar (40) not null, \n" +
                         "apellidos varchar (40) not null, \n" +
                         "grado varchar (20) not null\n" +
                         ");";
-
+            */
                 String crearBiblioteca = "create table if not exists biblioteca(\n" +
                         "id int(100) primary key auto_increment not null,\n" +
                         "url varchar (40) default null,\n" +
                         "nombre varchar (40) not null,\n" +
-                        "descripcion varchar (100) not null\n" +
-                        ")";*/
+                        "descripcion varchar (100) not null,\n" +
+                        "apertura datetime not null,\n" +
+                        "cierre datetime not null \n" +
+                        ")";
 
               /*   String crearPuesto = "create table if not exists puesto(\n" +
                         "id int(100) primary key auto_increment not null,\n" +
@@ -146,7 +131,7 @@ public class ConexionBD {
                         "fecha datetime,\n" +
                         "foreign key (recursoExtraID) references recursoextra(id) on delete cascade,\n" +
                         "primary key (recursoExtraID, fecha)\n" +
-                        ");";*/
+                        ");";
 
               /*  String crearPuesto = "create table if not exists puesto(\n" +
                         "id int(100) primary key auto_increment not null,\n" +
@@ -271,20 +256,20 @@ public class ConexionBD {
                         ");";
 */
 
-                //createStatement.executeUpdate(crear);
-                //createStatement.executeUpdate(uso);
-                //createStatement.executeUpdate(crearUsuario);
-                //createStatement.executeUpdate(crearBiblioteca);
+                createStatement.executeUpdate(crear);
+                createStatement.executeUpdate(uso);
+            //    createStatement.executeUpdate(crearUsuario);
+                createStatement.executeUpdate(crearBiblioteca);
                 //createStatement.executeUpdate(crearPuesto);
                 //createStatement.executeUpdate(crearSala);
                 //createStatement.executeUpdate(crearLibro);
                 //createStatement.executeUpdate(crearOrdenador);
-                //createStatement.executeUpdate(crearDisponibilidadElementoReservable);
-                //createStatement.executeUpdate(crearDisponibilidadRecursoExtra);
-                //createStatement.executeUpdate(crearReserva);
-                //createStatement.executeUpdate(crearRecursoExtra);
-                //createStatement.executeUpdate(crearElementoReservable);
-                //createStatement.executeUpdate(crearReservaExtra);
+              //  createStatement.executeUpdate(crearDisponibilidadElementoReservable);
+              //  createStatement.executeUpdate(crearDisponibilidadRecursoExtra);
+              //  createStatement.executeUpdate(crearReserva);
+              //  createStatement.executeUpdate(crearRecursoExtra);
+              //  createStatement.executeUpdate(crearElementoReservable);
+              //  createStatement.executeUpdate(crearReservaExtra);
 
               //  createStatement.executeUpdate(crearRecurso);
               //  createStatement.executeUpdate(crearRecursoPuesto);

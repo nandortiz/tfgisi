@@ -14,13 +14,116 @@ GET   /assets/*file                 controllers.Assets.versioned(path="/public",
 # APIs in Controller
 GET     /inicio                controllers.Inicio.index()
 
+ ###
+ #  summary: Crear una biblioteca. (POST)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: biblioteca
+ #      description: La biblioteca a crear.
+ #      schema:
+ #         $ref: '#/definitions/entities.Biblioteca'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Biblioteca'
+ ###
+POST /bibliotecas       controllers.BibliotecaController.create(request:Request)
 
+ ###
+ #  summary: Obtener todas las bibliotecas. (GET ALL)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: biblioteca
+ #      description: Las bibliotecas obtenidas.
+ #      schema:
+ #         $ref: '#/definitions/entities.Biblioteca'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Biblioteca'
+ ###
+ GET /bibliotecas        controllers.BibliotecaController.retrieveAll()
 
-#Colección Bibliotecas
-#POST /bibliotecas   controllers.BibliotecaController.create(request:Request)
-GET /bibliotecas/:id controllers.BibliotecaController.retrieve(id:Int)
+ ###
+ #  summary: Obtener una biblioteca. (GET)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: biblioteca
+ #      description: La biblioteca a obtener.
+ #      schema:
+ #         $ref: '#/definitions/entities.Biblioteca'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Biblioteca'
+ ###
+GET /bibliotecas/:id    controllers.BibliotecaController.retrieve(id:Int)
 
+###
+ #  summary: Eliminar una biblioteca. (DELETE)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: biblioteca
+ #      description: La biblioteca a eliminar.
+ #      schema:
+ #         $ref: '#/definitions/entities.Biblioteca'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Biblioteca'
+ ###
+DELETE /bibliotecas/:id    controllers.BibliotecaController.delete(id:Int)
 
+###
+ #  summary: Actualizar una biblioteca. (UPDATE)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: biblioteca
+ #      description: La biblioteca a actualizar.
+ #      schema:
+ #         $ref: '#/definitions/entities.Biblioteca'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Biblioteca'
+ ###
+#PUT /bibliotecas/:id    controllers.BibliotecaController.update(id:Int, request:Request)
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+###
+ #  summary: Actualizar parcialmente una biblioteca. (PATCH)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: cambioBiblioteca
+ #      description: La biblioteca a realizar
+ #      schema:
+ #         $ref: '#/definitions/entities.CambioBiblioteca'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.CambioBiblioteca'
+ ###
+PATCH /bibliotecas/:id    controllers.BibliotecaController.modify(id:Int, request:Request)

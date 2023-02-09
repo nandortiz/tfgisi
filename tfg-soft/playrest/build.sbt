@@ -7,23 +7,21 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava,SwaggerPlugin)
 
 scalaVersion := "2.13.2"
 
-libraryDependencies += guice
+libraryDependencies ++= Seq(
+  javaJdbc
+)
+libraryDependencies ++= Seq(
+  "mysql" % "mysql-connector-java" % "8.0.29"
+)
 
-libraryDependencies += "org.webjars" % "swagger-ui" % "4.15.0"
+libraryDependencies ++= Seq(
+  "org.freemarker" % "freemarker" % "2.3.31"
+)
+
+libraryDependencies += guice
+libraryDependencies += "org.webjars" % "swagger-ui" % "2.2.0"
 
 swaggerDomainNameSpaces := Seq("entities")
 swaggerPlayJava := true
 swaggerPrettyJson := true
 
-libraryDependencies ++= Seq(
-  javaJdbc
-)
-libraryDependencies ++= Seq(
-  "mysql" % "mysql-connector-java" % "8.0.30"
-)
-
-
-libraryDependencies ++= Seq(
-  "org.freemarker" % "freemarker" % "2.3.31"
-
-)
