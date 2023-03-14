@@ -66,18 +66,18 @@ public class Biblioteca extends RecursoWeb {
 
         @Override
         public String toString () { //TODO Date para apertura y cierre?
-            return "Biblioteca{" +
+            return "ElementoReservable{" +
                     "id = '" + id +
                     "', nombre ='" + nombre + '\'' +
                     "', descripción ='" + descripcion +
-                    "', apertura ='" + apertura +
-                    "', cierre ='" + cierre +
+                   // "', apertura ='" + apertura +
+                  //  "', cierre ='" + cierre +
                     ", url = '" + getUrl() +//", horarios disponibles='" + listaDisponibilidadBiblioteca+
                     '}';
         }
 
         public String getUrl () {
-            return "/bibliotecas/" + this.id;
+            return "/elementosreservables/" + this.id;
         }
 
         public void setId ( int id){

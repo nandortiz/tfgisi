@@ -107,7 +107,7 @@ DELETE /bibliotecas/:id    controllers.BibliotecaController.delete(id:Int)
  #      schema:
  #        $ref: '#/definitions/entities.Biblioteca'
  ###
-#PUT /bibliotecas/:id    controllers.BibliotecaController.update(id:Int, request:Request)
+PUT /bibliotecas/:id    controllers.BibliotecaController.update(request:Request, id:Int)
 
 ###
  #  summary: Actualizar parcialmente una biblioteca. (PATCH)

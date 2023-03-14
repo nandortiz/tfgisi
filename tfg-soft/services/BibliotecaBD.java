@@ -32,7 +32,7 @@ public class BibliotecaBD extends ConexionBD {
         int identificador = -1;
         String url = "";
         if (conector() == true) {
-           try {
+            try {
 
                 String nombre = biblioteca.getNombre();
                 String descripcion = biblioteca.getDescripcion();
@@ -51,7 +51,7 @@ public class BibliotecaBD extends ConexionBD {
                 String patronURL="/bibliotecas/";
                 String urlNuevaBiblioteca=patronURL+id;
 
-               //UPDATE de la biblioteca con id = id y actualizar la url con urlNuevaBiblioteca
+                //UPDATE de la biblioteca con id = id y actualizar la url con urlNuevaBiblioteca
                 st.executeUpdate("UPDATE biblioteca set url='" + urlNuevaBiblioteca+ "' where id=" + id + ";");
 
 
@@ -176,12 +176,12 @@ public class BibliotecaBD extends ConexionBD {
 
                     case APERTURA:
                         createStatement.executeUpdate("update biblioteca set apertura='"+
-                                franja+"' from biblioteca where id="+id+";");
+                                franja+"'  where id="+id+";");
                         break;
 
                     case CIERRE:
                         createStatement.executeUpdate("update biblioteca set cierre='"+
-                                franja+"' from biblioteca where id="+id+";");
+                                franja+"'  where id="+id+";");
                         break;
                 }
 
@@ -203,13 +203,13 @@ public class BibliotecaBD extends ConexionBD {
                 LocalDateTime apertura = biblioteca.getApertura();
                 LocalDateTime cierre = biblioteca.getCierre();
 
-                String queryBD = "update biblioteca set nombre='"+nombre+"', descripcion='"+descripcion+"', apertura='"+apertura+"', cierre='"+cierre+"' from biblioteca where id="+id+";";
+                String queryBD = "update biblioteca set nombre='"+nombre+"', descripcion='"+descripcion+"', apertura='"+apertura+"', cierre='"+cierre+"' where id="+id+";";
 
                 try {
-                     createStatement.executeUpdate(queryBD);
-                  } catch (SQLException ex) {
+                    createStatement.executeUpdate(queryBD);
+                } catch (SQLException ex) {
                     Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-                  }
+                }
 
                 try {
 
@@ -231,24 +231,17 @@ public class BibliotecaBD extends ConexionBD {
     }
     /* public Biblioteca getBiblioteca(int id) {
         Biblioteca biblioteca = new Biblioteca();
-
         try {
             if (conector() == true) {
-
                 String queryBD = "SELECT id,nombre,descripcion FROM biblioteca WHERE id="+ id+";";
-
                 try {
-
                     rS = createStatement.executeQuery(queryBD);
-
                     //Cogemos el primer valor.
                     rS.next();
-
                     biblioteca.setId(rS.getInt("id"));
                     System.out.println("Cogemos ID");
                     biblioteca.setNombreBiblioteca(rS.getString("nombre"));
                     biblioteca.setDescripcionBiblioteca(rS.getString("descripcion"));
-
                 } catch (SQLException ex) {
                     System.out.println("Falla esto 0");
                     ex.printStackTrace();
@@ -267,125 +260,101 @@ public class BibliotecaBD extends ConexionBD {
 
 
 /**
-    public Collection<BibliotecaShort> getAllBibliotecas() {
-
-        HashMap<Integer, BibliotecaShort> mapa = new HashMap<>();
-
-        try {
-            if (conector() == true) {
-                String queryBD = "select id, url, nombreBiblioteca, descripcionBiblioteca from biblioteca";
-                int i = 0;
-                try {
-                    rS = createStatement.executeQuery(queryBD);
-/*
-                    while (rS.next()) {
-
-                        Biblioteca biblioteca= getBiblioteca(Integer.parseInt(rS.getString("id")));
-                        mapa.put(lab.getId(), biblioteca);
-
-                    }
-
-
-
-                    while (rS.next()) {
-                        BibliotecaShort biblioteca;
-
-                        if (mapa.containsKey(Integer.parseInt(rS.getString("id")))) {
-                            biblioteca = mapa.get(Integer.parseInt(rS.getString("id")));
-                        } else {
-                            biblioteca = new BibliotecaShort();
-                            biblioteca.setId(Integer.parseInt(rS.getString("id")));
-                            biblioteca.setUrl(rS.getString("url"));
-                            biblioteca.setNombreBiblioteca(rS.getString("nombreBiblioteca"));
-                            biblioteca.setDescripcionBiblioteca(rS.getString("descripcionBiblioteca"));
-                            mapa.put(biblioteca.getId(), biblioteca);
-                        }
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    i = 0;
-                    con.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else {
-                //return new ArrayList<>(mapa.values);
-                //return null;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("El tamaño de la lista es" + mapa.values().size());
-        return mapa.values();
-
-    }
-
-    public Biblioteca updateBiblioteca(Biblioteca biblioteca, int id) throws SQLException, ClassNotFoundException {
-        try {
-            if (conector() == true) {
-                // int id = biblioteca.getId();
-                //String url = biblioteca.getUrl();
-                String nombre = biblioteca.getNombreBiblioteca();
-                String descripcion = biblioteca.getDescripcionBiblioteca();
-
-                String queryBD = "update laboratorio set nombreBiblioteca='" + nombre + "', descripcionBiblioteca='" + descripcion + "' where id=" + id + ";";
-
-                try {
-                    createStatement.executeUpdate(queryBD);
-                } catch (SQLException ex) {
-                    Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                try {
-
-                    con.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                return null;
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return getBiblioteca(id);
-    }
-
-    public CambioHorario cambioBiblioteca(CambioHorario cam, int id) throws SQLException, ClassNotFoundException {
-        try {
-            if (conector() == true) {
-                switch (cam.getTipo()) {
-
-                    case ADD:
-                        //insert tabla disponibilidadBiblioteca con el id y la franja
-                        LocalDateTime franja = cam.getFranja();
-                        createStatement.executeUpdate("INSERT INTO disponibilidadbiblioteca (bibliotecaid,disponibilidad) VALUES (" + id + ", '" + franja + "');");
-                        break;
-
-                    case REMOVE:
-                        //delete tabla disponibilidadBiblioteca con el id y la franja
-                        LocalDateTime franjaRemove = cam.getFranja();
-                        createStatement.executeUpdate("delete from disponibilidadbiblioteca where bibliotecaid=" + id + " AND disponibilidad='" + franjaRemove + "';");
-                        break;
-
-
-                }
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return cam;
-    }
-
-**/
-    }
+ public Collection<BibliotecaShort> getAllBibliotecas() {
+ HashMap<Integer, BibliotecaShort> mapa = new HashMap<>();
+ try {
+ if (conector() == true) {
+ String queryBD = "select id, url, nombreBiblioteca, descripcionBiblioteca from biblioteca";
+ int i = 0;
+ try {
+ rS = createStatement.executeQuery(queryBD);
+ /*
+ while (rS.next()) {
+ Biblioteca biblioteca= getBiblioteca(Integer.parseInt(rS.getString("id")));
+ mapa.put(lab.getId(), biblioteca);
+ }
+ while (rS.next()) {
+ BibliotecaShort biblioteca;
+ if (mapa.containsKey(Integer.parseInt(rS.getString("id")))) {
+ biblioteca = mapa.get(Integer.parseInt(rS.getString("id")));
+ } else {
+ biblioteca = new BibliotecaShort();
+ biblioteca.setId(Integer.parseInt(rS.getString("id")));
+ biblioteca.setUrl(rS.getString("url"));
+ biblioteca.setNombreBiblioteca(rS.getString("nombreBiblioteca"));
+ biblioteca.setDescripcionBiblioteca(rS.getString("descripcionBiblioteca"));
+ mapa.put(biblioteca.getId(), biblioteca);
+ }
+ }
+ } catch (SQLException ex) {
+ Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+ }
+ try {
+ i = 0;
+ con.close();
+ } catch (SQLException ex) {
+ Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+ }
+ } else {
+ //return new ArrayList<>(mapa.values);
+ //return null;
+ }
+ } catch (SQLException ex) {
+ Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+ } catch (ClassNotFoundException ex) {
+ Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+ }
+ System.out.println("El tamaño de la lista es" + mapa.values().size());
+ return mapa.values();
+ }
+ public Biblioteca updateBiblioteca(Biblioteca biblioteca, int id) throws SQLException, ClassNotFoundException {
+ try {
+ if (conector() == true) {
+ // int id = biblioteca.getId();
+ //String url = biblioteca.getUrl();
+ String nombre = biblioteca.getNombreBiblioteca();
+ String descripcion = biblioteca.getDescripcionBiblioteca();
+ String queryBD = "update laboratorio set nombreBiblioteca='" + nombre + "', descripcionBiblioteca='" + descripcion + "' where id=" + id + ";";
+ try {
+ createStatement.executeUpdate(queryBD);
+ } catch (SQLException ex) {
+ Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+ }
+ try {
+ con.close();
+ } catch (SQLException ex) {
+ Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+ }
+ } else {
+ return null;
+ }
+ } catch (SQLException ex) {
+ Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+ } catch (ClassNotFoundException ex) {
+ Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+ }
+ return getBiblioteca(id);
+ }
+ public CambioHorario cambioBiblioteca(CambioHorario cam, int id) throws SQLException, ClassNotFoundException {
+ try {
+ if (conector() == true) {
+ switch (cam.getTipo()) {
+ case ADD:
+ //insert tabla disponibilidadBiblioteca con el id y la franja
+ LocalDateTime franja = cam.getFranja();
+ createStatement.executeUpdate("INSERT INTO disponibilidadbiblioteca (bibliotecaid,disponibilidad) VALUES (" + id + ", '" + franja + "');");
+ break;
+ case REMOVE:
+ //delete tabla disponibilidadBiblioteca con el id y la franja
+ LocalDateTime franjaRemove = cam.getFranja();
+ createStatement.executeUpdate("delete from disponibilidadbiblioteca where bibliotecaid=" + id + " AND disponibilidad='" + franjaRemove + "';");
+ break;
+ }
+ }
+ } catch (SQLException ex) {
+ Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+ }
+ return cam;
+ }
+ **/
+}

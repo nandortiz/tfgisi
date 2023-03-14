@@ -1,19 +1,14 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import entities.Biblioteca;
-
-//import freemarker.template.Configuration;
-//import freemarker.template.Template;
-//import freemarker.template.TemplateException;
-//import freemarker.template.TemplateExceptionHandler;
 import entities.BibliotecaShort;
 import entities.CambioBiblioteca;
-import play.mvc.Http;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import services.BibliotecaBD;
 import utils.ApplicationUtil;
@@ -80,7 +75,27 @@ public class BibliotecaController extends Controller {
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 
+//TODO , PATCHeo la apertura de id3 y hago GetId3 y no se updatea el cambio
+    //TODO , POST no funciona
 
+    public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
+        logger.debug("In BibliotecaController.update()");
+        JsonNode json = request.body().asJson();
+
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+        }
+        Biblioteca biblioteca = BibliotecaBD.getInstance().update(Json.fromJson(json, Biblioteca.class),id);
+        logger.debug("In BibliotecaController.update(), biblioteca  is: {}", biblioteca);
+        if (biblioteca == null) {
+            return notFound(ApplicationUtil.createResponse("Biblioteca not found", false));
+        }
+
+        JsonNode jsonObject = Json.toJson(biblioteca);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
+
+    
 /**
     public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
         logger.debug("In BibliotecaController.update()");
