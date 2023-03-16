@@ -28,6 +28,7 @@ public class BibliotecaController extends Controller {
         logger.debug("In BibliotecaBD.create(), input is: {}", json.toString());
         Biblioteca biblioteca = BibliotecaBD.getInstance().addBiblioteca(Json.fromJson(json, Biblioteca.class));
         JsonNode jsonObject = Json.toJson(biblioteca);
+        System.out.println("La biblioteca es: "  +biblioteca);
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,biblioteca.getUrl());
     }
     public Result retrieve (int id) {

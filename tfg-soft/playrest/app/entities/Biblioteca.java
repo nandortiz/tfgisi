@@ -80,7 +80,7 @@ public class Biblioteca extends RecursoWeb {
         }
 
         public String getUrl () {
-            return "/elementosreservables/" + this.id;
+            return "/bibliotecas/" + this.id;
         }
 
         public void setId ( int id){

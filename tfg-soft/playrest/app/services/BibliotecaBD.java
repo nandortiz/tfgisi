@@ -38,24 +38,30 @@ public class BibliotecaBD extends ConexionBD {
                 String descripcion = biblioteca.getDescripcion();
                 LocalDateTime apertura = biblioteca.getApertura();
                 LocalDateTime cierre = biblioteca.getCierre();
-
+                System.out.println("aqui llega");
                 //ArrayList<LocalDateTime> disponibilidad = new ArrayList<>();
                 //  disponibilidad = biblioteca.getListaDisponibilidadBiblioteca();
                 Statement st = cn.createStatement();
                 st.executeUpdate("INSERT INTO biblioteca (nombre,descripcion, apertura, cierre) VALUES ('"+nombre+"','"+descripcion+"','"+apertura+"','"+cierre+"');", Statement.RETURN_GENERATED_KEYS);
-
+                System.out.println("aqui llega2");
                 // A la nueva entidad hay que "establecerla la URL"
                 ResultSet keys = st.getGeneratedKeys();
                 keys.next();
-                int id = keys.getInt(1);
+                identificador = keys.getInt(1);
+                System.out.println("El identificador es: " +identificador);
                 String patronURL="/bibliotecas/";
-                String urlNuevaBiblioteca=patronURL+id;
-
+                String urlNuevaBiblioteca=patronURL+identificador;
+                System.out.println("aqui llega3");
                 //UPDATE de la biblioteca con id = id y actualizar la url con urlNuevaBiblioteca
-                st.executeUpdate("UPDATE biblioteca set url='" + urlNuevaBiblioteca+ "' where id=" + id + ";");
+                st.executeUpdate("UPDATE biblioteca set url='" + urlNuevaBiblioteca+ "' where id=" + identificador + ";");
+                System.out.println("aqui llega4");
+                try {
 
-
-                con.close();
+                    con.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - addBiblioteca");
+                    Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
