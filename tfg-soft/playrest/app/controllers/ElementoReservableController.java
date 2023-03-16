@@ -1,4 +1,4 @@
-package controllers;
+/**package controllers;
 
 import entities.Biblioteca;
 
@@ -16,6 +16,9 @@ import java.sql.SQLException;
 
 
 public class ElementoReservableController extends Controller {
+
+
+
     private static final Logger logger = LoggerFactory.getLogger("controller");
 
     public Result create(Http.Request request) throws SQLException, ClassNotFoundException {
@@ -27,8 +30,10 @@ public class ElementoReservableController extends Controller {
         Biblioteca elementoReservable = ElementoReservableBD.getInstance().addElementoReservable(Json.fromJson(json, Biblioteca.class));
         JsonNode jsonObject = Json.toJson(elementoReservable);
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,elementoReservable.getUrl());
+
     }
 
 
 
 }
+*/
