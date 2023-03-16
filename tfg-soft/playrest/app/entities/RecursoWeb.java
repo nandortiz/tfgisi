@@ -10,6 +10,8 @@ public class RecursoWeb {
         this.url="";
     }
 
+
+
     public RecursoWeb(int id, String url){
         this.id = id;
         this.url = url;

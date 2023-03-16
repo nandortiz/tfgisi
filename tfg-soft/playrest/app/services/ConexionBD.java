@@ -88,7 +88,7 @@ public class ConexionBD {
                         "numSerie varchar(30) default null, \n" +
                         "foreign key (bibliotecaID) references biblioteca (id) on delete cascade,\n" +
                         " );";
-
+*/
                 String crearElementoReservable = "create table if not exists elementoreservable(\n" +
                         "id int (100) primary key auto_increment not null,\n" +
                         "url varchar (50),\n" +
@@ -100,7 +100,7 @@ public class ConexionBD {
                         "foreign key (bibliotecaID) references biblioteca (id) on delete cascade,\n" +
                         " );";
 
-                String crearReserva = "create table if not exists reserva(\n" +
+ /*               String crearReserva = "create table if not exists reserva(\n" +
                         "id int (100) primary key auto_increment not null,\n" +
                         "url varchar (40) default null,\n" +
                         "usuarioID int default null,\n" +
@@ -268,7 +268,7 @@ public class ConexionBD {
               //  createStatement.executeUpdate(crearDisponibilidadRecursoExtra);
               //  createStatement.executeUpdate(crearReserva);
               //  createStatement.executeUpdate(crearRecursoExtra);
-              //  createStatement.executeUpdate(crearElementoReservable);
+                createStatement.executeUpdate(crearElementoReservable);
               //  createStatement.executeUpdate(crearReservaExtra);
 
               //  createStatement.executeUpdate(crearRecurso);

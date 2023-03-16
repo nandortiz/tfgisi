@@ -69,7 +69,7 @@ public class Biblioteca extends RecursoWeb {
 
         @Override
         public String toString () { //TODO Date para apertura y cierre?
-            return "ElementoReservable{" +
+            return "Biblioteca{" +
                     "id = '" + id +
                     "', nombre ='" + nombre + '\'' +
                     "', descripción ='" + descripcion +
