@@ -113,6 +113,7 @@ public class BibliotecaBD extends ConexionBD {
         try {
             if (conector() == true) {
                 String queryBD = "select id, url from biblioteca"+";";
+                System.out.println("query BD"); //TODO
                 try {
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()) {
@@ -122,18 +123,22 @@ public class BibliotecaBD extends ConexionBD {
                         biblioteca.setUrl(rS.getString("url"));
 
                         bibliotecas.add(biblioteca);
+                        System.out.println("add"); //TODO
                     }
+
                 } catch (SQLException ex) {
                     System.out.println("Error acceso base de datos - getAllBibliotecas");
                     ex.printStackTrace();
                     Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }System.out.println("errorBD"); //TODO
             }
+            System.out.println("hola"); //TODO
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println("biblioteca"); //TODO
         return bibliotecas;
     }
 

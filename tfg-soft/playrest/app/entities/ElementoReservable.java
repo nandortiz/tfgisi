@@ -1,4 +1,4 @@
-package entities;
+/*package entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -83,3 +83,4 @@ public class ElementoReservable {
 
 
 }
+*/

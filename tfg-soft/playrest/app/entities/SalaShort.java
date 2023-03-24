@@ -1,27 +1,36 @@
 package entities;
 
 public class SalaShort extends RecursoWeb{
-    private String descripcionSala;
+    private String descripcionElementoreservable;//TODO Era descripcionSala
+    private int aforoSala;
     private int bibliotecaID;
 
     public SalaShort(){
         super();
     }
 
-    public SalaShort(int id, String url, String descripcionSala, int bibliotecaID) {
+    public SalaShort(int id, String url, String descripcionElementoReservable, int aforoSala, int bibliotecaID) { //TODO Era descripcionElementoReservable
         super(id, url);
-        this.descripcionSala=descripcionSala;
+        this.descripcionElementoreservable =descripcionElementoReservable;
         this.bibliotecaID=bibliotecaID;
+        this.aforoSala=aforoSala;
     }
 
-    public String getDescripcionSala() {
-        return descripcionSala;
+    public String getDescripcionElementoreservable() {
+        return descripcionElementoreservable;
     }
 
-    public void setDescripcionSala(String descripcionSala) {
-        this.descripcionSala = descripcionSala;
+    public void setDescripcionElementoreservable(String descripcionElementoreservable) {
+        this.descripcionElementoreservable = descripcionElementoreservable;
     }
 
+    public int getAforoSala() {
+        return aforoSala;
+    }
+
+    public void setAforoSala(int aforoSala) {
+        this.aforoSala = aforoSala;
+    }
 
     public int getBibliotecaID() {
         return bibliotecaID;

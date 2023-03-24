@@ -1,17 +1,20 @@
 package controllers;
 
+import entities.Biblioteca;
+import entities.BibliotecaShort;
 import entities.Sala;
 import entities.SalaShort;
 //import freemarker.template.Configuration;
 //import freemarker.template.Template;
 //import freemarker.template.TemplateExceptionHandler;
-import play.mvc.Http;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
+import services.BibliotecaBD;
 import services.SalaBD;
 import utils.ApplicationUtil;
 
@@ -22,8 +25,27 @@ public class SalaController extends Controller {
 
     private static final Logger logger = LoggerFactory.getLogger("controller");
 
+    public Result create(int bibliotecaID, Http.Request request) throws SQLException, ClassNotFoundException {
+        JsonNode json = request.body().asJson();
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting JSON data", false));
+        }
+        logger.debug("In SalaBD.create(), input is: {}", json.toString());
+        Sala sala = SalaBD.getInstance().addSala(Json.fromJson(json, Sala.class), bibliotecaID );
+        JsonNode jsonObject = Json.toJson(sala);
+        System.out.println("La sala es: "  +sala);
+        return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,sala.getUrl());
+    }
 
-    public Result create(Http.Request request,int bibliotecaID) throws SQLException, ClassNotFoundException {
+    public Result retrieveAll (){
+        Collection<SalaShort> result = SalaBD.getInstance().getAllSalas();
+
+        JsonNode jsonObjects = Json.toJson(result);
+        logger.debug("In SalaController.getAllSalas(), result is: {}",result.toString());
+
+        return ok(ApplicationUtil.createResponse(jsonObjects, true));
+    }
+  /*  public Result create(Http.Request request,int bibliotecaID) throws SQLException, ClassNotFoundException {
         JsonNode json = request.body().asJson();
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting JSON data", false));
@@ -33,7 +55,7 @@ public class SalaController extends Controller {
         JsonNode jsonObject = Json.toJson(sala);
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,sala.getUrl());
     }
-
+*/
 
 
 

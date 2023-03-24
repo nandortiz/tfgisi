@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Biblioteca extends RecursoWeb {
 
 
-
     private String nombre = "";
     private String descripcion = "";
     private LocalDateTime apertura;

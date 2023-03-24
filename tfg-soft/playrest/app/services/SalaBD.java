@@ -2,15 +2,19 @@ package services;
 
 import entities.*;
 
-import java.sql.Statement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static consistency.ConexionJDBC.connect;
 
 public class SalaBD extends ConexionBD {
 
@@ -22,7 +26,7 @@ public class SalaBD extends ConexionBD {
         return instance;
     }
 
-
+/*
     public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFoundException {
         int identificador= -1;
         if (conector() == true) {
@@ -30,7 +34,7 @@ public class SalaBD extends ConexionBD {
             try {
                 createStatement.executeUpdate("INSERT INTO sala (id,descripcion,bibliotecaID) VALUES (4,'" + sala.getDescripcionElementoReservable() + "', " + sala.getBibliotecaID()+");",Statement.RETURN_GENERATED_KEYS);
 
-                /**
+                //TODO Full comment
                 String descripcion = sala.getDescripcionSala();
                 ArrayList<LocalDateTime> disponibilidadSala = new ArrayList<>();
                 disponibilidadSala= sala.getListaDisponibilidadSala();
@@ -49,7 +53,7 @@ public class SalaBD extends ConexionBD {
                 for (LocalDateTime dispo:disponibilidadSala) {
 
                     createStatement.executeUpdate("INSERT INTO disponibilidadsala (salaid,disponibilidad) VALUES (" + identificador + ", '" + dispo +  "');");
-                }**/
+                }//TODO Fin full comment
                 con.commit();
                 con.setAutoCommit(true);
                 con.close();
@@ -62,8 +66,8 @@ public class SalaBD extends ConexionBD {
         // return sala;
         return getSala(4);
     }
-
-    public Sala getSala(int id) {
+*/
+   /* public Sala getSala(int id) {
         Sala sala = new Sala();
         try {
             if (conector() == true) {
@@ -97,58 +101,114 @@ public class SalaBD extends ConexionBD {
         }
         return sala;
     }
+*/
+public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFoundException {
+    Connection cn = connect();
+    int identificador = -1;
+    String url = "";
+    if (conector() == true) {
+        try {
 
+            String descripcion = sala.getDescripcion();
+            String tipo = sala.getTipo();
+            int aforoSala = sala.getAforo();
 
-    public Collection<SalaShort> getAllSalas(int bibliotecaID) {
+            //ArrayList<LocalDateTime> disponibilidad = new ArrayList<>();
+            //  disponibilidad = biblioteca.getListaDisponibilidadBiblioteca();
+            Statement st = cn.createStatement();
+            st.executeUpdate("INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, aforoSala) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+aforoSala+"');", Statement.RETURN_GENERATED_KEYS);
 
-        HashMap<Integer,SalaShort> mapa = new HashMap<>();
+            // A la nueva entidad hay que "establecerla la URL"
+            ResultSet keys = st.getGeneratedKeys();
+            keys.next();
+            identificador = keys.getInt(1);
+
+            String patronURL="/salas/";
+            String urlNuevaSala=patronURL+identificador;
+
+            //UPDATE de la sala con id = id y actualizar la url con urlNuevaSala
+            st.executeUpdate("UPDATE elementoReservable set url='" + urlNuevaSala+ "' where id=" + identificador + ";");
+
+            try {
+
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println("Error acceso base de datos - addSala");
+                Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+    //return biblioteca;
+    return getSala(identificador);
+    //return url;
+}
+
+    private Sala getSala(int id) {Sala sala = new Sala();
 
         try {
-            if(conector()==true){
-                String queryBD = "select id, url, descripcionSala, bibliotecaid  from sala where bibliotecaid =" + bibliotecaID + " ;";
-                int i=0;
+            if (conector() == true) {
+                String queryBD = "select id, descripcion, tipo, bibliotecaID, aforoSala from elementoReservable where id="+id+";";
                 try {
+
                     rS = createStatement.executeQuery(queryBD);
-
-                    while (rS.next()) {
-
-                        SalaShort sala;
-
-                        if (mapa.containsKey(Integer.parseInt(rS.getString("id")))){
-                            sala=mapa.get(Integer.parseInt(rS.getString("id")));
-                        }
-                        else{
-                            sala = new SalaShort();
-                            sala.setId(Integer.parseInt(rS.getString("id")));
-                            sala.setUrl(rS.getString("url"));
-                            sala.setDescripcionSala(rS.getString("descripcionSala"));
-                            sala.setBibliotecaID(Integer.parseInt(rS.getString("bibliotecaid")));
-                            mapa.put(sala.getId(), sala);
-                        }
-
+                    while (rS.next()){
+                        sala.setId(rS.getInt("id"));
+                        sala.setDescripcion(rS.getString("nombre"));
+                        sala.setTipo(rS.getString("descripcion"));
+                        sala.setBibliotecaID(rS.getInt("bibliotecaID"));
+                        sala.setAforo(rS.getInt("aforoSala"));
                     }
                 } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - getSala");
+                    ex.printStackTrace();
                     Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                try {
-                    i=0;
-                    con.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
             }
-            else{
-                //return new ArrayList<>(mapa.values);
-                return null;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        //System.out.println("El tamaño de la lista es" + mapa.values().size());
-        return null;
+        if (sala.getId()==-1){
+            return null;
+        }
+        else {
+            return sala;
+        }
+
+    }
+
+    public Collection<SalaShort> getAllSalas() {
+        List<SalaShort> salas = new ArrayList();
+
+        try {
+            if (conector() == true) {
+                String queryBD = "select id, url from elementoreservable"+";";
+                try {
+                    rS = createStatement.executeQuery(queryBD);
+                    while (rS.next()) {
+                        //Cada vuelta while es un línea del resultado de la consulta -> Biblioteca
+                        SalaShort sala = new SalaShort();
+                        sala.setId(rS.getInt("id"));
+                        sala.setUrl(rS.getString("url"));
+
+                        salas.add(sala);
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - getAllSalas");
+                    ex.printStackTrace();
+                    Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return salas;
     }
 
 }

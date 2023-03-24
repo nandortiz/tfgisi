@@ -127,3 +127,26 @@ PUT /bibliotecas/:id    controllers.BibliotecaController.update(request:Request,
  #        $ref: '#/definitions/entities.CambioBiblioteca'
  ###
 PATCH /bibliotecas/:id    controllers.BibliotecaController.modify(id:Int, request:Request)
+
+###
+ #  summary: Crear una sala. (POST)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: sala
+ #      description: La sala a crear.
+ #      schema:
+ #         $ref: '#/definitions/entities.Sala'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Sala'
+ ###
+POST /bibliotecas/:id/salas       controllers.SalaController.create(id:Int, request:Request)
+
+
+
+
