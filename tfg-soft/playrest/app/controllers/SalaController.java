@@ -1,7 +1,6 @@
 package controllers;
 
 import entities.Biblioteca;
-import entities.BibliotecaShort;
 import entities.Sala;
 import entities.SalaShort;
 //import freemarker.template.Configuration;
@@ -37,14 +36,38 @@ public class SalaController extends Controller {
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,sala.getUrl());
     }
 
-    public Result retrieveAll (){
-        Collection<SalaShort> result = SalaBD.getInstance().getAllSalas();
+    public Result retrieveAll (int id){
+       Collection<SalaShort> result = SalaBD.getInstance().getAllSalas(id);
 
         JsonNode jsonObjects = Json.toJson(result);
         logger.debug("In SalaController.getAllSalas(), result is: {}",result.toString());
 
         return ok(ApplicationUtil.createResponse(jsonObjects, true));
     }
+
+    public Result retrieve (int bibliotecaID, int id) {
+        Sala result = SalaBD.getInstance().getSala(id);
+
+        if  (result == null) {
+            return notFound(ApplicationUtil.createResponse("Sala with id:" + id + " not found", false));
+        } else {
+            JsonNode jsonObjects = Json.toJson(result);
+            logger.debug("In SalaController.getSala(id), result is: {}", result.toString());
+
+            return ok(ApplicationUtil.createResponse(jsonObjects, true));
+        }
+    }
+
+    public Result delete(int bibliotecaID, int id ) throws SQLException, ClassNotFoundException {
+        logger.debug("In SalaController.retrieve(), delete Sala with id: {}",id);
+        if (!SalaBD.getInstance().deleteSala(id)) {
+            return notFound(ApplicationUtil.createResponse("Sala with id:" + id + " not found", false));
+        }
+        return ok(ApplicationUtil.createResponse("Sala with id:" + id + " deleted", true));
+    }
+
+
+
   /*  public Result create(Http.Request request,int bibliotecaID) throws SQLException, ClassNotFoundException {
         JsonNode json = request.body().asJson();
         if (json == null) {

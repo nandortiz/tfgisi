@@ -30,8 +30,10 @@ public class BibliotecaBD extends ConexionBD {
     public Biblioteca addBiblioteca(Biblioteca biblioteca) throws SQLException, ClassNotFoundException {
         Connection cn = connect();
         int identificador = -1;
+
         String url = "";
         if (conector() == true) {
+
             try {
 
                 String nombre = biblioteca.getNombre();
@@ -42,7 +44,9 @@ public class BibliotecaBD extends ConexionBD {
                 //ArrayList<LocalDateTime> disponibilidad = new ArrayList<>();
                 //  disponibilidad = biblioteca.getListaDisponibilidadBiblioteca();
                 Statement st = cn.createStatement();
-                st.executeUpdate("INSERT INTO biblioteca (nombre,descripcion, apertura, cierre) VALUES ('"+nombre+"','"+descripcion+"','"+apertura+"','"+cierre+"');", Statement.RETURN_GENERATED_KEYS);
+               System.out.println("INSERT INTO biblioteca (nombre,descripcion, apertura, cierre) VALUES ('" + nombre + "', '" + descripcion + "', '" + apertura + "', '" + cierre + "')");
+
+                st.executeUpdate("INSERT INTO biblioteca (nombre,descripcion, apertura, cierre) VALUES ('" + nombre + "', '" + descripcion + "', '" + apertura + "', '" + cierre + "')", Statement.RETURN_GENERATED_KEYS);
 
                 // A la nueva entidad hay que "establecerla la URL"
                 ResultSet keys = st.getGeneratedKeys();
@@ -51,9 +55,8 @@ public class BibliotecaBD extends ConexionBD {
 
                 String patronURL="/bibliotecas/";
                 String urlNuevaBiblioteca=patronURL+identificador;
-
+                System.out.println("UPDATE biblioteca set url = '"+urlNuevaBiblioteca+"' where id= '"+identificador+"';");
                 //UPDATE de la biblioteca con id = id y actualizar la url con urlNuevaBiblioteca
-                st.executeUpdate("UPDATE biblioteca set url='" + urlNuevaBiblioteca+ "' where id=" + identificador + ";");
 
                 try {
 
@@ -77,7 +80,7 @@ public class BibliotecaBD extends ConexionBD {
 
         try {
             if (conector() == true) {
-                String queryBD = "select id, nombre, descripcion, apertura, cierre from biblioteca where id="+id+";";
+                String queryBD = "select id, nombre, descripcion, apertura, cierre from biblioteca where id = '"+id+"';"; //TODO he quitado ' a id
                 try {
 
                     rS = createStatement.executeQuery(queryBD);
@@ -112,10 +115,11 @@ public class BibliotecaBD extends ConexionBD {
 
         try {
             if (conector() == true) {
-                String queryBD = "select id, url from biblioteca"+";";
-                System.out.println("query BD"); //TODO
+                String queryBD = "select id, url from biblioteca";
+
                 try {
                     rS = createStatement.executeQuery(queryBD);
+
                     while (rS.next()) {
                         //Cada vuelta while es un línea del resultado de la consulta -> Biblioteca
                         BibliotecaShort biblioteca = new BibliotecaShort();
@@ -123,22 +127,22 @@ public class BibliotecaBD extends ConexionBD {
                         biblioteca.setUrl(rS.getString("url"));
 
                         bibliotecas.add(biblioteca);
-                        System.out.println("add"); //TODO
+
                     }
 
                 } catch (SQLException ex) {
                     System.out.println("Error acceso base de datos - getAllBibliotecas");
                     ex.printStackTrace();
                     Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
-                }System.out.println("errorBD"); //TODO
+                }
             }
-            System.out.println("hola"); //TODO
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("biblioteca"); //TODO
+
         return bibliotecas;
     }
 
@@ -147,7 +151,7 @@ public class BibliotecaBD extends ConexionBD {
         try {
             if (conector() == true) {
 
-                String queryBD = "delete from biblioteca where id="+id+";";
+                String queryBD = "delete from biblioteca where id = '"+id+"';";
 
                 try {
                     createStatement.executeUpdate(queryBD);
@@ -186,13 +190,11 @@ public class BibliotecaBD extends ConexionBD {
                 switch (cam.getTipo()) {
 
                     case APERTURA:
-                        createStatement.executeUpdate("update biblioteca set apertura='"+
-                                franja+"'  where id="+id+";");
+                        createStatement.executeUpdate("update biblioteca set apertura ='"+ franja+"'  where id = '"+id+"';");
                         break;
 
                     case CIERRE:
-                        createStatement.executeUpdate("update biblioteca set cierre='"+
-                                franja+"'  where id="+id+";");
+                        createStatement.executeUpdate("update biblioteca set cierre = '"+ franja+"'  where id = '"+id+"';");
                         break;
                 }
 
@@ -214,7 +216,7 @@ public class BibliotecaBD extends ConexionBD {
                 LocalDateTime apertura = biblioteca.getApertura();
                 LocalDateTime cierre = biblioteca.getCierre();
 
-                String queryBD = "update biblioteca set nombre='"+nombre+"', descripcion='"+descripcion+"', apertura='"+apertura+"', cierre='"+cierre+"'  where id='"+id+"';";
+                String queryBD = "update biblioteca set nombre = '"+nombre+"', descripcion = '"+descripcion+"', apertura = '"+apertura+"', cierre = '"+cierre+"'  where id = '"+id+"';";
 
                 try {
                     createStatement.executeUpdate(queryBD);
@@ -230,8 +232,7 @@ public class BibliotecaBD extends ConexionBD {
                 }
             }
             else{
-                return null;
-
+                return null; //TODO cambiar todos nulls por exception
             }
         } catch (SQLException ex) {
             Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);

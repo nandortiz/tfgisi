@@ -110,12 +110,13 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
         try {
 
             String descripcion = sala.getDescripcion();
-            String tipo = sala.getTipo();
+            TipoElementoReservable tipo = sala.getTipo();
             int aforoSala = sala.getAforo();
 
             //ArrayList<LocalDateTime> disponibilidad = new ArrayList<>();
             //  disponibilidad = biblioteca.getListaDisponibilidadBiblioteca();
             Statement st = cn.createStatement();
+            System.out.println("INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, aforoSala) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+aforoSala+"');");
             st.executeUpdate("INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, aforoSala) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+aforoSala+"');", Statement.RETURN_GENERATED_KEYS);
 
             // A la nueva entidad hay que "establecerla la URL"
@@ -123,11 +124,11 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
             keys.next();
             identificador = keys.getInt(1);
 
-            String patronURL="/salas/";
+            String patronURL="/biblioteca/"+bibliotecaID+"/salas/";
             String urlNuevaSala=patronURL+identificador;
 
             //UPDATE de la sala con id = id y actualizar la url con urlNuevaSala
-            st.executeUpdate("UPDATE elementoReservable set url='" + urlNuevaSala+ "' where id=" + identificador + ";");
+            st.executeUpdate("UPDATE elementoReservable set url='" + urlNuevaSala+ "' where id= "+ identificador +";");
 
             try {
 
@@ -146,7 +147,7 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
     //return url;
 }
 
-    private Sala getSala(int id) {Sala sala = new Sala();
+    public Sala getSala(int id) {Sala sala = new Sala();
 
         try {
             if (conector() == true) {
@@ -156,8 +157,8 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()){
                         sala.setId(rS.getInt("id"));
-                        sala.setDescripcion(rS.getString("nombre"));
-                        sala.setTipo(rS.getString("descripcion"));
+                        sala.setDescripcion(rS.getString("descripcion"));
+                        sala.setTipo(TipoElementoReservable.valueOf(rS.getString("tipo")));
                         sala.setBibliotecaID(rS.getInt("bibliotecaID"));
                         sala.setAforo(rS.getInt("aforoSala"));
                     }
@@ -181,12 +182,12 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
 
     }
 
-    public Collection<SalaShort> getAllSalas() {
+    public Collection<SalaShort> getAllSalas(int bibliotecaID) {
         List<SalaShort> salas = new ArrayList();
 
         try {
             if (conector() == true) {
-                String queryBD = "select id, url from elementoreservable"+";";
+                String queryBD = "select id, url from elementoreservable where bibliotecaID = '"+bibliotecaID+"';";
                 try {
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()) {
@@ -209,6 +210,40 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
             e.printStackTrace();
         }
         return salas;
+    }
+
+    public boolean deleteSala(int id) throws SQLException, ClassNotFoundException {
+        boolean valor= false;
+        try {
+            if (conector() == true) {
+
+                String queryBD = "delete from elementoReservable where id = '"+id+"';";
+
+                try {
+                    createStatement.executeUpdate(queryBD);
+                    valor = true;
+                    return valor;
+                } catch (SQLException ex) {
+                    Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+
+                    con.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - deleteBiblioteca");
+                    Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return valor;
     }
 
 }

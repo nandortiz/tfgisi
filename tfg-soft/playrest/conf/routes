@@ -37,12 +37,7 @@ POST /bibliotecas       controllers.BibliotecaController.create(request:Request)
  #  summary: Obtener todas las bibliotecas. (GET ALL)
  #  consumes:
  #    - application/json
- #  parameters:
- #    - in: body
- #      name: biblioteca
- #      description: Las bibliotecas obtenidas.
- #      schema:
- #         $ref: '#/definitions/entities.Biblioteca'
+ #
  #  responses:
  #    201:
  #      description: success
@@ -56,12 +51,7 @@ POST /bibliotecas       controllers.BibliotecaController.create(request:Request)
  #  summary: Obtener una biblioteca. (GET)
  #  consumes:
  #    - application/json
- #  parameters:
- #    - in: body
- #      name: biblioteca
- #      description: La biblioteca a obtener.
- #      schema:
- #         $ref: '#/definitions/entities.Biblioteca'
+ #
  #  responses:
  #    201:
  #      description: success
@@ -147,6 +137,44 @@ PATCH /bibliotecas/:id    controllers.BibliotecaController.modify(id:Int, reques
  ###
 POST /bibliotecas/:id/salas       controllers.SalaController.create(id:Int, request:Request)
 
+###
+ #  summary: Obtener todas las salas. (GET ALL)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Sala'
+ ###
+ GET /bibliotecas/:id/salas/        controllers.SalaController.retrieveAll(id:Int)
 
+ ###
+ #  summary: Obtener una sala. (GET)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Sala'
+ ###
+GET /bibliotecas/:id/salas/:idSala    controllers.SalaController.retrieve( id:Int, idSala:Int)
 
-
+###
+ #  summary: Eliminar una sala. (DELETE)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Sala'
+ ###
+DELETE /bibliotecas/:id/salas/:idSala controllers.SalaController.delete(id:Int, idSala:Int)

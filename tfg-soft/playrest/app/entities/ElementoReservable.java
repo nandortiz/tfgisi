@@ -1,12 +1,14 @@
-/*package entities;
+package entities;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class ElementoReservable {
+public class ElementoReservable extends RecursoWeb{
+
+
     private String descripcion = "";
-    private String tipo = "";
-    private String bibliotecaID = "";
+    private TipoElementoReservable tipo;
+    private int bibliotecaID;
+    private int aforoSala ="";
 
 
     //horas de apertura y cierre 01/01/2021-10:00 ?¿?¿?¿?¿?¿
@@ -19,12 +21,16 @@ public class ElementoReservable {
         super();
     }
 
-
-    public ElementoReservable (String descripcionER, String tipoER, String bibliotecaIDER) {
-        this.descripcion = descripcionER;
-        this.tipo = tipoER;
-        this.bibliotecaID  = bibliotecaIDER;
+    public ElementoReservable(String descripcionElementoReservable, TipoElementoReservable tipoElementoReservable, int bibliotecaID, int aforoSala) {
+        super(descripcionElementoReservable, tipoElementoReservable, bibliotecaID);
+        this.aforoSala = aforoSala;
     }
+
+
+//TODO cambiar en workbench s y p por S y P
+    //TODO Patch y Put de Sala
+    //TODO Hacer PuestoController y Puesto.java
+    //TODO solo un ELementoReservableBD
 
 
     public String getDescripcion() {
@@ -35,21 +41,28 @@ public class ElementoReservable {
         this.descripcion = descripcion;
     }
 
-    public String getTipo() {
+    public TipoElementoReservable getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoElementoReservable tipo) {
         this.tipo = tipo;
     }
 
-    public String getBibliotecaID() {
+    public int getBibliotecaID() {
         return bibliotecaID;
     }
 
-    public void setBibliotecaID (String bibliotecaID) {
+    public void setBibliotecaID (int bibliotecaID) {
         this.bibliotecaID = bibliotecaID;
     }
+
+    public int getAforoSala() {
+        return aforoSala;
+    }
+
+    public void setAforoSala (int aforoSala) {
+        this.aforoSala = aforoSala;
 
     public ArrayList<SalaShort> getSalas() { return salas; }
 

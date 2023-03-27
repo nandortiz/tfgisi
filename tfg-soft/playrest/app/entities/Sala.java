@@ -2,24 +2,20 @@ package entities;
 
 import java.util.ArrayList;
 
-public class Sala extends RecursoWeb {
+public class Sala extends ElementoReservable {
 
     private String descripcion ="";//TODO descripcionSala? y en puesto descripcionPuesto? //TODO estaba a public
-    private String tipo ="";
+    private TipoElementoReservable tipo;
     private int aforo;
     // private String descripcionElementoReservable; //TODO Esto al padre?
-   // private int bibliotecaID; //TODO Esto al padre?
+    private int bibliotecaID;
     private ArrayList<SalaShort> salas = new ArrayList<>();
 
     public Sala () {
         super();
     }
 
-    public Sala(String tipoElementoReservable, String descripcionElementoReservable, int aforoSala) { //TODO bibliotecaID borrado
-      //  this.id = nombreBiblioteca;
-        this.descripcion = descripcionElementoReservable;
-       // this.getBibliotecaID()  = aperturaBiblioteca;
-        this.tipo = tipoElementoReservable;
+    public Sala(int aforoSala) { //TODO bibliotecaID borrado
         this.aforo = aforoSala;
 }
 
@@ -31,11 +27,11 @@ public class Sala extends RecursoWeb {
         this.descripcion = descripcion;
     }
 
-    public String getTipo() {
+    public TipoElementoReservable getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoElementoReservable tipo) {
         this.tipo = tipo;
     }
 
@@ -65,8 +61,8 @@ public class Sala extends RecursoWeb {
     }
 
     public String getUrl () {
-        return "/bibliotecas/:id/salas" + this.id;
-    } //TODO solo /salas/ ???
+        return "/bibliotecas/"+bibliotecaID+"/salas/" + this.id;
+    }
 
     public void setId ( int id){
         this.id = id;
@@ -76,8 +72,8 @@ public class Sala extends RecursoWeb {
     }
 
 
-    public void setBibliotecaID(int bibliotecaID) { //TODO seguro??? añadido desde SalaBD getSala
-
+    public void setBibliotecaID(int bibliotecaID) {
+        this.bibliotecaID = bibliotecaID;
     }
 }
 

@@ -97,8 +97,8 @@ public class ConexionBD {
                         "bibliotecaID int,\n" +
                         "aforoSala int (2) default null, \n" +
                         "infoPuesto varchar(30) default null, \n" +
-                        "foreign key (bibliotecaID) references biblioteca (id) on delete cascade,\n" +
-                        " );";
+                        "foreign key (bibliotecaID) references biblioteca (id) on delete cascade\n" +
+                        ");";
 
  /*               String crearReserva = "create table if not exists reserva(\n" +
                         "id int (100) primary key auto_increment not null,\n" +
