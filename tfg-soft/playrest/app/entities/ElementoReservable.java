@@ -8,7 +8,6 @@ public class ElementoReservable extends RecursoWeb{
     private String descripcion = "";
     private TipoElementoReservable tipo;
     private int bibliotecaID;
-    private int aforoSala ="";
 
 
     //horas de apertura y cierre 01/01/2021-10:00 ?¿?¿?¿?¿?¿
@@ -18,16 +17,16 @@ public class ElementoReservable extends RecursoWeb{
     private ArrayList<SalaShort> salas = new ArrayList<>();
 
     public ElementoReservable() {
-        super();
+       super();
     }
 
-    public ElementoReservable(String descripcionElementoReservable, TipoElementoReservable tipoElementoReservable, int bibliotecaID, int aforoSala) {
-        super(descripcionElementoReservable, tipoElementoReservable, bibliotecaID);
-        this.aforoSala = aforoSala;
+    public ElementoReservable(String descripcionElementoReservable, TipoElementoReservable tipoElementoReservable, int bibliotecaID) {
+        this.descripcion = descripcionElementoReservable;
+        this.tipo = tipoElementoReservable;
+        this.bibliotecaID = bibliotecaID;
     }
 
-
-//TODO cambiar en workbench s y p por S y P
+    //TODO cambiar en workbench s y p por S y P
     //TODO Patch y Put de Sala
     //TODO Hacer PuestoController y Puesto.java
     //TODO solo un ELementoReservableBD
@@ -57,12 +56,6 @@ public class ElementoReservable extends RecursoWeb{
         this.bibliotecaID = bibliotecaID;
     }
 
-    public int getAforoSala() {
-        return aforoSala;
-    }
-
-    public void setAforoSala (int aforoSala) {
-        this.aforoSala = aforoSala;
 
     public ArrayList<SalaShort> getSalas() { return salas; }
 
@@ -96,4 +89,3 @@ public class ElementoReservable extends RecursoWeb{
 
 
 }
-*/

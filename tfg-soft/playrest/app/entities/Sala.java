@@ -4,36 +4,16 @@ import java.util.ArrayList;
 
 public class Sala extends ElementoReservable {
 
-    private String descripcion ="";//TODO descripcionSala? y en puesto descripcionPuesto? //TODO estaba a public
-    private TipoElementoReservable tipo;
+
     private int aforo;
-    // private String descripcionElementoReservable; //TODO Esto al padre?
-    private int bibliotecaID;
+
     private ArrayList<SalaShort> salas = new ArrayList<>();
 
-    public Sala () {
-        super();
-    }
-
-    public Sala(int aforoSala) { //TODO bibliotecaID borrado
+    public Sala (String descripcion, TipoElementoReservable tipoElementoReservable, int bibliotecaID, int aforoSala) {
+        super(descripcion, tipoElementoReservable, bibliotecaID);
         this.aforo = aforoSala;
-}
-
-    public String getDescripcion() {
-        return descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public TipoElementoReservable getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoElementoReservable tipo) {
-        this.tipo = tipo;
-    }
 
     public int getAforo() {
         return aforo;
@@ -53,16 +33,16 @@ public class Sala extends ElementoReservable {
     public String toString () {
         return "Sala{" +
                 "id = '" + id +
-                "', descripcion ='" + descripcion + '\'' +
-                "', tipo ='" + tipo +
-                ", aforoSala = '" + aforo +
+                "' ,aforoSala ='" + aforo +
+                "', descripcion ='" + getDescripcion() + '\'' + //TODO getters en vez de variables descripcion, tipo,...
+                "', tipo ='" + getTipo() + //TODO idem
+                "', bibliotecaID='" + getBibliotecaID() + //TODO idem
                 ", url = '" + getUrl() +
                 '}';
     }
 
     public String getUrl () {
-        return "/bibliotecas/"+bibliotecaID+"/salas/" + this.id;
-    }
+        return "/bibliotecas/"+getBibliotecaID()+"/salas/" + this.id; } //TODO get en vez de bibliotecaID
 
     public void setId ( int id){
         this.id = id;
@@ -73,8 +53,8 @@ public class Sala extends ElementoReservable {
 
 
     public void setBibliotecaID(int bibliotecaID) {
-        this.bibliotecaID = bibliotecaID;
-    }
+        this.setBibliotecaID(bibliotecaID);
+    } //TODO this.setBibliotecaID cambiado de biblioteca.ID
 }
 
   //  public String getUrl() {

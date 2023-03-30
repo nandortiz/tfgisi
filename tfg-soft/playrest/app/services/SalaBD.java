@@ -231,7 +231,7 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
 
                     con.close();
                 } catch (SQLException ex) {
-                    System.out.println("Error acceso base de datos - deleteBiblioteca");
+                    System.out.println("Error acceso base de datos - deleteSala"); //TODO staba deleteBiblioteca
                     Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -239,9 +239,9 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex); //TODO estaba BibliotecaBD
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex); //TODO estaba BibliotecaBD
         }
         return valor;
     }
