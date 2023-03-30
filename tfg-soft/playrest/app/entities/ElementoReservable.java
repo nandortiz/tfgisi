@@ -27,8 +27,9 @@ public class ElementoReservable extends RecursoWeb{
     }
 
     //TODO cambiar en workbench s y p por S y P
-    //TODO Patch y Put de Sala
-    //TODO Hacer PuestoController y Puesto.java
+    //TODO cambiar nulls por exceptions
+    //TODO Patch y Put de Sala                      DONE, preguntar si patch necesario, probar put
+    //TODO Hacer PuestoController y Puesto.java     DONE
     //TODO solo un ELementoReservableBD
 
 

@@ -246,4 +246,39 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
         return valor;
     }
 
+    //TODO MODIFY PARCIALMENTE (patch) DE SALA NO ES NECESARIO? En Bib modifica apertura/cierre, pero en sala? Descripción maybe?
+
+    public Sala update(Sala sala, int id) throws SQLException, ClassNotFoundException {
+        try {
+            if (conector() == true) {
+
+                int aforo = sala.getAforo(); //TODO sólo cambiar
+
+                String queryBD = "update elementoreservable set aforoSala = '"+aforo+"',  where id = '"+id+"';";
+
+                try {
+                    createStatement.executeUpdate(queryBD);
+                } catch (SQLException ex) {
+                    Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+                return null; //TODO cambiar todos nulls por exception
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return getSala(id);
+    }
+
+
 }

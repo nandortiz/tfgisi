@@ -178,3 +178,22 @@ GET /bibliotecas/:id/salas/:idSala    controllers.SalaController.retrieve( id:In
  #        $ref: '#/definitions/entities.Sala'
  ###
 DELETE /bibliotecas/:id/salas/:idSala controllers.SalaController.delete(id:Int, idSala:Int)
+
+###
+ #  summary: Actualizar una sala. (UPDATE)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: sala
+ #      description: La sala a actualizar.
+ #      schema:
+ #         $ref: '#/definitions/entities.Sala'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Sala'
+ ###
+PUT /bibliotecas/:id/salas/:idSala    controllers.SalaController.update(request:Request, id:Int, idSala:Int) #verificar ()
