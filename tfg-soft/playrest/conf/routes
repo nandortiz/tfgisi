@@ -196,4 +196,7 @@ DELETE /bibliotecas/:id/salas/:idSala controllers.SalaController.delete(id:Int, 
  #      schema:
  #        $ref: '#/definitions/entities.Sala'
  ###
-PUT /bibliotecas/:id/salas/:idSala    controllers.SalaController.update(request:Request, id:Int, idSala:Int) #verificar ()
+PUT /bibliotecas/:id/salas/:id    controllers.SalaController.update(request:Request, id:Int)
+
+
+

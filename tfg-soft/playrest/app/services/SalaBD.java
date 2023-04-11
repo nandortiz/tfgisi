@@ -147,8 +147,7 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
     //return url;
 }
 
-    public Sala getSala(int id) {Sala sala = new Sala();
-
+    public Sala getSala(int id) { Sala sala = new Sala();
         try {
             if (conector() == true) {
                 String queryBD = "select id, descripcion, tipo, bibliotecaID, aforoSala from elementoReservable where id="+id+";";

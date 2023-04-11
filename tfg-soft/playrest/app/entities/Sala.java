@@ -9,9 +9,17 @@ public class Sala extends ElementoReservable {
 
     private ArrayList<SalaShort> salas = new ArrayList<>();
 
-    public Sala (String descripcion, TipoElementoReservable tipoElementoReservable, int bibliotecaID, int aforoSala) {
-        super(descripcion, tipoElementoReservable, bibliotecaID);
-        this.aforo = aforoSala;
+  //  public Sala(String descripcion, TipoElementoReservable tipoElementoReservable, int bibliotecaID, int aforoSala) {
+    //    super(descripcion, tipoElementoReservable, bibliotecaID);
+      //  this.aforo = aforoSala;
+    //}
+
+    public Sala(String descripcion, int aforoSala, int bibliotecaID) {
+    super (descripcion, TipoElementoReservable.S, bibliotecaID);
+    this.aforo=aforoSala;
+    }
+
+    public Sala() {
     }
 
 

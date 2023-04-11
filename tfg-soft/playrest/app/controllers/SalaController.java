@@ -66,7 +66,22 @@ public class SalaController extends Controller {
         return ok(ApplicationUtil.createResponse("Sala with id:" + id + " deleted", true));
     }
 
+    public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
+        logger.debug("In SalaController.update()");
+        JsonNode json = request.body().asJson();
 
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+        }
+        Sala sala = SalaBD.getInstance().update(Json.fromJson(json, Sala.class),id);
+        logger.debug("In SalaController.update(), sala  is: {}", sala);
+        if (sala == null) {
+            return notFound(ApplicationUtil.createResponse("Sala not found", false));
+        }
+
+        JsonNode jsonObject = Json.toJson(sala);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
 
   /*  public Result create(Http.Request request,int bibliotecaID) throws SQLException, ClassNotFoundException {
         JsonNode json = request.body().asJson();

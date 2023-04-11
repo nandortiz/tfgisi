@@ -30,7 +30,7 @@ public class ElementoReservable extends RecursoWeb{
     //TODO cambiar nulls por exceptions
     //TODO Patch y Put de Sala                      DONE, preguntar si patch necesario, probar put
     //TODO Hacer PuestoController y Puesto.java     DONE
-    //TODO solo un ELementoReservableBD
+    //TODO acabar herencia BD teniendo solo un ELementoReservableBD (sin puestoBD ni SalaBD)
 
 
     public String getDescripcion() {
@@ -57,7 +57,6 @@ public class ElementoReservable extends RecursoWeb{
         this.bibliotecaID = bibliotecaID;
     }
 
-
     public ArrayList<SalaShort> getSalas() { return salas; }
 
     public void setSalas(ArrayList<SalaShort> salas) { this.salas = salas; }
@@ -82,11 +81,10 @@ public class ElementoReservable extends RecursoWeb{
     public void setId ( int id){
         this.id = id;
     }
+
     public int getId () {
         return this.id;
     }
-
-
 
 
 }

@@ -7,10 +7,14 @@ public class Puesto extends ElementoReservable {
     private String info;
 
     private ArrayList<PuestoShort> puestos = new ArrayList<>();
+    private String descripcion;
 
-    public Puesto (String descripcion, TipoElementoReservable tipoElementoReservable, int bibliotecaID, String infoPuesto) {
-        super(descripcion, tipoElementoReservable, bibliotecaID);
-        this.info = infoPuesto;
+    public Puesto(String descripcion, String infoPuesto, int bibliotecaID) {
+        super (descripcion, TipoElementoReservable.P , bibliotecaID);
+        this.info=infoPuesto;
+    }
+
+    public Puesto() {
     }
 
     public String getInfo() {
@@ -32,7 +36,7 @@ public class Puesto extends ElementoReservable {
         return "Puesto{" +
                 "id = '" + id +
                 ", infoPuesto = '" + info +
-                "', descripcion ='" + getDescripcion() + '\'' + //TODO getter en vez de descripcion
+                "', descripcion ='" + descripcion + '\'' + //TODO getter en vez de descripcion
                 "', tipo ='" + getTipo() + //TODO idem
                 "', bibliotecaID ='" + getBibliotecaID() +
                 ", url = '" + getUrl() +
