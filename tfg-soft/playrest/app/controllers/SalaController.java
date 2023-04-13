@@ -1,8 +1,6 @@
 package controllers;
 
-import entities.Biblioteca;
-import entities.Sala;
-import entities.SalaShort;
+import entities.*;
 //import freemarker.template.Configuration;
 //import freemarker.template.Template;
 //import freemarker.template.TemplateExceptionHandler;
@@ -75,11 +73,27 @@ public class SalaController extends Controller {
         }
         Sala sala = SalaBD.getInstance().update(Json.fromJson(json, Sala.class),id);
         logger.debug("In SalaController.update(), sala  is: {}", sala);
+
         if (sala == null) {
             return notFound(ApplicationUtil.createResponse("Sala not found", false));
         }
 
         JsonNode jsonObject = Json.toJson(sala);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
+    public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
+        logger.debug("In SalaController.update()");
+        JsonNode json = request.body().asJson();
+
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+        }
+        CambioSala cambioSala = SalaBD.getInstance().modify(Json.fromJson(json, CambioSala.class),id);
+        if (cambioSala == null) {
+            return notFound(ApplicationUtil.createResponse("Sala not found", false));
+        }
+
+        JsonNode jsonObject = Json.toJson(cambioSala);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 

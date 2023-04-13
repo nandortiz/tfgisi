@@ -101,7 +101,7 @@ public class SalaBD extends ConexionBD {
         }
         return sala;
     }
-*/
+*/ //TODO public ElementoReservable addElementoReservable (ElementoReservable elementoReservable, int bibliotecaID
 public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFoundException {
     Connection cn = connect();
     int identificador = -1;
@@ -128,7 +128,7 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
             String urlNuevaSala=patronURL+identificador;
 
             //UPDATE de la sala con id = id y actualizar la url con urlNuevaSala
-            st.executeUpdate("UPDATE elementoReservable set url='" + urlNuevaSala+ "' where id= "+ identificador +";");
+            st.executeUpdate("UPDATE elementoReservable set url='"+urlNuevaSala+"' where id= "+identificador+";");
 
             try {
 
@@ -146,18 +146,18 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
     return getSala(identificador);
     //return url;
 }
-
-    public Sala getSala(int id) { Sala sala = new Sala();
+//TODO put y delete igual para EltoResBD, solo cambia add
+    public Sala getSala(int id) { Sala sala = new Sala(); //TODO getElementoReservable en EltoResBD
         try {
             if (conector() == true) {
-                String queryBD = "select id, descripcion, tipo, bibliotecaID, aforoSala from elementoReservable where id="+id+";";
+                String queryBD = "select id, descripcion, tipo, bibliotecaID, aforoSala from elementoReservable where id='"+id+"';";
                 try {
 
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()){
                         sala.setId(rS.getInt("id"));
                         sala.setDescripcion(rS.getString("descripcion"));
-                        sala.setTipo(TipoElementoReservable.valueOf(rS.getString("tipo")));
+                      //  sala.setTipo(TipoElementoReservable.valueOf(rS.getString("tipo")));
                         sala.setBibliotecaID(rS.getInt("bibliotecaID"));
                         sala.setAforo(rS.getInt("aforoSala"));
                     }
@@ -230,7 +230,7 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
 
                     con.close();
                 } catch (SQLException ex) {
-                    System.out.println("Error acceso base de datos - deleteSala"); //TODO staba deleteBiblioteca
+                    System.out.println("Error acceso base de datos - deleteSala");
                     Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -238,14 +238,33 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex); //TODO estaba BibliotecaBD
+            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex); //TODO estaba BibliotecaBD
+            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return valor;
     }
 
     //TODO MODIFY PARCIALMENTE (patch) DE SALA NO ES NECESARIO? En Bib modifica apertura/cierre, pero en sala? Descripción maybe?
+    public CambioSala modify(CambioSala cam, int id) throws SQLException, ClassNotFoundException {
+        try {
+            if (conector() == true) {
+                String descripcion = cam.getDescripcion();
+
+                switch (cam.getTipo()) {
+
+                    case DESCRIPCION:
+                        createStatement.executeUpdate("update elementoreservable set descripcion ='"+ descripcion+"'  where id = '"+id+"';");
+                        break;
+                }
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return cam;
+    }
 
     public Sala update(Sala sala, int id) throws SQLException, ClassNotFoundException {
         try {
@@ -253,7 +272,7 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
 
                 int aforo = sala.getAforo(); //TODO sólo cambiar
 
-                String queryBD = "update elementoreservable set aforoSala = '"+aforo+"',  where id = '"+id+"';";
+                String queryBD = "update elementoreservable set aforoSala = '"+aforo+"',  where id = '"+id+"' ;";
 
                 try {
                     createStatement.executeUpdate(queryBD);

@@ -79,7 +79,7 @@ public class PuestoBD extends ConexionBD {
                     while (rS.next()){
                         puesto.setId(rS.getInt("id"));
                         puesto.setDescripcion(rS.getString("descripcion"));
-                        puesto.setTipo(TipoElementoReservable.valueOf(rS.getString("tipo")));
+                        //puesto.setTipo(TipoElementoReservable.valueOf(rS.getString("tipo")));
                         puesto.setBibliotecaID(rS.getInt("bibliotecaID"));
                         puesto.setInfo(rS.getString("infoPuesto"));
                     }
