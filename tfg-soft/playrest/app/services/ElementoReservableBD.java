@@ -1,5 +1,9 @@
-/*package services;
+package services;
 
+import entities.Cambio;
+import entities.CambioElementoReservable;
+import entities.CambioPuesto;
+import entities.ElementoReservable;
 import services.ConexionBD;
 
 import java.sql.ResultSet;
@@ -19,8 +23,8 @@ public class ElementoReservableBD  extends ConexionBD {
         }
         return instance;
     }
-*/
-/*
+
+    /*
 public ElementoReservable addElementoReservable(ElementoReservable elementoReservable) throws SQLException, ClassNotFoundException {
         Connection cn = connect();
         int identificador = -1;
@@ -65,7 +69,33 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
         return getBiblioteca(identificador);
         //return url;
     }
-}
 */
+    public Cambio modify(Cambio cam, int id) throws SQLException, ClassNotFoundException {
+        try {
+            if (conector()) {
+
+                if (cam instanceof CambioElementoReservable) {
+                    CambioElementoReservable cer = (CambioElementoReservable) cam;
+                    String descripcion = cer.getDescripcion();
+                    createStatement.executeUpdate("update elementoreservable set descripcion = '" + descripcion + "' where id = '" + id + "';");
+
+                }
+             if (cam instanceof CambioPuesto){
+                 CambioPuesto cip = (CambioPuesto) cam;
+                 String infoPuesto = cip.getInfoPuesto();
+                 createStatement.executeUpdate("update elementoreservable set infoPuesto = '"+ infoPuesto+"' where id = '"+id+"';");
+
+             } //TODO IDEM Sala
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return cam;
+    }
+
+}
+
 
 

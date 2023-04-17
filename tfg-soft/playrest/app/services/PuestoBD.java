@@ -166,5 +166,15 @@ public class PuestoBD extends ConexionBD {
         }
         return valor;
     }
+    public Puesto modify(Puesto cam, int id) throws SQLException, ClassNotFoundException {
+        try {
+            if (conector()) {
+                          }
+        } catch (SQLException ex) {
+            Logger.getLogger(PuestoBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return cam;
+    }
 
 }

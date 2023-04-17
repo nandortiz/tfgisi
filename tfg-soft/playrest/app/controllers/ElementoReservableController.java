@@ -1,5 +1,7 @@
-/*package controllers;
+package controllers;
 
+import entities.CambioBiblioteca;
+import entities.CambioElementoReservable;
 import entities.ElementoReservable;
 
 import play.mvc.Http;
@@ -9,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import services.BibliotecaBD;
 import services.ElementoReservableBD;
 import utils.ApplicationUtil;
 
@@ -17,7 +20,7 @@ import java.sql.SQLException;
 
 public class ElementoReservableController extends Controller {
 
-
+/*
 
     private static final Logger logger = LoggerFactory.getLogger("controller");
     //TODO: public Result create(eltoreservable); si es instance de sala, ve a SalaController, si es instance de puesto, ve a PuestoController
@@ -32,8 +35,24 @@ public class ElementoReservableController extends Controller {
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,elementoReservable.getUrl());
 
     }
+*/
+private static final Logger logger = LoggerFactory.getLogger("controller");
+public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
+    logger.debug("In ElementoReservableController.update()");
+    JsonNode json = request.body().asJson();
+
+    if (json == null) {
+        return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+    }
+    CambioElementoReservable cambioElementoReservable = (CambioElementoReservable) ElementoReservableBD.getInstance().modify(Json.fromJson(json, CambioElementoReservable.class),id);
+    if (cambioElementoReservable == null) {
+        return notFound(ApplicationUtil.createResponse("Elemento reservable not found", false));
+    }
+
+    JsonNode jsonObject = Json.toJson(cambioElementoReservable);
+    return ok(ApplicationUtil.createResponse(jsonObject, true));
+}
 
 
 
 }
-*/

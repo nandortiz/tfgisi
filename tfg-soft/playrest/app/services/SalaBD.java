@@ -246,18 +246,11 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
     }
 
     //TODO MODIFY PARCIALMENTE (patch) DE SALA NO ES NECESARIO? En Bib modifica apertura/cierre, pero en sala? Descripción maybe?
-    public CambioSala modify(CambioSala cam, int id) throws SQLException, ClassNotFoundException {
+    public Sala modify(Sala cam, int id) throws SQLException, ClassNotFoundException {
         try {
-            if (conector() == true) {
-                String descripcion = cam.getDescripcion();
-
-                switch (cam.getTipo()) {
-
-                    case DESCRIPCION:
-                        createStatement.executeUpdate("update elementoreservable set descripcion ='"+ descripcion+"'  where id = '"+id+"';");
-                        break;
-                }
-
+            if (conector()) {
+                int aforoSala = cam.getAforo();
+                createStatement.executeUpdate("update elementoreservable set aforoSala = '"+ aforoSala+"' where id = '"+id+"';");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -265,6 +258,7 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
 
         return cam;
     }
+
 
     public Sala update(Sala sala, int id) throws SQLException, ClassNotFoundException {
         try {

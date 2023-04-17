@@ -12,6 +12,7 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import services.BibliotecaBD;
+import services.ElementoReservableBD;
 import services.PuestoBD;
 import services.SalaBD;
 import utils.ApplicationUtil;
@@ -64,5 +65,20 @@ public class PuestoController extends Controller {
         return ok(ApplicationUtil.createResponse("Puesto with id:" + id + " deleted", true));
     }
 
+    public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
+        logger.debug("In PuestoController.update()");
+        JsonNode json = request.body().asJson();
+
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+        }
+        CambioPuesto cambioPuesto = (CambioPuesto) ElementoReservableBD.getInstance().modify(Json.fromJson(json, CambioPuesto.class),id);
+        if (cambioPuesto == null) {
+            return notFound(ApplicationUtil.createResponse("Puesto not found", false));
+        }
+
+        JsonNode jsonObject = Json.toJson(cambioPuesto);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
 
 }

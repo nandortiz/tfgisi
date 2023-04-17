@@ -12,6 +12,7 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import services.BibliotecaBD;
+import services.ElementoReservableBD;
 import services.SalaBD;
 import utils.ApplicationUtil;
 
@@ -88,7 +89,7 @@ public class SalaController extends Controller {
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
         }
-        CambioSala cambioSala = SalaBD.getInstance().modify(Json.fromJson(json, CambioSala.class),id);
+        CambioSala cambioSala = (CambioSala) ElementoReservableBD.getInstance().modify(Json.fromJson(json, CambioSala.class),id);
         if (cambioSala == null) {
             return notFound(ApplicationUtil.createResponse("Sala not found", false));
         }
@@ -96,6 +97,7 @@ public class SalaController extends Controller {
         JsonNode jsonObject = Json.toJson(cambioSala);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
+
 
   /*  public Result create(Http.Request request,int bibliotecaID) throws SQLException, ClassNotFoundException {
         JsonNode json = request.body().asJson();

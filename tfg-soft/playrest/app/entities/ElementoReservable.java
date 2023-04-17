@@ -28,13 +28,14 @@ public class ElementoReservable extends RecursoWeb{
 
     //TODO cambiar en workbench s y p por S y P
     //TODO cambiar nulls por exceptions
-    //TODO acabar herencia BD teniendo solo un ELementoReservableBD (sin puestoBD ni SalaBD)
 //_____________________________________________
     //TODO buscar error ' ' sql PUT SalaBD
     //TODO delete y post salas y puestos
-    //TODO añadir patch y modify de Sala y puesto para modificar descripción de sala y puesto
-    //TODO HAcer ElementoReservableShort 
 
+    //:______________________________
+    //TODO Después de hacer put y patch de puestobd y salabd, conseguir que sólo haya EltoResBD, y borrar salaBd y puestoBD
+    //TODO ...para ello añadir los instances que están en el modify en todos create, modufy, delete,...
+//TODO renovar jetbrains cuenta universitaria gratis
     public String getDescripcion() {
         return descripcion;
     }

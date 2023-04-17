@@ -1,27 +1,17 @@
 package entities;
 
 //TODO Hacer un CambioPuesto con la descripcion, pero acabará siendo un CambioElementoReservable
-public class CambioSala {
+public class CambioSala extends Cambio { //TODO cambiar nombre clase a CambioAforoSala y CambioInfoPuesto
+    private int aforoSala;
 
-    private String descripcion;
-
-    public CambioSala(){
-        super();
-
+    public int getAforoSala() {
+        return aforoSala;
     }
 
-    public CambioSala(String descripcion ){
-        super();
-        this.descripcion=descripcion;
-
+    public void setAforoSala(int aforoSala) {
+        this.aforoSala = aforoSala;
     }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
 }
+
+
+
