@@ -1,6 +1,7 @@
 package services;
 
 import entities.*;
+import scala.xml.Elem;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -102,6 +103,63 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
     //TODO ------------------------------------------------------------------------------------
 
     //añadir create, delete, get, getall, update con los instances del modify
+
+
+    public boolean deleteElementoReservable(int id) throws SQLException, ClassNotFoundException {
+        boolean valor= false;
+        try {
+            if (conector() == true) {
+                if(id instanceof Sala){
+                    String queryBD = "delete from elementoReservable where id = '"+id+"';";
+
+                    try {
+                        createStatement.executeUpdate(queryBD);
+                        valor = true;
+                        return valor;
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    try {
+
+                        con.close();
+                    } catch (SQLException ex) {
+                        System.out.println("Error acceso base de datos - deleteSala");
+                        Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+                if (id instanceof Puesto){
+                    String queryBD = "delete from elementoReservable where id = '"+id+"';";
+
+                    try {
+                        createStatement.executeUpdate(queryBD);
+                        valor = true;
+                        return valor;
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    try {
+
+                        con.close();
+                    } catch (SQLException ex) {
+                        System.out.println("Error acceso base de datos - deleteSala");
+                        Logger.getLogger(PuestoBD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+            }
+            else{
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return valor;
+    }
 
 
 

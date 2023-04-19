@@ -41,7 +41,7 @@ public Result modify(int id, Http.Request request) throws SQLException, ClassNot
     if (json == null) {
         return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
     }
-    CambioDescripcion cambioDescripcion = (CambioDescripcion) ElementoReservableBD.getInstance().modify(Json.fromJson(json, CambioDescripcion.class),id);
+    CambioDescripcion cambioDescripcion = (CambioDescripcion) ElementoReservableBD.getInstance().modifyElementoReservable(Json.fromJson(json, CambioDescripcion.class),id);
     if (cambioDescripcion == null) {
         return notFound(ApplicationUtil.createResponse("Elemento reservable not found", false));
     }
