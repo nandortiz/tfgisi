@@ -80,7 +80,7 @@ public class BibliotecaBD extends ConexionBD {
 
         try {
             if (conector() == true) {
-                String queryBD = "select id, nombre, descripcion, apertura, cierre from biblioteca where id = '"+id+"';"; //TODO he quitado ' a id
+                String queryBD = "select id, nombre, descripcion, apertura, cierre from biblioteca where id = '"+id+"';";
                 try {
 
                     rS = createStatement.executeQuery(queryBD);
@@ -215,6 +215,7 @@ public class BibliotecaBD extends ConexionBD {
                 String descripcion= biblioteca.getDescripcion();
                 LocalDateTime apertura = biblioteca.getApertura();
                 LocalDateTime cierre = biblioteca.getCierre();
+
 
                 String queryBD = "update biblioteca set nombre = '"+nombre+"', descripcion = '"+descripcion+"', apertura = '"+apertura+"', cierre = '"+cierre+"'  where id = '"+id+"';";
 

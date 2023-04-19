@@ -11,7 +11,6 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import services.BibliotecaBD;
 import services.ElementoReservableBD;
 import services.PuestoBD;
 import services.SalaBD;
@@ -72,12 +71,30 @@ public class PuestoController extends Controller {
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
         }
-        CambioPuesto cambioPuesto = (CambioPuesto) ElementoReservableBD.getInstance().modify(Json.fromJson(json, CambioPuesto.class),id);
-        if (cambioPuesto == null) {
+        CambioInfoPuesto cambioInfoPuesto = (CambioInfoPuesto) ElementoReservableBD.getInstance().modifyElementoReservable(Json.fromJson(json, CambioInfoPuesto.class),id);
+        if (cambioInfoPuesto == null) {
             return notFound(ApplicationUtil.createResponse("Puesto not found", false));
         }
 
-        JsonNode jsonObject = Json.toJson(cambioPuesto);
+        JsonNode jsonObject = Json.toJson(cambioInfoPuesto);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
+
+    public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
+        logger.debug("In PuestoController.update()");
+        JsonNode json = request.body().asJson();
+
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+        }
+        Puesto puesto = PuestoBD.getInstance().update(Json.fromJson(json, Puesto.class),id);
+        logger.debug("In PuestoController.update(), puesto  is: {}", puesto);
+
+        if (puesto == null) {
+            return notFound(ApplicationUtil.createResponse("Puesto not found", false));
+        }
+
+        JsonNode jsonObject = Json.toJson(puesto);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 

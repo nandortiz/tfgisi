@@ -1,8 +1,6 @@
 package controllers;
 
-import entities.CambioBiblioteca;
-import entities.CambioElementoReservable;
-import entities.ElementoReservable;
+import entities.CambioDescripcion;
 
 import play.mvc.Http;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -11,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import services.BibliotecaBD;
 import services.ElementoReservableBD;
 import utils.ApplicationUtil;
 
@@ -44,12 +41,12 @@ public Result modify(int id, Http.Request request) throws SQLException, ClassNot
     if (json == null) {
         return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
     }
-    CambioElementoReservable cambioElementoReservable = (CambioElementoReservable) ElementoReservableBD.getInstance().modify(Json.fromJson(json, CambioElementoReservable.class),id);
-    if (cambioElementoReservable == null) {
+    CambioDescripcion cambioDescripcion = (CambioDescripcion) ElementoReservableBD.getInstance().modify(Json.fromJson(json, CambioDescripcion.class),id);
+    if (cambioDescripcion == null) {
         return notFound(ApplicationUtil.createResponse("Elemento reservable not found", false));
     }
 
-    JsonNode jsonObject = Json.toJson(cambioElementoReservable);
+    JsonNode jsonObject = Json.toJson(cambioDescripcion);
     return ok(ApplicationUtil.createResponse(jsonObject, true));
 }
 

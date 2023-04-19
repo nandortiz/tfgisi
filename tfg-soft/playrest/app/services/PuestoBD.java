@@ -45,7 +45,7 @@ public class PuestoBD extends ConexionBD {
                 keys.next();
                 identificador = keys.getInt(1);
 
-                String patronURL="/biblioteca/"+bibliotecaID+"/pruebas/";
+                String patronURL="/biblioteca/"+bibliotecaID+"/puestos/";
                 String urlNuevoPuesto=patronURL+identificador;
 
                 //UPDATE del puesto con id = id y actualizar la url con urlNuevoPuesto
@@ -166,7 +166,7 @@ public class PuestoBD extends ConexionBD {
         }
         return valor;
     }
-    public Puesto modify(Puesto cam, int id) throws SQLException, ClassNotFoundException {
+    public Puesto modify (Puesto cam, int id) throws SQLException, ClassNotFoundException {
         try {
             if (conector()) {
                           }
@@ -175,6 +175,35 @@ public class PuestoBD extends ConexionBD {
         }
 
         return cam;
+    }
+
+    public Puesto update(Puesto puesto, int id) throws SQLException, ClassNotFoundException {
+        try {
+            if (conector() == true) {
+
+                String info = puesto.getInfo(); //TODO sólo cambiar
+                String queryBD = "update elementoreservable set infoPuesto = '"+info+"' where id = '"+id+"' ;";
+                try {
+                    createStatement.executeUpdate(queryBD);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PuestoBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PuestoBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+                return null; //TODO cambiar todos nulls por exception
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PuestoBD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PuestoBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return getPuesto(id);
     }
 
 }

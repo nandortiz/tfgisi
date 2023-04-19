@@ -196,7 +196,122 @@ DELETE /bibliotecas/:id/salas/:idSala controllers.SalaController.delete(id:Int, 
  #      schema:
  #        $ref: '#/definitions/entities.Sala'
  ###
-PUT /bibliotecas/:id/salas/:id    controllers.SalaController.update(request:Request, id:Int)
+PUT /salas/:idSala    controllers.SalaController.update(request:Request, idSala:Int)
 
+###
+ #  summary: Actualizar parcialmente una sala. (PATCH)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: cambioAforoSala
+ #      description: La sala a realizar
+ #      schema:
+ #         $ref: '#/definitions/entities.CambioAforoSala'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.CambioAforoSala'
+ ###
+PATCH /salas/:idSala    controllers.SalaController.modify(idSala:Int, request:Request)
 
+###
+ #  summary: Crear un puesto. (POST)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: puesto
+ #      description: El puesto a crear.
+ #      schema:
+ #         $ref: '#/definitions/entities.Puesto'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Puesto'
+ ###
+POST /bibliotecas/:id/puestos       controllers.PuestoController.create(id:Int, request:Request)
 
+###
+ #  summary: Obtener todos los puestos. (GET ALL)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Puesto'
+ ###
+ GET /bibliotecas/:id/puestos/        controllers.PuestoController.retrieveAll(id:Int)
+
+ ###
+ #  summary: Obtener un puesto. (GET)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Puesto'
+ ###
+GET /bibliotecas/:id/puestos/:idPuesto    controllers.PuestoController.retrieve( id:Int, idPuesto:Int)
+
+###
+ #  summary: Eliminar un puesto. (DELETE)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Puesto'
+ ###
+DELETE /bibliotecas/:id/puestos/:idPuesto controllers.PuestoController.delete(id:Int, idPuesto:Int)
+
+###
+ #  summary: Actualizar un puesto. (UPDATE)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: puesto
+ #      description: El puesto a actualizar.
+ #      schema:
+ #         $ref: '#/definitions/entities.Puesto'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Puesto'
+ ###
+PUT /puestos/:idPuesto    controllers.PuestoController.update(request:Request, idPuesto:Int)
+
+###
+ #  summary: Actualizar parcialmente un puesto. (PATCH)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: cambioInfoPuesto
+ #      description: El puesto a realizar
+ #      schema:
+ #         $ref: '#/definitions/entities.CambioInfoPuesto'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.CambioInfoPuesto'
+ ###
+PATCH /puestos/:idPuesto    controllers.PuestoController.modify(idPuesto:Int, request:Request)

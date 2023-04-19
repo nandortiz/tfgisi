@@ -11,7 +11,6 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import services.BibliotecaBD;
 import services.ElementoReservableBD;
 import services.SalaBD;
 import utils.ApplicationUtil;
@@ -35,15 +34,6 @@ public class SalaController extends Controller {
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,sala.getUrl());
     }
 
-    public Result retrieveAll (int id){
-       Collection<SalaShort> result = SalaBD.getInstance().getAllSalas(id);
-
-        JsonNode jsonObjects = Json.toJson(result);
-        logger.debug("In SalaController.getAllSalas(), result is: {}",result.toString());
-
-        return ok(ApplicationUtil.createResponse(jsonObjects, true));
-    }
-
     public Result retrieve (int bibliotecaID, int id) {
         Sala result = SalaBD.getInstance().getSala(id);
 
@@ -57,12 +47,37 @@ public class SalaController extends Controller {
         }
     }
 
+    public Result retrieveAll (int id){
+       Collection<SalaShort> result = SalaBD.getInstance().getAllSalas(id);
+
+        JsonNode jsonObjects = Json.toJson(result);
+        logger.debug("In SalaController.getAllSalas(), result is: {}",result.toString());
+
+        return ok(ApplicationUtil.createResponse(jsonObjects, true));
+    }
+
     public Result delete(int bibliotecaID, int id ) throws SQLException, ClassNotFoundException {
         logger.debug("In SalaController.retrieve(), delete Sala with id: {}",id);
         if (!SalaBD.getInstance().deleteSala(id)) {
             return notFound(ApplicationUtil.createResponse("Sala with id:" + id + " not found", false));
         }
         return ok(ApplicationUtil.createResponse("Sala with id:" + id + " deleted", true));
+    }
+
+    public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
+        logger.debug("In SalaController.update()");
+        JsonNode json = request.body().asJson();
+
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+        }
+        CambioAforoSala cambioAforoSala = (CambioAforoSala) ElementoReservableBD.getInstance().modifyElementoReservable(Json.fromJson(json, CambioAforoSala.class),id);
+        if (cambioAforoSala == null) {
+            return notFound(ApplicationUtil.createResponse("Sala not found", false));
+        }
+
+        JsonNode jsonObject = Json.toJson(cambioAforoSala);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 
     public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
@@ -82,21 +97,7 @@ public class SalaController extends Controller {
         JsonNode jsonObject = Json.toJson(sala);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
-    public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
-        logger.debug("In SalaController.update()");
-        JsonNode json = request.body().asJson();
 
-        if (json == null) {
-            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
-        }
-        CambioSala cambioSala = (CambioSala) ElementoReservableBD.getInstance().modify(Json.fromJson(json, CambioSala.class),id);
-        if (cambioSala == null) {
-            return notFound(ApplicationUtil.createResponse("Sala not found", false));
-        }
-
-        JsonNode jsonObject = Json.toJson(cambioSala);
-        return ok(ApplicationUtil.createResponse(jsonObject, true));
-    }
 
 
   /*  public Result create(Http.Request request,int bibliotecaID) throws SQLException, ClassNotFoundException {

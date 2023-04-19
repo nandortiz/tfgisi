@@ -1,6 +1,6 @@
 package entities;
 
-public class CambioPuesto extends Cambio {
+public class CambioInfoPuesto extends Cambio {
     private String infoPuesto;
 
     public String getInfoPuesto() {

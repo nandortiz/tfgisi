@@ -1,14 +1,11 @@
 package services;
 
-import entities.Cambio;
-import entities.CambioElementoReservable;
-import entities.CambioPuesto;
-import entities.ElementoReservable;
-import services.ConexionBD;
+import entities.*;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -70,22 +67,28 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
         //return url;
     }
 */
-    public Cambio modify(Cambio cam, int id) throws SQLException, ClassNotFoundException {
+    public Cambio modifyElementoReservable(Cambio cam, int id) throws SQLException, ClassNotFoundException {
         try {
             if (conector()) {
 
-                if (cam instanceof CambioElementoReservable) {
-                    CambioElementoReservable cer = (CambioElementoReservable) cam;
+                if (cam instanceof CambioDescripcion) {
+                    CambioDescripcion cer = (CambioDescripcion) cam;
                     String descripcion = cer.getDescripcion();
                     createStatement.executeUpdate("update elementoreservable set descripcion = '" + descripcion + "' where id = '" + id + "';");
 
                 }
-             if (cam instanceof CambioPuesto){
-                 CambioPuesto cip = (CambioPuesto) cam;
+                if (cam instanceof CambioInfoPuesto){
+                 CambioInfoPuesto cip = (CambioInfoPuesto) cam;
                  String infoPuesto = cip.getInfoPuesto();
                  createStatement.executeUpdate("update elementoreservable set infoPuesto = '"+ infoPuesto+"' where id = '"+id+"';");
 
-             } //TODO IDEM Sala
+                 }
+                if (cam instanceof CambioAforoSala){
+                    CambioAforoSala cas = (CambioAforoSala) cam;
+                    int aforoSala = cas.getAforoSala();
+                    createStatement.executeUpdate("update elementoreservable set aforoSala = '"+ aforoSala+"' where id = '"+id+"';");
+
+                }
             }
 
         } catch (SQLException ex) {
@@ -94,6 +97,14 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
 
         return cam;
     }
+
+
+    //TODO ------------------------------------------------------------------------------------
+
+    //añadir create, delete, get, getall, update con los instances del modify
+
+
+
 
 }
 

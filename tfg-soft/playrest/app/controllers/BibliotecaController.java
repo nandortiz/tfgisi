@@ -76,9 +76,6 @@ public class BibliotecaController extends Controller {
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 
-//TODO , PATCHeo la apertura de id3 y hago GetId3 y no se updatea el cambio
-    //TODO , POST no funciona
-
     public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
         logger.debug("In BibliotecaController.update()");
         JsonNode json = request.body().asJson();

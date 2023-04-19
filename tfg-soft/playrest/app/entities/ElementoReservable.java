@@ -35,7 +35,13 @@ public class ElementoReservable extends RecursoWeb{
     //:______________________________
     //TODO Después de hacer put y patch de puestobd y salabd, conseguir que sólo haya EltoResBD, y borrar salaBd y puestoBD
     //TODO ...para ello añadir los instances que están en el modify en todos create, modufy, delete,...
-//TODO renovar jetbrains cuenta universitaria gratis
+
+    //____________________________________________
+    //TODO                  DUDAS:
+    //TODO              patch y put sala 200 pero en get no se actualiza;
+    //TODO              si hago get idbib13 e idsa 24 debería dar error porque esa sala está en bib1 y no da error
+
+
     public String getDescripcion() {
         return descripcion;
     }
