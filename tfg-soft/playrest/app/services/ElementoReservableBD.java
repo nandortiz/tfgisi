@@ -3,14 +3,19 @@ package services;
 import entities.*;
 import scala.xml.Elem;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static consistency.ConexionJDBC.connect;
+
 
 public class ElementoReservableBD  extends ConexionBD {
     private static services.ElementoReservableBD instance;
@@ -104,61 +109,133 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
 
     //añadir create, delete, get, getall, update con los instances del modify
 
-
-    public boolean deleteElementoReservable(int id) throws SQLException, ClassNotFoundException {
-        boolean valor= false;
+    public ElementoReservable update(ElementoReservable elementoReservable, int id) throws SQLException, ClassNotFoundException {
         try {
-            if (conector() == true) {
-                if(id instanceof Sala){
-                    String queryBD = "delete from elementoReservable where id = '"+id+"';";
-
-                    try {
-                        createStatement.executeUpdate(queryBD);
-                        valor = true;
-                        return valor;
-                    } catch (SQLException ex) {
-                        Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    try {
-
-                        con.close();
-                    } catch (SQLException ex) {
-                        System.out.println("Error acceso base de datos - deleteSala");
-                        Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
+            if (conector()) {
+                if (elementoReservable instanceof Sala) {
+                    Sala sala = (Sala) elementoReservable;
+                    int aforo = sala.getAforo();
+                    createStatement.executeUpdate("update elementoReservable set aforoSala = '"+aforo+"' where id = '"+id+"' ;");
+                } else if (elementoReservable instanceof Puesto) {
+                    Puesto puesto = (Puesto) elementoReservable;
+                    String info = puesto.getInfo();
+                    createStatement.executeUpdate("update elementoReservable set infoPuesto = '"+info+"' where id = '"+id+"' ;");
                 }
-                if (id instanceof Puesto){
-                    String queryBD = "delete from elementoReservable where id = '"+id+"';";
-
-                    try {
-                        createStatement.executeUpdate(queryBD);
-                        valor = true;
-                        return valor;
-                    } catch (SQLException ex) {
-                        Logger.getLogger(SalaBD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    try {
-
-                        con.close();
-                    } catch (SQLException ex) {
-                        System.out.println("Error acceso base de datos - deleteSala");
-                        Logger.getLogger(PuestoBD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                }
-            }
-            else{
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return valor;
+
+        if (elementoReservable instanceof Sala) {
+            return (Sala) ElementoReservableBD.getInstance().getElementoReservable(id);
+        } else if (elementoReservable instanceof Puesto) {
+            return (Puesto) ElementoReservableBD.getInstance().getElementoReservable(id);
+        } else {
+            return null;
+        }
+
+    }
+
+
+//TODO necesita id, no hace falta diferenciar entre puesto y sala
+public boolean deleteElementoReservable(int id) throws SQLException, ClassNotFoundException {
+    boolean valor= false;
+    try {
+        if (conector() == true) {
+
+            String queryBD = "delete from elementoReservable where id = '"+id+"';";
+
+            try {
+                createStatement.executeUpdate(queryBD);
+                valor = true;
+                return valor;
+            } catch (SQLException ex) {
+                Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println("Error acceso base de datos - deleteElementoReservable");
+                Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return valor;
+}
+    //TODO necesita id, no hace falta diferenciar entre puesto y sala
+    public ElementoReservable getElementoReservable(int id) { ElementoReservable elementoReservable = new ElementoReservable();
+        try {
+            if (conector() == true) {
+                String queryBD = "select id, descripcion, tipo, bibliotecaID, aforoSala from elementoReservable where id='"+id+"';";
+                try {
+
+                    rS = createStatement.executeQuery(queryBD);
+                    while (rS.next()){
+                        elementoReservable.setId(rS.getInt("id")); //TODO sala.... PENSAR EL CAMBIO
+                        elementoReservable.setDescripcion(rS.getString("descripcion"));
+                        //  sala.setTipo(TipoElementoReservable.valueOf(rS.getString("tipo")));
+                        elementoReservable.setBibliotecaID(rS.getInt("bibliotecaID"));
+                        elementoReservable.setAforo(rS.getInt("aforoSala"));
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - getElementoReservable");
+                    ex.printStackTrace();
+                    Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (elementoReservable.getId()==-1){
+            return null;
+        }
+        else {
+            return elementoReservable;
+        }
+
+    }
+
+
+    //TODO necesita id, no hace falta diferenciar entre puesto y sala
+    public Collection<ElementoReservableShort> getAllElementosReservables(int bibliotecaID) {
+        List<ElementoReservableShort> elementosReservables = new ArrayList();
+
+        try {
+            if (conector() == true) {
+                String queryBD = "select id, url from elementoReservable where bibliotecaID = '"+bibliotecaID+"';";
+                try {
+                    rS = createStatement.executeQuery(queryBD);
+                    while (rS.next()) {
+                        //Cada vuelta while es un línea del resultado de la consulta -> Biblioteca
+                        ElementoReservableShort elementoReservable = new ElementoReservableShort();
+                        elementoReservable.setId(rS.getInt("id"));
+                        elementoReservable.setUrl(rS.getString("url"));
+
+                        elementosReservables.add(elementoReservable);
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - getAllElementosReservables");
+                    ex.printStackTrace();
+                    Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return elementosReservables;
     }
 
 
