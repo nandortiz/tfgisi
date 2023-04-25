@@ -175,16 +175,24 @@ public boolean deleteElementoReservable(int id) throws SQLException, ClassNotFou
     public ElementoReservable getElementoReservable(int id) { ElementoReservable elementoReservable = new ElementoReservable();
         try {
             if (conector() == true) {
-                String queryBD = "select id, descripcion, tipo, bibliotecaID, aforoSala from elementoReservable where id='"+id+"';";
+                String queryBD = "select id, descripcion, tipo, bibliotecaID, aforoSala, infoPuesto from elementoReservable where id='"+id+"';";
                 try {
 
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()){
-                        elementoReservable.setId(rS.getInt("id")); //TODO sala.... PENSAR EL CAMBIO
+                        elementoReservable.setId(rS.getInt("id")); //TODO PENSAR EL CAMBIO
                         elementoReservable.setDescripcion(rS.getString("descripcion"));
-                        //  sala.setTipo(TipoElementoReservable.valueOf(rS.getString("tipo")));
+                        //sala.setTipo(TipoElementoReservable.valueOf(rS.getString("tipo")));
                         elementoReservable.setBibliotecaID(rS.getInt("bibliotecaID"));
-                        elementoReservable.setAforo(rS.getInt("aforoSala"));
+                        if (elementoReservable.getTipo().equals("S")){
+                            Sala sala = (Sala) elementoReservable;
+                            sala.setAforo(rS.getInt("aforoSala"));
+                            elementoReservable = sala;
+                        } else if (elementoReservable.getTipo().equals("P")){
+                            Puesto puesto = (Puesto) elementoReservable;
+                            puesto.setInfo(rS.getString("infoPuesto"));
+                            elementoReservable = puesto;
+                        }
                     }
                 } catch (SQLException ex) {
                     System.out.println("Error acceso base de datos - getElementoReservable");
