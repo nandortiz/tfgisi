@@ -105,7 +105,7 @@ public class SalaBD extends ConexionBD {
 public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFoundException {
     Connection cn = connect();
     int identificador = -1;
-    String url = "";
+    String url = ""; //TODO no se usa,  borrar?
     if (conector() == true) {
         try {
 

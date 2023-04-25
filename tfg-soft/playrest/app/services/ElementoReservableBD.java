@@ -1,9 +1,7 @@
 package services;
 
 import entities.*;
-import scala.xml.Elem;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -107,7 +105,51 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
 
     //TODO ------------------------------------------------------------------------------------
 
-    //añadir create, delete, get, getall, update con los instances del modify
+    public ElementoReservable addElementoReservable(ElementoReservable elementoReservable, Sala sala, Puesto puesto, int bibliotecaID) throws SQLException, ClassNotFoundException {
+        Connection cn = connect();
+        int identificador = -1;
+        String url = ""; //TODO no se usa, borrar?
+        if (conector() == true) {
+            try {
+
+                String descripcion = elementoReservable.getDescripcion();
+                TipoElementoReservable tipo = elementoReservable.getTipo();
+                int aforoSala = sala.getAforo();
+                String infoPuesto = puesto.getInfo();
+
+                //ArrayList<LocalDateTime> disponibilidad = new ArrayList<>();
+                //  disponibilidad = biblioteca.getListaDisponibilidadBiblioteca();
+                Statement st = cn.createStatement();
+                System.out.println("INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, aforoSala, infoPuesto) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+aforoSala+"', '"+infoPuesto+"');");
+                st.executeUpdate("INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, aforoSala, infoPuesto) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+aforoSala+"','"+infoPuesto+"');", Statement.RETURN_GENERATED_KEYS);
+
+                // A la nueva entidad hay que "establecerla la URL"
+                ResultSet keys = st.getGeneratedKeys();
+                keys.next();
+                identificador = keys.getInt(1);
+
+                String patronURL="/biblioteca/"+bibliotecaID+"/elementosReservables/";
+                String urlNuevoElementoReservable=patronURL+identificador;
+
+                //UPDATE de la sala con id = id y actualizar la url con urlNuevaSala
+                st.executeUpdate("UPDATE elementoReservable set url='"+urlNuevoElementoReservable+"' where id= "+identificador+";");
+
+                try {
+
+                    con.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - addElementoReservable");
+                    Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        //return biblioteca;
+        return getElementoReservable(identificador);
+        //return url;
+    }
 
     public ElementoReservable update(ElementoReservable elementoReservable, int id) throws SQLException, ClassNotFoundException {
         try {

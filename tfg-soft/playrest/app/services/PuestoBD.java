@@ -28,7 +28,7 @@ public class PuestoBD extends ConexionBD {
     public Puesto addPuesto(Puesto puesto, int bibliotecaID) throws SQLException, ClassNotFoundException {
         Connection cn = connect();
         int identificador = -1;
-        String url = "";
+        String url = ""; //TODO no se usa, borrar?
         if (conector() == true) {
             try {
 

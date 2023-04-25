@@ -31,7 +31,7 @@ public class BibliotecaBD extends ConexionBD {
         Connection cn = connect();
         int identificador = -1;
 
-        String url = "";
+        String url = ""; //TODO no se usa, borrar?
         if (conector() == true) {
 
             try {
