@@ -51,7 +51,6 @@ public class ElementoReservableController extends Controller {
             JsonNode jsonObject = Json.toJson(sala);
             return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,sala.getUrl());
         } else if (elementoReservable instanceof Puesto) {
-            PuestoController puestoController = new PuestoController();
             Puesto puesto = PuestoBD.getInstance().addPuesto((Puesto) elementoReservable, bibliotecaID );
             JsonNode jsonObject = Json.toJson(puesto);
             return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,puesto.getUrl());

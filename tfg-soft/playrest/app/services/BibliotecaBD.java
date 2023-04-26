@@ -55,9 +55,8 @@ public class BibliotecaBD extends ConexionBD {
 
                 String patronURL="/bibliotecas/";
                 String urlNuevaBiblioteca=patronURL+identificador;
-                System.out.println("UPDATE biblioteca set url = '"+urlNuevaBiblioteca+"' where id= '"+identificador+"';");
                 //UPDATE de la biblioteca con id = id y actualizar la url con urlNuevaBiblioteca
-
+                st.executeUpdate("UPDATE biblioteca set url = '"+urlNuevaBiblioteca+"' where id= '"+identificador+"';");
                 try {
 
                     con.close();
