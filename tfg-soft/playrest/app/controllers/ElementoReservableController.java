@@ -10,6 +10,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.ElementoReservableBD;
+import services.PuestoBD;
 import services.SalaBD;
 import utils.ApplicationUtil;
 
@@ -36,6 +37,31 @@ public class ElementoReservableController extends Controller {
 
     }
 */
+
+    public Result create(int bibliotecaID, Http.Request request) throws SQLException, ClassNotFoundException {
+        JsonNode json = request.body().asJson();
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting JSON data", false));
+        }
+        logger.debug("In ElementoReservableBD.create(), input is: {}", json.toString());
+        ElementoReservable elementoReservable = Json.fromJson(json, ElementoReservable.class);
+
+        if (elementoReservable instanceof Sala) {
+            Sala sala = SalaBD.getInstance().addSala((Sala) elementoReservable, bibliotecaID );
+            JsonNode jsonObject = Json.toJson(sala);
+            return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,sala.getUrl());
+        } else if (elementoReservable instanceof Puesto) {
+            PuestoController puestoController = new PuestoController();
+            Puesto puesto = PuestoBD.getInstance().addPuesto((Puesto) elementoReservable, bibliotecaID );
+            JsonNode jsonObject = Json.toJson(puesto);
+            return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,puesto.getUrl());
+        } else {
+            return badRequest(ApplicationUtil.createResponse("Invalid data", false));
+        }
+    }
+
+
+
 private static final Logger logger = LoggerFactory.getLogger("controller");
 public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
     logger.debug("In ElementoReservableController.update()");
