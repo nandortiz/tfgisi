@@ -105,7 +105,7 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
 
     //TODO ------------------------------------------------------------------------------------
 
-    public ElementoReservable addElementoReservable(ElementoReservable elementoReservable, Sala sala, Puesto puesto, int bibliotecaID) throws SQLException, ClassNotFoundException {
+    public ElementoReservable addElementoReservable(ElementoReservable elementoReservable, int bibliotecaID) throws SQLException, ClassNotFoundException {
         Connection cn = connect();
         int identificador = -1;
         String url = ""; //TODO no se usa, borrar?
@@ -114,9 +114,16 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
 
                 String descripcion = elementoReservable.getDescripcion();
                 TipoElementoReservable tipo = elementoReservable.getTipo();
-                int aforoSala = sala.getAforo();
-                String infoPuesto = puesto.getInfo();
 
+                //Agregar los nuevos atributos necesarios para crear los diferentes tipos de elementoReservable
+                int aforoSala = -1;
+                String infoPuesto = "";
+
+                if (elementoReservable instanceof Sala) {
+                    aforoSala = ((Sala) elementoReservable).getAforo();
+                } else if (elementoReservable instanceof Puesto) {
+                    infoPuesto = ((Puesto) elementoReservable).getInfo();
+                }
                 //ArrayList<LocalDateTime> disponibilidad = new ArrayList<>();
                 //  disponibilidad = biblioteca.getListaDisponibilidadBiblioteca();
                 Statement st = cn.createStatement();

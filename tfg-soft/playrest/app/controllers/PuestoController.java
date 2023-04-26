@@ -27,45 +27,45 @@ public class PuestoController extends Controller {
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting JSON data", false));
         }
-        logger.debug("In PuestoBD.create(), input is: {}", json.toString());
-        Puesto puesto = PuestoBD.getInstance().addPuesto(Json.fromJson(json, Puesto.class), bibliotecaID );
+        logger.debug("In ElementoReservableBD.create(), input is: {}", json.toString());
+        Puesto puesto = (Puesto) ElementoReservableBD.getInstance().addElementoReservable(Json.fromJson(json, Puesto.class), bibliotecaID );
         JsonNode jsonObject = Json.toJson(puesto);
-        System.out.println("La puesto es: "  +puesto);
+        System.out.println("La elemento reservable es: "  +puesto);
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,puesto.getUrl());
     }
 
     public Result retrieveAll (int id){
-        Collection<PuestoShort> result = PuestoBD.getInstance().getAllPuestos(id);
+        Collection<ElementoReservableShort> result = ElementoReservableBD.getInstance().getAllElementosReservables(id);
 
         JsonNode jsonObjects = Json.toJson(result);
-        logger.debug("In PuestoController.getAllPuestos(), result is: {}",result.toString());
+        logger.debug("In ElementoReservableController.getAllElementosReservables(), result is: {}",result.toString());
 
         return ok(ApplicationUtil.createResponse(jsonObjects, true));
     }
 
     public Result retrieve (int bibliotecaID, int id) {
-        Puesto result = PuestoBD.getInstance().getPuesto(id);
+        Puesto result = (Puesto)ElementoReservableBD.getInstance().getElementoReservable(id);
 
         if  (result == null) {
-            return notFound(ApplicationUtil.createResponse("Puesto with id:" + id + " not found", false));
+            return notFound(ApplicationUtil.createResponse("Elemento reservable with id:" + id + " not found", false));
         } else {
             JsonNode jsonObjects = Json.toJson(result);
-            logger.debug("In PuestoController.getPuesto(id), result is: {}", result.toString());
+            logger.debug("In ElementoReservableController.getElementoReservable(id), result is: {}", result.toString());
 
             return ok(ApplicationUtil.createResponse(jsonObjects, true));
         }
     }
 
     public Result delete(int bibliotecaID, int id ) throws SQLException, ClassNotFoundException {
-        logger.debug("In PuestoController.retrieve(), delete Puesto with id: {}",id);
-        if (!PuestoBD.getInstance().deletePuesto(id)) {
-            return notFound(ApplicationUtil.createResponse("Puesto with id:" + id + " not found", false));
+        logger.debug("In ElementoReservableController.retrieve(), delete ElementoReservable with id: {}",id);
+        if (!ElementoReservableBD.getInstance().deleteElementoReservable(id)) {
+            return notFound(ApplicationUtil.createResponse("ElementoReservable with id:" + id + " not found", false));
         }
-        return ok(ApplicationUtil.createResponse("Puesto with id:" + id + " deleted", true));
+        return ok(ApplicationUtil.createResponse("Elemento reservable with id:" + id + " deleted", true));
     }
 
     public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
-        logger.debug("In PuestoController.update()");
+        logger.debug("In ElementoReservableController.update()");
         JsonNode json = request.body().asJson();
 
         if (json == null) {
@@ -73,7 +73,7 @@ public class PuestoController extends Controller {
         }
         CambioInfoPuesto cambioInfoPuesto = (CambioInfoPuesto) ElementoReservableBD.getInstance().modifyElementoReservable(Json.fromJson(json, CambioInfoPuesto.class),id);
         if (cambioInfoPuesto == null) {
-            return notFound(ApplicationUtil.createResponse("Puesto not found", false));
+            return notFound(ApplicationUtil.createResponse("Elemento reservable not found", false));
         }
 
         JsonNode jsonObject = Json.toJson(cambioInfoPuesto);
@@ -81,17 +81,17 @@ public class PuestoController extends Controller {
     }
 
     public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
-        logger.debug("In PuestoController.update()");
+        logger.debug("In ElementoReservableController.update()");
         JsonNode json = request.body().asJson();
 
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
         }
-        Puesto puesto = PuestoBD.getInstance().update(Json.fromJson(json, Puesto.class),id);
-        logger.debug("In PuestoController.update(), puesto  is: {}", puesto);
+        Puesto puesto = (Puesto) ElementoReservableBD.getInstance().update(Json.fromJson(json, Puesto.class),id);
+        logger.debug("In ElementoReservableController.update(), elemento reservable  is: {}", puesto);
 
         if (puesto == null) {
-            return notFound(ApplicationUtil.createResponse("Puesto not found", false));
+            return notFound(ApplicationUtil.createResponse("Elemento reservable not found", false));
         }
 
         JsonNode jsonObject = Json.toJson(puesto);
