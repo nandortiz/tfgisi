@@ -10,8 +10,8 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.ElementoReservableBD;
-import services.PuestoBD;
-import services.SalaBD;
+//import services.PuestoBD;
+//import services.SalaBD;
 import utils.ApplicationUtil;
 
 import javax.swing.text.Element;
@@ -37,7 +37,7 @@ public class ElementoReservableController extends Controller {
 
     }
 */
-
+/*
     public Result create(int bibliotecaID, Http.Request request) throws SQLException, ClassNotFoundException {
         JsonNode json = request.body().asJson();
         if (json == null) {
@@ -58,7 +58,7 @@ public class ElementoReservableController extends Controller {
             return badRequest(ApplicationUtil.createResponse("Invalid data", false));
         }
     }
-
+*/
 
 
 private static final Logger logger = LoggerFactory.getLogger("controller");

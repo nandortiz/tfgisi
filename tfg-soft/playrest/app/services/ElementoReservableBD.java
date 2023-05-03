@@ -109,33 +109,38 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
         Connection cn = connect();
         int identificador = -1;
         String url = ""; //TODO no se usa, borrar?
+        String query ="";
         if (conector() == true) {
             try {
-
                 String descripcion = elementoReservable.getDescripcion();
                 TipoElementoReservable tipo = elementoReservable.getTipo();
 
                 //Agregar los nuevos atributos necesarios para crear los diferentes tipos de elementoReservable
                 int aforoSala = -1;
                 String infoPuesto = "";
+                String tipoElementoReservable = "";
 
                 if (elementoReservable instanceof Sala) {
                     aforoSala = ((Sala) elementoReservable).getAforo();
+                    tipoElementoReservable = "salas";
+                    query = "INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, aforoSala) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+aforoSala+"');";
                 } else if (elementoReservable instanceof Puesto) {
                     infoPuesto = ((Puesto) elementoReservable).getInfo();
+                    tipoElementoReservable = "puestos";
+                    query = "INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, infoPuesto) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"','"+infoPuesto+"');";
                 }
                 //ArrayList<LocalDateTime> disponibilidad = new ArrayList<>();
                 //  disponibilidad = biblioteca.getListaDisponibilidadBiblioteca();
                 Statement st = cn.createStatement();
-                System.out.println("INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, aforoSala, infoPuesto) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+aforoSala+"', '"+infoPuesto+"');");
-                st.executeUpdate("INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, aforoSala, infoPuesto) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+aforoSala+"','"+infoPuesto+"');", Statement.RETURN_GENERATED_KEYS);
+                System.out.println(query);
+                st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 
                 // A la nueva entidad hay que "establecerla la URL"
                 ResultSet keys = st.getGeneratedKeys();
                 keys.next();
                 identificador = keys.getInt(1);
 
-                String patronURL="/biblioteca/"+bibliotecaID+"/elementosReservables/";
+                String patronURL="/biblioteca/"+bibliotecaID+"/"+tipoElementoReservable+"/";
                 String urlNuevoElementoReservable=patronURL+identificador;
 
                 //UPDATE de la sala con id = id y actualizar la url con urlNuevaSala

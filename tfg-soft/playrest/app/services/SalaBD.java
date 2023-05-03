@@ -1,4 +1,4 @@
-package services;
+/*package services;
 
 import entities.*;
 
@@ -101,7 +101,7 @@ public class SalaBD extends ConexionBD {
         }
         return sala;
     }
-*/ //TODO public ElementoReservable addElementoReservable (ElementoReservable elementoReservable, int bibliotecaID
+ //TODO public ElementoReservable addElementoReservable (ElementoReservable elementoReservable, int bibliotecaID
 
 
 public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFoundException {
@@ -292,3 +292,4 @@ public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFo
     }
 
 }
+*/
