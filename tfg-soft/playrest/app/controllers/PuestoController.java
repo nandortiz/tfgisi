@@ -35,7 +35,7 @@ public class PuestoController extends Controller {
     }
 
     public Result retrieveAll (int id){
-        Collection<ElementoReservableShort> result = ElementoReservableBD.getInstance().getAllElementosReservables(id);
+        Collection<ElementoReservableShort> result = ElementoReservableBD.getInstance().getAllElementosReservables(id, TipoElementoReservable.P);
 
         JsonNode jsonObjects = Json.toJson(result);
         logger.debug("In ElementoReservableController.getAllElementosReservables(), result is: {}",result.toString());
@@ -45,7 +45,6 @@ public class PuestoController extends Controller {
 
     public Result retrieve (int bibliotecaID, int id) {
         Puesto result = (Puesto)ElementoReservableBD.getInstance().getElementoReservable(id);
-
         if  (result == null) {
             return notFound(ApplicationUtil.createResponse("Elemento reservable with id:" + id + " not found", false));
         } else {

@@ -49,7 +49,7 @@ public class SalaController extends Controller {
     }
 
     public Result retrieveAll (int id){
-       Collection<ElementoReservableShort> result = ElementoReservableBD.getInstance().getAllElementosReservables(id);
+       Collection<ElementoReservableShort> result = ElementoReservableBD.getInstance().getAllElementosReservables(id, TipoElementoReservable.S);
 
         JsonNode jsonObjects = Json.toJson(result);
         logger.debug("In ElementoReservableController.getAllElementosReservables(), result is: {}",result.toString());

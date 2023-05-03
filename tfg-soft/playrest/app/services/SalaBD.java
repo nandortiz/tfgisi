@@ -102,6 +102,8 @@ public class SalaBD extends ConexionBD {
         return sala;
     }
 */ //TODO public ElementoReservable addElementoReservable (ElementoReservable elementoReservable, int bibliotecaID
+
+
 public Sala addSala(Sala sala, int bibliotecaID) throws SQLException, ClassNotFoundException {
     Connection cn = connect();
     int identificador = -1;

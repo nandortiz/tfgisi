@@ -53,11 +53,12 @@ public class ElementoReservable extends RecursoWeb{
     public TipoElementoReservable getTipo() {
         return tipo;
     }
-/*
+
     public void setTipo(TipoElementoReservable tipo) {
         this.tipo = tipo;
     }
-*/ //TODO mirar si se construyen las salas con la S y los puestos con la P
+
+    //TODO mirar si se construyen las salas con la S y los puestos con la P
     public int getBibliotecaID() {
         return bibliotecaID;
     }

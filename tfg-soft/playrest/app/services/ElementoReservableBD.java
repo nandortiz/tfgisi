@@ -221,27 +221,30 @@ public boolean deleteElementoReservable(int id) throws SQLException, ClassNotFou
     return valor;
 }
     //TODO necesita id, no hace falta diferenciar entre puesto y sala
-    public ElementoReservable getElementoReservable(int id) { ElementoReservable elementoReservable = new ElementoReservable();
+    public ElementoReservable getElementoReservable(int id) {
+        ElementoReservable elementoReservable = new ElementoReservable();
         try {
             if (conector() == true) {
                 String queryBD = "select id, descripcion, tipo, bibliotecaID, aforoSala, infoPuesto from elementoReservable where id='"+id+"';";
                 try {
 
                     rS = createStatement.executeQuery(queryBD);
-                    while (rS.next()){
-                        elementoReservable.setId(rS.getInt("id")); //TODO PENSAR EL CAMBIO
-                        elementoReservable.setDescripcion(rS.getString("descripcion"));
-                        //sala.setTipo(TipoElementoReservable.valueOf(rS.getString("tipo")));
-                        elementoReservable.setBibliotecaID(rS.getInt("bibliotecaID"));
-                        if (elementoReservable.getTipo().equals("S")){
-                            Sala sala = (Sala) elementoReservable;
+                    while (rS.next()) {
+                        TipoElementoReservable tipo = TipoElementoReservable.valueOf(rS.getString("tipo"));
+                        if (tipo.equals(TipoElementoReservable.S)) {
+                            Sala sala = new Sala();
                             sala.setAforo(rS.getInt("aforoSala"));
                             elementoReservable = sala;
-                        } else if (elementoReservable.getTipo().equals("P")){
-                            Puesto puesto = (Puesto) elementoReservable;
+                        } else if (tipo.equals(TipoElementoReservable.P)) {
+                            Puesto puesto = new Puesto();
                             puesto.setInfo(rS.getString("infoPuesto"));
                             elementoReservable = puesto;
                         }
+
+                        elementoReservable.setId(rS.getInt("id")); //TODO PENSAR EL CAMBIO
+                        elementoReservable.setDescripcion(rS.getString("descripcion"));
+                        elementoReservable.setBibliotecaID(rS.getInt("bibliotecaID"));
+                        elementoReservable.setTipo(tipo);
                     }
                 } catch (SQLException ex) {
                     System.out.println("Error acceso base de datos - getElementoReservable");
@@ -264,13 +267,15 @@ public boolean deleteElementoReservable(int id) throws SQLException, ClassNotFou
     }
 
 
+
+
     //TODO necesita id, no hace falta diferenciar entre puesto y sala
-    public Collection<ElementoReservableShort> getAllElementosReservables(int bibliotecaID) {
+    public Collection<ElementoReservableShort> getAllElementosReservables(int bibliotecaID, TipoElementoReservable tipo) {
         List<ElementoReservableShort> elementosReservables = new ArrayList();
 
         try {
             if (conector() == true) {
-                String queryBD = "select id, url from elementoReservable where bibliotecaID = '"+bibliotecaID+"';";
+                String queryBD = "select id, url from elementoReservable where bibliotecaID = '"+bibliotecaID+"' and tipo= '"+tipo+"';";
                 try {
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()) {
@@ -292,6 +297,7 @@ public boolean deleteElementoReservable(int id) throws SQLException, ClassNotFou
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println("Se usa ElementoReservableBD - getAllElementosReservables");
         return elementosReservables;
     }
 

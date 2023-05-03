@@ -116,8 +116,8 @@ public Result modify(int id, Http.Request request) throws SQLException, ClassNot
             return ok(ApplicationUtil.createResponse(jsonObjects, true));
         }
     }
-    public Result retrieveAll (int id){
-        Collection<ElementoReservableShort> result = ElementoReservableBD.getInstance().getAllElementosReservables(id);
+   /* public Result retrieveAll (int id){
+        Collection<ElementoReservableShort> result = ElementoReservableBD.getInstance().getAllElementosReservables(id;
 
         JsonNode jsonObjects = Json.toJson(result);
         logger.debug("In ElementoReservableController.getAllElementosReservables(), result is: {}",result.toString());
@@ -126,5 +126,5 @@ public Result modify(int id, Http.Request request) throws SQLException, ClassNot
     }
 
 
-
+*/
 }
