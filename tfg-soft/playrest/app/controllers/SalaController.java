@@ -30,7 +30,7 @@ public class SalaController extends Controller {
         logger.debug("In ElementoReservableBD.create(), input is: {}", json.toString());
         Sala sala = (Sala) ElementoReservableBD.getInstance().addElementoReservable(Json.fromJson(json, Sala.class), bibliotecaID );
         JsonNode jsonObject = Json.toJson(sala);
-        System.out.println("El elemento reservable es: "  +sala);
+        System.out.println("La sala es: "  +sala);
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,sala.getUrl());
     }
 
@@ -39,7 +39,7 @@ public class SalaController extends Controller {
         Sala result = (Sala) ElementoReservableBD.getInstance().getElementoReservable(id);
 
         if  (result == null) {                                  //TODO frase de abajo se podría dejar con "Sala de id x not found"
-            return notFound(ApplicationUtil.createResponse("Elemento reservable with id:" + id + " not found", false));
+            return notFound(ApplicationUtil.createResponse("Sala with id:" + id + " not found", false));
         } else {
             JsonNode jsonObjects = Json.toJson(result);
             logger.debug("In ElementoReservableController.getElementoReservable(id), result is: {}", result.toString());
@@ -58,11 +58,11 @@ public class SalaController extends Controller {
     }
 
     public Result delete(int bibliotecaID, int id ) throws SQLException, ClassNotFoundException {
-        logger.debug("In ElementoReservableController.retrieve(), delete Elemento Reservable with id: {}",id);
+        logger.debug("In ElementoReservableController.retrieve(), delete sala with id: {}",id);
         if (!ElementoReservableBD.getInstance().deleteElementoReservable(id)) {
-            return notFound(ApplicationUtil.createResponse("Elemento Reservable with id:" + id + " not found", false));
+            return notFound(ApplicationUtil.createResponse("Sala with id:" + id + " not found", false));
         }
-        return ok(ApplicationUtil.createResponse("Elemento Reservable with id:" + id + " deleted", true));
+        return ok(ApplicationUtil.createResponse("Sala with id:" + id + " deleted", true));
     }
 
     public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
@@ -74,7 +74,7 @@ public class SalaController extends Controller {
         }
         CambioAforoSala cambioAforoSala = (CambioAforoSala) ElementoReservableBD.getInstance().modifyElementoReservable(Json.fromJson(json, CambioAforoSala.class),id);
         if (cambioAforoSala == null) {
-            return notFound(ApplicationUtil.createResponse("Elemento reservable not found", false));
+            return notFound(ApplicationUtil.createResponse("Sala not found", false));
         }
 
         JsonNode jsonObject = Json.toJson(cambioAforoSala);
@@ -84,17 +84,14 @@ public class SalaController extends Controller {
     public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
         logger.debug("In ElementoReservableController.update()");
         JsonNode json = request.body().asJson();
-
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
         }
         Sala sala = (Sala)ElementoReservableBD.getInstance().update(Json.fromJson(json, Sala.class),id);
-        logger.debug("In ElementoReservableController.update(), elemento reservable  is: {}", sala);
-
+        logger.debug("In ElementoReservableController.update(), sala is: {}", sala);
         if (sala == null) {
-            return notFound(ApplicationUtil.createResponse("Elemento reservable not found", false));
+            return notFound(ApplicationUtil.createResponse("Sala not found", false));
         }
-
         JsonNode jsonObject = Json.toJson(sala);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }

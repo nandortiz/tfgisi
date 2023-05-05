@@ -169,17 +169,18 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
                 if (elementoReservable instanceof Sala) {
                     Sala sala = (Sala) elementoReservable;
                     int aforo = sala.getAforo();
-                    createStatement.executeUpdate("update elementoReservable set aforoSala = '"+aforo+"' where id = '"+id+"' ;");
+                    String descripcion = sala.getDescripcion();
+                    createStatement.executeUpdate("update elementoReservable set aforoSala = '"+aforo+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
                 } else if (elementoReservable instanceof Puesto) {
                     Puesto puesto = (Puesto) elementoReservable;
                     String info = puesto.getInfo();
-                    createStatement.executeUpdate("update elementoReservable set infoPuesto = '"+info+"' where id = '"+id+"' ;");
+                    String descripcion = puesto.getDescripcion();
+                    createStatement.executeUpdate("update elementoReservable set infoPuesto = '"+info+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         if (elementoReservable instanceof Sala) {
             return (Sala) ElementoReservableBD.getInstance().getElementoReservable(id);
         } else if (elementoReservable instanceof Puesto) {

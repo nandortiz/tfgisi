@@ -60,7 +60,7 @@ public class ElementoReservableController extends Controller {
     }
 */
 
-
+/*
 private static final Logger logger = LoggerFactory.getLogger("controller");
 public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
     logger.debug("In ElementoReservableController.update()");
@@ -77,7 +77,7 @@ public Result modify(int id, Http.Request request) throws SQLException, ClassNot
     JsonNode jsonObject = Json.toJson(cambioDescripcion);
     return ok(ApplicationUtil.createResponse(jsonObject, true));
 }
-
+/*
     public Result delete(int bibliotecaID, int id ) throws SQLException, ClassNotFoundException {
         logger.debug("In ElementoReservableController.retrieve(), delete ElementoReservable with id: {}",id);
         if (!ElementoReservableBD.getInstance().deleteElementoReservable(id)) {
@@ -103,7 +103,7 @@ public Result modify(int id, Http.Request request) throws SQLException, ClassNot
         JsonNode jsonObject = Json.toJson(elementoReservable);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
-
+/*
     public Result retrieve (int bibliotecaID, int id) {
         ElementoReservable result = ElementoReservableBD.getInstance().getElementoReservable(id);
 
