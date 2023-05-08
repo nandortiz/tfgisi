@@ -27,7 +27,7 @@ public class Ordenador extends RecursoExtra{
     public String toString () {
         return "Ordenador{" +
                 "id = '" + id +
-                "nombre = '" + getNombre() +
+                ", nombre = '" + getNombre() +
                 "' ,numSerieOrdenador ='" + numSerie +
                 "', descripcion ='" + getDescripcion() + '\'' +
                 "', tipo ='" + tipo +
