@@ -85,6 +85,51 @@ public class RecursoExtraBD extends ConexionBD {
         //return url;
     }
 
+    //TODO necesita id, no hace falta diferenciar entre puesto y sala
+    public RecursoExtra getRecursoExtra(int id) {
+        RecursoExtra recursoExtra = new RecursoExtra();
+        try {
+            if (conector() == true) {
+                String queryBD = "select id, nombre, descripcion, tipo, bibliotecaID, numSerie, ISBN from recursoExtra where id='"+id+"';";
+                try {
 
+                    rS = createStatement.executeQuery(queryBD);
+                    while (rS.next()) {
+                        TipoRecursoExtra tipo = TipoRecursoExtra.valueOf(rS.getString("tipo"));
+                        if (tipo.equals(TipoRecursoExtra.O)) {
+                            Ordenador ordenador = new Ordenador();
+                            ordenador.setNumSerie(rS.getInt("numSerie"));
+                            recursoExtra = ordenador;
+                        } else if (tipo.equals(TipoRecursoExtra.L)) {
+                            Libro libro = new Libro();
+                            libro.setIsbn(rS.getString("ISBN"));
+                            recursoExtra = libro;
+                        }
+
+                        recursoExtra.setId(rS.getInt("id")); //TODO PENSAR EL CAMBIO
+                        recursoExtra.setNombre(rS.getString("nombre"));
+                        recursoExtra.setDescripcion(rS.getString("descripcion"));
+                        recursoExtra.setBibliotecaID(rS.getInt("bibliotecaID"));
+                        recursoExtra.setTipo(tipo);
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - getRecursoExtra");
+                    ex.printStackTrace();
+                    Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (recursoExtra.getId()==-1){
+            return null;
+        }
+        else {
+            return recursoExtra;
+        }
+
+    }
 
 }

@@ -35,7 +35,18 @@ public class OrdenadorController extends Controller{
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION,ordenador.getUrl());
     }
 
+    public Result retrieve (int bibliotecaID, int id) {
+        Ordenador result = (Ordenador) RecursoExtraBD.getInstance().getRecursoExtra(id);
 
+        if  (result == null) {                                  //TODO frase de abajo se podría dejar con "Ordenador de id x not found"
+            return notFound(ApplicationUtil.createResponse("Ordenador with id:" + id + " not found", false));
+        } else {
+            JsonNode jsonObjects = Json.toJson(result);
+            logger.debug("In RecursoExtraController.getRecursoExtra(id), result is: {}", result.toString());
+            //TODO no sería "In RecursoExtraBD?????"
+            return ok(ApplicationUtil.createResponse(jsonObjects, true));
+        }
+    }
 
 
 
