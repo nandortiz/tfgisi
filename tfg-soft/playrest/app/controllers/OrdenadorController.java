@@ -12,7 +12,6 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import services.ElementoReservableBD;
 import services.RecursoExtraBD;
 import utils.ApplicationUtil;
 
@@ -78,6 +77,21 @@ public class OrdenadorController extends Controller{
             return notFound(ApplicationUtil.createResponse("Ordenador not found", false));
         }
         JsonNode jsonObject = Json.toJson(ordenador);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
+    public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
+        logger.debug("In OrdenadorController.update()");
+        JsonNode json = request.body().asJson();
+
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+        }
+        CambioNumSerieOrdenador cambioNumSerie = (CambioNumSerieOrdenador) RecursoExtraBD.getInstance().modifyRecursoExtra(Json.fromJson(json, CambioNumSerieOrdenador.class),id);
+        if (cambioNumSerie == null) {
+            return notFound(ApplicationUtil.createResponse("Ordenador not found", false));
+        }
+
+        JsonNode jsonObject = Json.toJson(cambioNumSerie);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 

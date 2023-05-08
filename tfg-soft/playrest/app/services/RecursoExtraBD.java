@@ -1,7 +1,12 @@
 package services;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
 import entities.*;
+import play.libs.Json;
+import play.mvc.Http;
+import play.mvc.Result;
+import utils.ApplicationUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -225,6 +230,37 @@ public class RecursoExtraBD extends ConexionBD {
             return null;
         }
 
+    }
+
+    public Cambio modifyRecursoExtra(Cambio cam, int id) throws SQLException, ClassNotFoundException {
+        try {
+            if (conector()) {
+
+                if (cam instanceof CambioDescripcion) {
+                    CambioDescripcion cer = (CambioDescripcion) cam;
+                    String descripcion = cer.getDescripcion();
+                    createStatement.executeUpdate("update recursoextra set descripcion = '" + descripcion + "' where id = '" + id + "';");
+
+                }
+                if (cam instanceof CambioNumSerieOrdenador){
+                    CambioNumSerieOrdenador cip = (CambioNumSerieOrdenador) cam;
+                    String numSerieOrdenador = cip.getNumSerieOrdenador();
+                    createStatement.executeUpdate("update recursoextra set numSerie = '"+ numSerieOrdenador+"' where id = '"+id+"';");
+
+                }
+                if (cam instanceof CambioIsbnLibro){
+                    CambioIsbnLibro cas = (CambioIsbnLibro) cam;
+                    int isbnLibro = cas.getIsbnLibro();
+                    createStatement.executeUpdate("update recursoextra set ISBN = '"+ isbnLibro+"' where id = '"+id+"';");
+
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return cam;
     }
 
 }
