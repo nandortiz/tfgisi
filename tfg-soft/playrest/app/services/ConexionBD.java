@@ -91,15 +91,27 @@ public class ConexionBD {
 */
                 String crearElementoReservable = "create table if not exists elementoreservable(\n" +
                         "id int (100) primary key auto_increment not null,\n" +
-                        "url varchar (50),\n" +
+                        "url varchar (50) default null,\n" +
                         "descripcion varchar (100) not null,\n" +
                         "tipo varchar (1) default null, \n" +
-                        "bibliotecaID int,\n" +
+                        "bibliotecaID int default null,\n" +
                         "aforoSala int (2) default null, \n" +
                         "infoPuesto varchar(30) default null, \n" +
                         "foreign key (bibliotecaID) references biblioteca (id) on delete cascade\n" +
                         ");";
 
+
+                String crearRecursoExtra = "create table if not exists recursoextra(\n" +
+                        "id int (100) primary key auto_increment not null,\n" +
+                        "nombre varchar (100) default null, \n" +
+                        "url varchar (50) default null,\n" +
+                        "descripcion varchar (100) not null,\n" +
+                        "tipo varchar (1) default null, \n" +
+                        "bibliotecaID int default null,\n" +
+                        "numSerie varchar(30) default null, \n" +
+                        "ISBN int default null, \n" +
+                        "foreign key (bibliotecaID) references biblioteca (id) on delete cascade\n" +
+                        ");";
  /*               String crearReserva = "create table if not exists reserva(\n" +
                         "id int (100) primary key auto_increment not null,\n" +
                         "url varchar (40) default null,\n" +
@@ -258,8 +270,10 @@ public class ConexionBD {
 
                 createStatement.executeUpdate(crear);
                 createStatement.executeUpdate(uso);
-            //    createStatement.executeUpdate(crearUsuario);
                 createStatement.executeUpdate(crearBiblioteca);
+                createStatement.executeUpdate(crearElementoReservable);
+                createStatement.executeUpdate(crearRecursoExtra);
+                //    createStatement.executeUpdate(crearUsuario);
                 //createStatement.executeUpdate(crearPuesto);
                 //createStatement.executeUpdate(crearSala);
                 //createStatement.executeUpdate(crearLibro);
@@ -268,9 +282,7 @@ public class ConexionBD {
               //  createStatement.executeUpdate(crearDisponibilidadRecursoExtra);
               //  createStatement.executeUpdate(crearReserva);
               //  createStatement.executeUpdate(crearRecursoExtra);
-                createStatement.executeUpdate(crearElementoReservable);
               //  createStatement.executeUpdate(crearReservaExtra);
-
               //  createStatement.executeUpdate(crearRecurso);
               //  createStatement.executeUpdate(crearRecursoPuesto);
               //  createStatement.executeUpdate(crearRecursoSala);
