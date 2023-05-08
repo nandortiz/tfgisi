@@ -48,7 +48,14 @@ public class OrdenadorController extends Controller{
         }
     }
 
+    public Result retrieveAll (int id){
+        Collection<RecursoExtraShort> result = RecursoExtraBD.getInstance().getAllRecursosExtras(id, TipoRecursoExtra.O);
 
+        JsonNode jsonObjects = Json.toJson(result);
+        logger.debug("In RecursoExtraController.getAllRecursosExtras(), result is: {}",result.toString());
+        //TODO IDEM RecExtraBD?????
+        return ok(ApplicationUtil.createResponse(jsonObjects, true));
+    }
 
 
 }

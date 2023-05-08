@@ -98,11 +98,11 @@ public class RecursoExtraBD extends ConexionBD {
                         TipoRecursoExtra tipo = TipoRecursoExtra.valueOf(rS.getString("tipo"));
                         if (tipo.equals(TipoRecursoExtra.O)) {
                             Ordenador ordenador = new Ordenador();
-                            ordenador.setNumSerie(rS.getInt("numSerie"));
+                            ordenador.setNumSerie(rS.getString("numSerie"));
                             recursoExtra = ordenador;
                         } else if (tipo.equals(TipoRecursoExtra.L)) {
                             Libro libro = new Libro();
-                            libro.setIsbn(rS.getString("ISBN"));
+                            libro.setIsbn(rS.getInt("ISBN"));
                             recursoExtra = libro;
                         }
 
@@ -130,6 +130,37 @@ public class RecursoExtraBD extends ConexionBD {
             return recursoExtra;
         }
 
+    }
+
+    //TODO necesita id, no hace falta diferenciar entre puesto y sala
+    public Collection<RecursoExtraShort> getAllRecursosExtras(int bibliotecaID, TipoRecursoExtra tipo) {
+        List<RecursoExtraShort> recursosExtras = new ArrayList();
+
+        try {
+            if (conector() == true) {
+                String queryBD = "select id, url from recursoExtra where bibliotecaID = '"+bibliotecaID+"' and tipo= '"+tipo+"';";
+                try {
+                    rS = createStatement.executeQuery(queryBD);
+                    while (rS.next()) {
+                        //Cada vuelta while es un línea del resultado de la consulta -> Biblioteca
+                        RecursoExtraShort recursoExtra = new RecursoExtraShort();
+                        recursoExtra.setId(rS.getInt("id"));
+                        recursoExtra.setUrl(rS.getString("url"));
+
+                        recursosExtras.add(recursoExtra);
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - getAllRecursosExtras");
+                    ex.printStackTrace();
+                    Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Se usa RecursoExtraBD - getAllRecursosExtras");
     }
 
 }
