@@ -1,5 +1,6 @@
 package controllers;
 
+import akka.actor.typed.RecipientRef;
 import entities.*;
 //import freemarker.template.Configuration;
 //import freemarker.template.Template;
@@ -65,7 +66,20 @@ public class OrdenadorController extends Controller{
         return ok(ApplicationUtil.createResponse("Ordenador with id:" + id + " deleted", true));
     }
 
-
+    public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
+        logger.debug("In OrdenadorController.update()");
+        JsonNode json = request.body().asJson();
+        if (json == null) {
+            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+        }
+        Ordenador ordenador = (Ordenador) RecursoExtraBD.getInstance().update(Json.fromJson(json, Ordenador.class),id);
+        logger.debug("In OrdenadorController.update(), ordenador is: {}", ordenador);
+        if (ordenador == null) {
+            return notFound(ApplicationUtil.createResponse("Ordenador not found", false));
+        }
+        JsonNode jsonObject = Json.toJson(ordenador);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
 
 
 }

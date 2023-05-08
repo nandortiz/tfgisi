@@ -199,4 +199,32 @@ public class RecursoExtraBD extends ConexionBD {
         return valor;
     }
 
+    public RecursoExtra update(RecursoExtra recursoExtra, int id) throws SQLException, ClassNotFoundException {
+        try {
+            if (conector()) {
+                if (recursoExtra instanceof Ordenador) {
+                    Ordenador ordenador = (Ordenador) recursoExtra;
+                    String numSerie = ordenador.getNumSerie();
+                    String descripcion = ordenador.getDescripcion();
+                    createStatement.executeUpdate("update recursoExtra set numSerie = '"+numSerie+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
+                } else if (recursoExtra instanceof Libro) {
+                    Libro libro = (Libro) recursoExtra;
+                    int isbn = libro.getIsbn();
+                    String descripcion = libro.getDescripcion();
+                    createStatement.executeUpdate("update recursoExtra set ISBN ='"+isbn+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (recursoExtra instanceof Ordenador) {
+            return (Ordenador) RecursoExtraBD.getInstance().getRecursoExtra(id);
+        } else if (recursoExtra instanceof Libro) {
+            return (Libro) RecursoExtraBD.getInstance().getRecursoExtra(id);
+        } else {
+            return null;
+        }
+
+    }
+
 }
