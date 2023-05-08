@@ -161,6 +161,42 @@ public class RecursoExtraBD extends ConexionBD {
             e.printStackTrace();
         }
         System.out.println("Se usa RecursoExtraBD - getAllRecursosExtras");
+        return recursosExtras;
+    }
+
+    //TODO necesita id, no hace falta diferenciar entre puesto y sala
+    public boolean deleteRecursoExtra(int id) throws SQLException, ClassNotFoundException {
+        boolean valor= false;
+        try {
+            if (conector() == true) {
+
+                String queryBD = "delete from recursoExtra where id = '"+id+"';";
+
+                try {
+                    createStatement.executeUpdate(queryBD);
+                    valor = true;
+                    return valor;
+                } catch (SQLException ex) {
+                    Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+
+                    con.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - deleteRecursoExtra");
+                    Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return valor;
     }
 
 }

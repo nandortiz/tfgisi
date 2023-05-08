@@ -226,6 +226,7 @@ public boolean deleteElementoReservable(int id) throws SQLException, ClassNotFou
     }
     return valor;
 }
+
     //TODO necesita id, no hace falta diferenciar entre puesto y sala
     public ElementoReservable getElementoReservable(int id) {
         ElementoReservable elementoReservable = new ElementoReservable();

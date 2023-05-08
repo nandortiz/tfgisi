@@ -42,7 +42,7 @@ public class OrdenadorController extends Controller{
             return notFound(ApplicationUtil.createResponse("Ordenador with id:" + id + " not found", false));
         } else {
             JsonNode jsonObjects = Json.toJson(result);
-            logger.debug("In RecursoExtraController.getRecursoExtra(id), result is: {}", result.toString());
+            logger.debug("In OrdenadorController.getRecursoExtra(id), result is: {}", result.toString());
             //TODO no sería "In RecursoExtraBD?????"
             return ok(ApplicationUtil.createResponse(jsonObjects, true));
         }
@@ -52,10 +52,20 @@ public class OrdenadorController extends Controller{
         Collection<RecursoExtraShort> result = RecursoExtraBD.getInstance().getAllRecursosExtras(id, TipoRecursoExtra.O);
 
         JsonNode jsonObjects = Json.toJson(result);
-        logger.debug("In RecursoExtraController.getAllRecursosExtras(), result is: {}",result.toString());
+        logger.debug("In OrdenadorController.getAllRecursosExtras(), result is: {}",result.toString());
         //TODO IDEM RecExtraBD?????
         return ok(ApplicationUtil.createResponse(jsonObjects, true));
     }
+
+    public Result delete(int bibliotecaID, int id ) throws SQLException, ClassNotFoundException {
+        logger.debug("In OrdenadorController.retrieve(), delete ordenador with id: {}",id);
+        if (!RecursoExtraBD.getInstance().deleteRecursoExtra(id)) {
+            return notFound(ApplicationUtil.createResponse("Ordenador with id:" + id + " not found", false));
+        }
+        return ok(ApplicationUtil.createResponse("Ordenador with id:" + id + " deleted", true));
+    }
+
+
 
 
 }
