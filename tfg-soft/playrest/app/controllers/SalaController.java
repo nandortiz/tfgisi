@@ -12,7 +12,6 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import services.ElementoReservableBD;
-//import services.SalaBD;
 import utils.ApplicationUtil;
 
 import java.sql.SQLException;
