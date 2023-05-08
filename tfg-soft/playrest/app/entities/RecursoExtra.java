@@ -69,4 +69,15 @@ public class RecursoExtra extends RecursoWeb {
                 '}';
     }
 
+    public String getUrl () {
+        return "/bibliotecas/" + this.id;
+    }
+
+    public void setId ( int id){
+        this.id = id;
+    }
+
+    public int getId () {
+        return this.id;
+    }
 }
