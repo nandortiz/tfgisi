@@ -6,7 +6,7 @@ public class Ordenador extends RecursoExtra{
 
     private String numSerie;
 
-    public Ordenador(String nombre, String descripcion, String numSerieOrdenador int bibliotecaID) {
+    public Ordenador(String nombre, String descripcion, String numSerieOrdenador, int bibliotecaID) {
         super (nombre, descripcion, TipoRecursoExtra.O, bibliotecaID);
         this.numSerie=numSerieOrdenador;
     }
@@ -26,13 +26,13 @@ public class Ordenador extends RecursoExtra{
     @Override
     public String toString () {
         return "Ordenador{" +
-                "id = '" + id +
-                ", nombre = '" + getNombre() +
-                "' ,numSerieOrdenador ='" + numSerie +
-                "', descripcion ='" + getDescripcion() + '\'' +
-                "', tipo ='" + tipo +
-                "', bibliotecaID='" + getBibliotecaID() +
-                ", url = '" + getUrl() +
+                "'id = '" + id +
+                "', nombre = '" + getNombre() +
+                "', numSerieOrdenador = '" + numSerie +
+                "', descripcion = '" + getDescripcion() + '\'' +
+                "', tipo = '" + tipo +
+                "', bibliotecaID =  '" + getBibliotecaID() +
+                "', url = '" + getUrl() +
                 '}';
     }
 

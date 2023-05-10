@@ -315,3 +315,203 @@ PUT /puestos/:idPuesto    controllers.PuestoController.update(request:Request, i
  #        $ref: '#/definitions/entities.CambioInfoPuesto'
  ###
 PATCH /puestos/:idPuesto    controllers.PuestoController.modify(idPuesto:Int, request:Request)
+
+#--------------------------------------------------------------------------------------------------
+
+###
+ #  summary: Crear un ordenador. (POST)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: ordenador
+ #      description: El ordenador a crear.
+ #      schema:
+ #         $ref: '#/definitions/entities.Ordenador'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Ordenador'
+ ###
+POST /bibliotecas/:id/ordenadores       controllers.OrdenadorController.create(id:Int, request:Request)
+
+###
+ #  summary: Obtener todos los ordenadores. (GET ALL)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Ordenador'
+ ###
+ GET /bibliotecas/:id/ordenadores/        controllers.OrdenadorController.retrieveAll(id:Int)
+
+ ###
+ #  summary: Obtener un ordenador. (GET)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Ordenador'
+ ###
+GET /bibliotecas/:id/ordenadores/:idOrdenador    controllers.OrdenadorController.retrieve( id:Int, idOrdenador:Int)
+
+###
+ #  summary: Eliminar un ordenador. (DELETE)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Ordenador'
+ ###
+DELETE /bibliotecas/:id/ordenadores/:idOrdenador controllers.OrdenadorController.delete(id:Int, idOrdenador:Int)
+
+###
+ #  summary: Actualizar un ordenador. (UPDATE)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: ordenador
+ #      description: El ordenador a actualizar.
+ #      schema:
+ #         $ref: '#/definitions/entities.Ordenador'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Ordenador'
+ ###
+PUT /ordenadores/:idOrdenador    controllers.OrdenadorController.update(request:Request, idOrdenador:Int)
+
+###
+ #  summary: Actualizar parcialmente un ordenador. (PATCH)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: cambioNumSerieOrdenador
+ #      description: El Ordenador a realizar
+ #      schema:
+ #         $ref: '#/definitions/entities.CambioNumSerieOrdenador'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.CambioNumSerieOrdenador'
+ ###
+PATCH /ordenadores/:idOrdenador    controllers.OrdenadorController.modify(idOrdenador:Int, request:Request)
+
+###
+ #  summary: Crear un libro. (POST)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: libro
+ #      description: El libro a crear.
+ #      schema:
+ #         $ref: '#/definitions/entities.Libro'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Libro'
+ ###
+POST /bibliotecas/:id/libros       controllers.LibroController.create(id:Int, request:Request)
+
+###
+ #  summary: Obtener todos los libros. (GET ALL)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Libro'
+ ###
+ GET /bibliotecas/:id/libros/        controllers.LibroController.retrieveAll(id:Int)
+
+ ###
+ #  summary: Obtener un libro. (GET)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Libro'
+ ###
+GET /bibliotecas/:id/libros/:idLibro    controllers.LibroController.retrieve( id:Int, idLibro:Int)
+
+###
+ #  summary: Eliminar un libro. (DELETE)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Libro'
+ ###
+DELETE /bibliotecas/:id/libros/:idLibro controllers.LibroController.delete(id:Int, idLibro:Int)
+
+###
+ #  summary: Actualizar un libro. (UPDATE)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: libro
+ #      description: El libro a actualizar.
+ #      schema:
+ #         $ref: '#/definitions/entities.Libro'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Libro'
+ ###
+PUT /libros/:idLibro    controllers.LibroController.update(request:Request, idLibro:Int)
+
+###
+ #  summary: Actualizar parcialmente un libro. (PATCH)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: cambioIsbnLibro
+ #      description: El libro a realizar
+ #      schema:
+ #         $ref: '#/definitions/entities.CambioIsbnLibro'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.CambioIsbnLibro'
+ ###
+PATCH /libros/:idLibro    controllers.LibroController.modify(idLibro:Int, request:Request)

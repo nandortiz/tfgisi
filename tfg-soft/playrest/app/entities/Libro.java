@@ -26,13 +26,13 @@ public class Libro extends RecursoExtra{
     @Override
     public String toString() {
         return "Libro{" +
-                "id = '" + id +
-                ", nombre = '" + getNombre() +
-                ", isbnLibro = '" + isbn +
-                "', descripcion ='" + getDescripcion() + '\'' +
+                "'id = '" + id +
+                "', nombre = '" + getNombre() +
+                "', isbnLibro = '" + isbn +
+                "', descripcion = '" + getDescripcion() + '\'' +
                 "', tipo ='" + tipo +
-                "', bibliotecaID ='" + getBibliotecaID() +
-                ", url = '" + getUrl() +
+                "', bibliotecaID = '" + getBibliotecaID() +
+                "', url = '" + getUrl() +
                 '}';
     }
     public String getUrl() {

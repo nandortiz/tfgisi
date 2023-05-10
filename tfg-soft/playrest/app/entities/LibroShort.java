@@ -1,6 +1,6 @@
 package entities;
 
-public class LibroShort extends RecursoExtra {
+public class LibroShort extends RecursoWeb {
 
     public LibroShort(){
         super();

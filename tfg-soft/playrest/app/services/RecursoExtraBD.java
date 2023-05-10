@@ -209,14 +209,16 @@ public class RecursoExtraBD extends ConexionBD {
             if (conector()) {
                 if (recursoExtra instanceof Ordenador) {
                     Ordenador ordenador = (Ordenador) recursoExtra;
+                    String nombre = recursoExtra.getNombre();
                     String numSerie = ordenador.getNumSerie();
                     String descripcion = ordenador.getDescripcion();
-                    createStatement.executeUpdate("update recursoExtra set numSerie = '"+numSerie+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
+                    createStatement.executeUpdate("update recursoextra set nombre = '"+nombre+"', numSerie = '"+numSerie+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
                 } else if (recursoExtra instanceof Libro) {
+                    String nombre = recursoExtra.getNombre();
                     Libro libro = (Libro) recursoExtra;
                     int isbn = libro.getIsbn();
                     String descripcion = libro.getDescripcion();
-                    createStatement.executeUpdate("update recursoExtra set ISBN ='"+isbn+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
+                    createStatement.executeUpdate("update recursoextra set nombre = '"+nombre+"', ISBN ='"+isbn+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
                 }
             }
         } catch (SQLException ex) {
@@ -235,7 +237,12 @@ public class RecursoExtraBD extends ConexionBD {
     public Cambio modifyRecursoExtra(Cambio cam, int id) throws SQLException, ClassNotFoundException {
         try {
             if (conector()) {
+                if (cam instanceof CambioNombre) {
+                    CambioNombre cne = (CambioNombre) cam;
+                    String nombre = cne.getNombre();
+                    createStatement.executeUpdate("update recursoextra set nombre = '" + nombre + "' where id = '" + id + "';");
 
+                }
                 if (cam instanceof CambioDescripcion) {
                     CambioDescripcion cer = (CambioDescripcion) cam;
                     String descripcion = cer.getDescripcion();
