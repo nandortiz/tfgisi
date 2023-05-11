@@ -29,7 +29,7 @@ public class Libro extends RecursoExtra{
                 "'id = '" + id +
                 "', nombre = '" + getNombre() +
                 "', isbnLibro = '" + isbn +
-                "', descripcion = '" + getDescripcion() + '\'' +
+                "', descripcio'" + getDescripcion() + '\'' +
                 "', tipo ='" + tipo +
                 "', bibliotecaID = '" + getBibliotecaID() +
                 "', url = '" + getUrl() +

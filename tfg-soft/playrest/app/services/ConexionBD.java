@@ -39,14 +39,14 @@ public class ConexionBD {
                 createStatement = con.createStatement();
                   String crear = "create database if not exists gestion;";
                 String uso = "use gestion;";
-             /*   String crearUsuario = "create table if not exists usuario(\n" +
+                String crearUsuario = "create table if not exists usuario(\n" +
                         "id int(100)primary key auto_increment not null, \n" +
                         "url varchar (40), \n" +
                         "nombre varchar (40) not null, \n" +
                         "apellidos varchar (40) not null, \n" +
                         "grado varchar (20) not null\n" +
                         ");";
-            */
+
                 String crearBiblioteca = "create table if not exists biblioteca(\n" +
                         "id int(100) primary key auto_increment not null,\n" +
                         "url varchar (40) default null,\n" +
@@ -273,7 +273,7 @@ public class ConexionBD {
                 createStatement.executeUpdate(crearBiblioteca);
                 createStatement.executeUpdate(crearElementoReservable);
                 createStatement.executeUpdate(crearRecursoExtra);
-                //    createStatement.executeUpdate(crearUsuario);
+                createStatement.executeUpdate(crearUsuario);
                 //createStatement.executeUpdate(crearPuesto);
                 //createStatement.executeUpdate(crearSala);
                 //createStatement.executeUpdate(crearLibro);
