@@ -515,3 +515,109 @@ PUT /libros/:idLibro    controllers.LibroController.update(request:Request, idLi
  #        $ref: '#/definitions/entities.CambioIsbnLibro'
  ###
 PATCH /libros/:idLibro    controllers.LibroController.modify(idLibro:Int, request:Request)
+
+#___________________________________________________________________________________________________________________
+
+###
+ #  summary: Crear un usuario. (POST)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: usuario
+ #      description: El usuario a crear.
+ #      schema:
+ #         $ref: '#/definitions/entities.Usuario'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Usuario'
+ ###
+POST /usuarios       controllers.UsuarioController.create(request:Request)
+
+ ###
+ #  summary: Obtener todos los usuarios. (GET ALL)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Usuario'
+ ###
+ GET /usuarios        controllers.UsuarioController.retrieveAll()
+
+ ###
+ #  summary: Obtener un usuario. (GET)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Usuario'
+ ###
+GET /usuarios/:id    controllers.UsuarioController.retrieve(id:Int)
+
+###
+ #  summary: Eliminar un usuario. (DELETE)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: usuario
+ #      description: El usuario a eliminar.
+ #      schema:
+ #         $ref: '#/definitions/entities.Usuario'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Usuario'
+ ###
+DELETE /usuarios/:id    controllers.UsuarioController.delete(id:Int)
+
+###
+ #  summary: Actualizar un usuario. (UPDATE)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: usuario
+ #      description: El usuario a actualizar.
+ #      schema:
+ #         $ref: '#/definitions/entities.Usuario'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.Usuario'
+ ###
+PUT /usuarios/:id    controllers.UsuarioController.update(request:Request, id:Int)
+
+###
+ #  summary: Actualizar parcialmente una usuario. (PATCH)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: cambioUsuario
+ #      description: El usuario a realizar
+ #      schema:
+ #         $ref: '#/definitions/entities.CambioGrado'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.CambioGrado'
+ ###
+PATCH /usuarios/:id    controllers.UsuarioController.modify(id:Int, request:Request)
