@@ -10,6 +10,9 @@ public class Puesto extends ElementoReservable {
     public Puesto(String descripcion, String infoPuesto, int bibliotecaID) {
         super(descripcion, TipoElementoReservable.P, bibliotecaID);
         this.info = infoPuesto;
+
+        setDisponibilidad(new DisponibilidadElementoReservable()); //TODO disponibilidad
+
     }
 
     public Puesto() {

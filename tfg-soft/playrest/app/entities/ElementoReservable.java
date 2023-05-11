@@ -1,9 +1,11 @@
 package entities;
 
 import java.util.ArrayList;
+import java.time.LocalTime; //TODO disponibilidad
 
-public class ElementoReservable extends RecursoWeb{
 
+public class ElementoReservable extends RecursoWeb{ //TODO public abstract class? disponibilidad
+    private DisponibilidadElementoReservable disponibilidad; //TODO disponibilidad
 
     private String descripcion = "";
     protected TipoElementoReservable tipo;
@@ -96,5 +98,29 @@ public class ElementoReservable extends RecursoWeb{
         return this.id;
     }
 
+        //TODO disponibiliad
 
+
+    public boolean reservarHorario(LocalTime horario) {
+        if (disponibilidad.getHorariosDisponibles().contains(horario)) {
+            disponibilidad.reservarHorario(horario);
+            return true;
+        }
+        return false;
+    }
+
+    public void liberarHorario(LocalTime horario) {
+        disponibilidad.liberarHorario(horario);
+    }
+
+    // getters y setters
+    public DisponibilidadElementoReservable getDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(DisponibilidadElementoReservable disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
 }
+
+

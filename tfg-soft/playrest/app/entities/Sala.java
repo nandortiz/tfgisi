@@ -15,6 +15,8 @@ public class Sala extends ElementoReservable {
     public Sala(String descripcion, int aforoSala, int bibliotecaID) {
     super (descripcion, TipoElementoReservable.S, bibliotecaID);
     this.aforo=aforoSala;
+
+    setDisponibilidad(new DisponibilidadElementoReservable());//TODO disponibilidad
     }
 
     public Sala() {
