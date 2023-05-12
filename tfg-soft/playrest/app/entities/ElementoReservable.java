@@ -2,14 +2,16 @@ package entities;
 
 import java.util.ArrayList;
 import java.time.LocalTime; //TODO disponibilidad
+import java.util.List;
 
 
 public class ElementoReservable extends RecursoWeb{ //TODO public abstract class? disponibilidad
-    private DisponibilidadElementoReservable disponibilidad; //TODO disponibilidad
+  //  private DisponibilidadElementoReservable disponibilidad; //TODO disponibilidad
 
     private String descripcion = "";
     protected TipoElementoReservable tipo;
     private int bibliotecaID;
+    private List <LocalTime> horariosDisponibles = new ArrayList<>();
 
 
     //horas de apertura y cierre 01/01/2021-10:00 ?¿?¿?¿?¿?¿
@@ -82,7 +84,8 @@ public class ElementoReservable extends RecursoWeb{ //TODO public abstract class
                 "', descripción ='" + descripcion +
                 "', tipo ='" + tipo +
                 "', bibliotecaID ='" + bibliotecaID +
-                ", url = '" + getUrl() +//", horarios disponibles='" + listaDisponibilidadBiblioteca+
+                ", url = '" + getUrl() +
+                //", horarios disponibles='" + listaDisponibilidadBiblioteca+
                 '}';
     }
 
@@ -101,26 +104,33 @@ public class ElementoReservable extends RecursoWeb{ //TODO public abstract class
         //TODO disponibiliad
 
 
-    public boolean reservarHorario(LocalTime horario) {
-        if (disponibilidad.getHorariosDisponibles().contains(horario)) {
-            disponibilidad.reservarHorario(horario);
-            return true;
-        }
+
+
+//TODO if contains horario, remove horario. else false
+public boolean reservarHorario(LocalTime horario) {
+    if (horariosDisponibles.contains(horario)) {
+        horariosDisponibles.remove(horario);
+        return true;
+    } else {
         return false;
     }
+}
+
+//TODO ss
 
     public void liberarHorario(LocalTime horario) {
-        disponibilidad.liberarHorario(horario);
+        horariosDisponibles.add(horario);
     }
 
     // getters y setters
-    public DisponibilidadElementoReservable getDisponibilidad() {
-        return disponibilidad;
-    }
+        public List<LocalTime> getHorariosDisponibles() {
+            return horariosDisponibles;
+        }
 
-    public void setDisponibilidad(DisponibilidadElementoReservable disponibilidad) {
-        this.disponibilidad = disponibilidad;
-    }
+        public void setHorariosDisponibles(List<LocalTime> horariosDisponibles) {
+            this.horariosDisponibles = horariosDisponibles;
+        }
+
 }
 
 

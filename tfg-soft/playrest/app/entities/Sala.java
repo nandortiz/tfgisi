@@ -16,7 +16,7 @@ public class Sala extends ElementoReservable {
     super (descripcion, TipoElementoReservable.S, bibliotecaID);
     this.aforo=aforoSala;
 
-    setDisponibilidad(new DisponibilidadElementoReservable());//TODO disponibilidad
+   // setDisponibilidad(new DisponibilidadElementoReservable());//TODO disponibilidad
     }
 
     public Sala() {

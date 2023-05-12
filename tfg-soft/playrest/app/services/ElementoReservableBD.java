@@ -93,6 +93,17 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
                     createStatement.executeUpdate("update elementoreservable set aforoSala = '"+ aforoSala+"' where id = '"+id+"';");
 
                 }
+                if (cam instanceof CambioReservarHorario){
+                    CambioReservarHorario crh = (CambioReservarHorario) cam;
+                    String reservarHorario = crh.getReservarHorario();
+                    createStatement.executeUpdate("update disponibilidadelementoreservable set fecha= '"+ reservarHorario+"' where id = '"+id+"';");
+                }
+                if (cam instanceof CambioLiberarHorario){
+                    CambioLiberarHorario clh = (CambioLiberarHorario) cam;
+                    String liberarHorario = clh.getLiberarHorario();
+                    createStatement.executeUpdate("update disponibilidadelementoreservable set fecha = '"+ liberarHorario +"' where id = '"+id+"';");
+
+                }
             }
 
         } catch (SQLException ex) {

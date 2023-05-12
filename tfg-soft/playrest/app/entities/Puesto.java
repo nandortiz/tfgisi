@@ -11,7 +11,7 @@ public class Puesto extends ElementoReservable {
         super(descripcion, TipoElementoReservable.P, bibliotecaID);
         this.info = infoPuesto;
 
-        setDisponibilidad(new DisponibilidadElementoReservable()); //TODO disponibilidad
+       // setDisponibilidad(new DisponibilidadElementoReservable()); //TODO disponibilidad
 
     }
 

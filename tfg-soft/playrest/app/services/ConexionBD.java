@@ -112,6 +112,14 @@ public class ConexionBD {
                         "ISBN int default null, \n" +
                         "foreign key (bibliotecaID) references biblioteca (id) on delete cascade\n" +
                         ");";
+
+                String crearDisponibilidadElementoReservable= "create table if not exists disponibilidadelementoreservable(\n" +
+                        "elementoReservableID int,\n" +
+                        "fecha datetime,\n" +
+                        "foreign key (elementoReservableID) references elementoreservable(id) on delete cascade,\n" +
+                        "primary key (elementoReservableID, fecha)\n" +
+                        ");";
+
  /*               String crearReserva = "create table if not exists reserva(\n" +
                         "id int (100) primary key auto_increment not null,\n" +
                         "url varchar (40) default null,\n" +
@@ -129,15 +137,10 @@ public class ConexionBD {
                         "foreign key (reservaID) references reserva(reservaID) on delete cascade, \n" +
                         "primary key (reservaID, RecursoExtraID)\n" +
                         ")";
+*/
 
 
-                String crearDisponibilidadElementoReservable= "create table if not exists disponibilidadelementoreservable(\n" +
-                        "elementoReservableID int,\n" +
-                        "fecha datetime,\n" +
-                        "foreign key (elementoReservableID) references elementoreservable(id) on delete cascade,\n" +
-                        "primary key (elementoReservableID, fecha)\n" +
-                        ");";
-
+/*
                 String crearDisponibilidadRecursoExtra= "create table if not exists disponibilidadrecursoextra(\n" +
                         "recursoExtraID int,\n" +
                         "fecha datetime,\n" +
@@ -274,12 +277,12 @@ public class ConexionBD {
                 createStatement.executeUpdate(crearElementoReservable);
                 createStatement.executeUpdate(crearRecursoExtra);
                 createStatement.executeUpdate(crearUsuario);
+                createStatement.executeUpdate(crearDisponibilidadElementoReservable);
                 //createStatement.executeUpdate(crearPuesto);
                 //createStatement.executeUpdate(crearSala);
                 //createStatement.executeUpdate(crearLibro);
                 //createStatement.executeUpdate(crearOrdenador);
-              //  createStatement.executeUpdate(crearDisponibilidadElementoReservable);
-              //  createStatement.executeUpdate(crearDisponibilidadRecursoExtra);
+                // createStatement.executeUpdate(crearDisponibilidadRecursoExtra);
               //  createStatement.executeUpdate(crearReserva);
               //  createStatement.executeUpdate(crearRecursoExtra);
               //  createStatement.executeUpdate(crearReservaExtra);

@@ -621,3 +621,6 @@ PUT /usuarios/:id    controllers.UsuarioController.update(request:Request, id:In
  #        $ref: '#/definitions/entities.CambioGrado'
  ###
 PATCH /usuarios/:id    controllers.UsuarioController.modify(id:Int, request:Request)
+
+#_______________________________________________-
+
