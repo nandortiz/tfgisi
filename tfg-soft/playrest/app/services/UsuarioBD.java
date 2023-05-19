@@ -180,7 +180,7 @@ public class UsuarioBD extends ConexionBD{
         try {
             if (conector()) {
 
-                CambioGrado cgu = (CambioGrado) cam;
+                CambioGrado cgu = cam;
                 String grado = cgu.getGrado();
 
                     createStatement.executeUpdate("update usuario set grado = '" + grado + "'  where id = '" + id + "';");

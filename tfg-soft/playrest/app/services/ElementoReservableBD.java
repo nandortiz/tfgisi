@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +18,8 @@ import static consistency.ConexionJDBC.connect;
 
 public class ElementoReservableBD  extends ConexionBD {
     private static services.ElementoReservableBD instance;
+    public static List<LocalTime> horariosDisponibles = new ArrayList<>();
+
 
     public static services.ElementoReservableBD getInstance() {
         if (instance == null) {
@@ -93,17 +96,21 @@ public ElementoReservable addElementoReservable(ElementoReservable elementoReser
                     createStatement.executeUpdate("update elementoreservable set aforoSala = '"+ aforoSala+"' where id = '"+id+"';");
 
                 }
-                if (cam instanceof CambioReservarHorario){
+                if (cam instanceof CambioReservarHorario) {
                     CambioReservarHorario crh = (CambioReservarHorario) cam;
-                    String reservarHorario = crh.getReservarHorario();
-                    createStatement.executeUpdate("update disponibilidadelementoreservable set fecha= '"+ reservarHorario+"' where id = '"+id+"';");
+                    String reservarHorario = crh.getReservarHorario();  //TODO a reserva???
+                    createStatement.executeUpdate("update disponibilidadelementoreservable set fecha= '" + reservarHorario + "' where id = '" + id + "';");
+                    LocalTime horarioReservado = ElementoReservable.parsearHorario(reservarHorario);
+                    ElementoReservable.liberarHorario(horarioReservado);
                 }
                 if (cam instanceof CambioLiberarHorario){
                     CambioLiberarHorario clh = (CambioLiberarHorario) cam;
-                    String liberarHorario = clh.getLiberarHorario();
-                    createStatement.executeUpdate("update disponibilidadelementoreservable set fecha = '"+ liberarHorario +"' where id = '"+id+"';");
-
+                    String liberarHorario = clh.getLiberarHorario();  //TODO aquí delete en vez de updates
+                    createStatement.executeUpdate("update disponibilidadelementoreservable set fecha = null where id = '" + id + "';");
+                    LocalTime horarioLiberado = ElementoReservable.parsearHorario(liberarHorario);
+                    ElementoReservable.agregarHorarioDisponible(horarioLiberado);
                 }
+
             }
 
         } catch (SQLException ex) {

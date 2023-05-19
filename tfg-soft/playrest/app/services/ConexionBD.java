@@ -120,7 +120,7 @@ public class ConexionBD {
                         "primary key (elementoReservableID, fecha)\n" +
                         ");";
 
- /*               String crearReserva = "create table if not exists reserva(\n" +
+                String crearReserva = "create table if not exists reserva(\n" +
                         "id int (100) primary key auto_increment not null,\n" +
                         "url varchar (40) default null,\n" +
                         "usuarioID int default null,\n" +
@@ -129,7 +129,7 @@ public class ConexionBD {
                         "foreign key (usuarioID) references usuario (id) on delete cascade,\n" +
                         "foreign key (elementoReservableID) references elementoReservable(id) on delete cascade \n" +
                         ")";
-
+/*
                 String crearReservaExtra = "create table if not exists reservaExtra(\n" +
                         "RecursoExtraID int (100) not null,\n" +
                         "reservaID int (100) not null,\n" +
@@ -278,12 +278,12 @@ public class ConexionBD {
                 createStatement.executeUpdate(crearRecursoExtra);
                 createStatement.executeUpdate(crearUsuario);
                 createStatement.executeUpdate(crearDisponibilidadElementoReservable);
+                createStatement.executeUpdate(crearReserva);
                 //createStatement.executeUpdate(crearPuesto);
                 //createStatement.executeUpdate(crearSala);
                 //createStatement.executeUpdate(crearLibro);
                 //createStatement.executeUpdate(crearOrdenador);
                 // createStatement.executeUpdate(crearDisponibilidadRecursoExtra);
-              //  createStatement.executeUpdate(crearReserva);
               //  createStatement.executeUpdate(crearRecursoExtra);
               //  createStatement.executeUpdate(crearReservaExtra);
               //  createStatement.executeUpdate(crearRecurso);

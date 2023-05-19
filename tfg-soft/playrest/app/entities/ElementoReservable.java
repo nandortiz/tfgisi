@@ -1,7 +1,11 @@
 package entities;
 
+import services.ElementoReservableBD;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.time.LocalTime; //TODO disponibilidad
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -85,6 +89,7 @@ public class ElementoReservable extends RecursoWeb{ //TODO public abstract class
                 "', tipo ='" + tipo +
                 "', bibliotecaID ='" + bibliotecaID +
                 ", url = '" + getUrl() +
+                ", disponibilidad = '" + getHorariosDisponibles()+ //TODO disponibilidad
                 //", horarios disponibles='" + listaDisponibilidadBiblioteca+
                 '}';
     }
@@ -105,7 +110,6 @@ public class ElementoReservable extends RecursoWeb{ //TODO public abstract class
 
 
 
-
 //TODO if contains horario, remove horario. else false
 public boolean reservarHorario(LocalTime horario) {
     if (horariosDisponibles.contains(horario)) {
@@ -118,9 +122,7 @@ public boolean reservarHorario(LocalTime horario) {
 
 //TODO ss
 
-    public void liberarHorario(LocalTime horario) {
-        horariosDisponibles.add(horario);
-    }
+
 
     // getters y setters
         public List<LocalTime> getHorariosDisponibles() {
@@ -130,7 +132,26 @@ public boolean reservarHorario(LocalTime horario) {
         public void setHorariosDisponibles(List<LocalTime> horariosDisponibles) {
             this.horariosDisponibles = horariosDisponibles;
         }
+      public static LocalTime parsearHorario(String horario) { //TODO es todo localtime, no necesario parsear
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return LocalTime.parse(horario, formatter);
+    }
+
+    public static void liberarHorario(LocalTime horario) {
+        ElementoReservableBD.horariosDisponibles.add(horario);
+        ElementoReservableBD.horariosDisponibles.sort(Comparator.naturalOrder());
+    }
+
+    public static void agregarHorarioDisponible(LocalTime horario) {
+        ElementoReservableBD.horariosDisponibles.add(horario);
+    }
+
 
 }
+
+
+
+
+
 
 

@@ -316,8 +316,6 @@ PUT /puestos/:idPuesto    controllers.PuestoController.update(request:Request, i
  ###
 PATCH /puestos/:idPuesto    controllers.PuestoController.modify(idPuesto:Int, request:Request)
 
-#--------------------------------------------------------------------------------------------------
-
 ###
  #  summary: Crear un ordenador. (POST)
  #  consumes:
@@ -516,8 +514,6 @@ PUT /libros/:idLibro    controllers.LibroController.update(request:Request, idLi
  ###
 PATCH /libros/:idLibro    controllers.LibroController.modify(idLibro:Int, request:Request)
 
-#___________________________________________________________________________________________________________________
-
 ###
  #  summary: Crear un usuario. (POST)
  #  consumes:
@@ -620,7 +616,109 @@ PUT /usuarios/:id    controllers.UsuarioController.update(request:Request, id:In
  #      schema:
  #        $ref: '#/definitions/entities.CambioGrado'
  ###
-PATCH /usuarios/:id    controllers.UsuarioController.modify(id:Int, request:Request)
+PATCH /usuarios/:id     controllers.UsuarioController.modify(id:Int, request:Request)
 
-#_______________________________________________-
 
+###
+  #  summary: Crear una reserva. (POST)
+  #  consumes:
+  #    - application/json
+  #  parameters:
+  #    - in: body
+  #      name: reserva
+  #      description: La reserva a crear.
+  #      schema:
+  #         $ref: '#/definitions/entities.ReservaElementoReservable'
+  #  responses:
+  #    201:
+  #      description: success
+  #      content:application/json:
+  #      schema:
+  #        $ref: '#/definitions/entities.ReservaElementoReservable'
+  ###
+POST /reservas      controllers.ReservaController.create(request:Request)
+
+ ###
+ #  summary: Obtener todas las reservas. (GET ALL)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.ReservaElementoReservable'
+ ###
+ GET /reservas        controllers.ReservaController.retrieveAll()
+
+ ###
+ #  summary: Obtener una reserva. (GET)
+ #  consumes:
+ #    - application/json
+ #
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.ReservaElementoReservable'
+ ###
+GET /reservas/:reservaID    controllers.ReservaController.retrieve(reservaID:Int)
+
+###
+ #  summary: Eliminar una reserva. (DELETE)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: reserva
+ #      description: La reserva a eliminar.
+ #      schema:
+ #         $ref: '#/definitions/entities.ReservaElementoReservable'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.ReservaElementoReservable'
+ ###
+DELETE /reservas/:reservaID    controllers.ReservaController.delete(reservaID:Int)
+
+###
+ #  summary: Actualizar una reserva. (UPDATE)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: reserva
+ #      description: La reserva a actualizar.
+ #      schema:
+ #         $ref: '#/definitions/entities.ReservaElementoReservable'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.ReservaElementoReservable'
+ ###
+PUT /reservas/:reservaID    controllers.ReservaController.update(request:Request, reservaID:Int)
+
+###
+ #  summary: Actualizar parcialmente una reserva. (PATCH)
+ #  consumes:
+ #    - application/json
+ #  parameters:
+ #    - in: body
+ #      name: cambioReserva
+ #      description: La reserva a realizar
+ #      schema:
+ #         $ref: '#/definitions/entities.ReservaElementoReservable'
+ #  responses:
+ #    201:
+ #      description: success
+ #      content:application/json:
+ #      schema:
+ #        $ref: '#/definitions/entities.ReservaElementoReservable'
+ ###
+PATCH /reservas/:reservaID     controllers.ReservaController.modify(reservaID:Int, request:Request)
