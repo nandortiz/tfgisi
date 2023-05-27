@@ -32,6 +32,7 @@ public class ElementoReservable extends RecursoWeb{ //TODO public abstract class
         this.descripcion = descripcionElementoReservable;
         this.tipo = tipoElementoReservable;
         this.bibliotecaID = bibliotecaID;
+        //this.horariosDisponibles = horariosDisponibles;
     }
 
     //TODO cambiar en workbench s y p por S y P

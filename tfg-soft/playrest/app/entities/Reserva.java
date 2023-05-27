@@ -2,22 +2,25 @@ package entities;
 
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
-public class ReservaElementoReservable extends RecursoWeb {
+public class Reserva extends RecursoWeb {
 
     private int usuarioID;
     private LocalDateTime fecha;
-    private int elementoReservableID;
+    private Integer elementoReservableID;
+    private Integer recursoExtraID;                                 //TODO recursoExtra
 
 
-    public ReservaElementoReservable() {
+    public Reserva() {
         super();
     }
 
-    public ReservaElementoReservable(int id, String url, int usuarioID, int elementoReservableID, LocalDateTime fecha) {
+    public Reserva(int id, String url, int usuarioID, Integer elementoReservableID, Integer recursoExtraID, LocalDateTime fecha) {   //TODO recursoExtra
         super(id, url);
         this.usuarioID = usuarioID;
         this.elementoReservableID = elementoReservableID;
+        this.recursoExtraID = recursoExtraID;                                    //TODO recursoExtra
         this.fecha = fecha;
 
     }
@@ -31,7 +34,9 @@ public class ReservaElementoReservable extends RecursoWeb {
     }
 
     public LocalDateTime getFecha() {
-        return fecha;
+        LocalDateTime fecha_hour = fecha.truncatedTo(ChronoUnit.HOURS);
+        System.out.println(fecha_hour);
+        return fecha_hour;
     }
 
     public LocalDateTime setFecha (LocalDateTime fecha) {
@@ -40,7 +45,7 @@ public class ReservaElementoReservable extends RecursoWeb {
     }
 
 
-    public int getElementoReservableID() {
+    public Integer getElementoReservableID() {
         return elementoReservableID;
     }
 
@@ -48,9 +53,13 @@ public class ReservaElementoReservable extends RecursoWeb {
         this.elementoReservableID = elementoReservableID;
     }
 
+    public Integer getRecursoExtraID() {
+        return recursoExtraID;
+    }               //TODO recursoExtra
 
-
-
+    public void setRecursoExtraID(int recursoExtraID) {                     //TODO recursoExtra
+        this.recursoExtraID = recursoExtraID;
+    }
 
     /*public LocalDateTime getDisponibilidadReserva() {
         return DisponibilidadReserva;
@@ -59,15 +68,14 @@ public class ReservaElementoReservable extends RecursoWeb {
     public void setDisponibilidadReserva(LocalDateTime disponibilidadReserva) {
         DisponibilidadReserva = disponibilidadReserva;
     }
-
 */
-
     @Override
     public String toString () {
-        return "ReservaElementoReservable{" +
+        return "Reserva{" +
                 "id = '" + id +
                 "', usuarioID ='" + usuarioID+
                 "', elementoReservableID ='" + elementoReservableID +
+                "', recursoExtraID = '" + recursoExtraID +                  //TODO recursoExtra
                 ", url = '" + getUrl() +
                 ", fecha = '" + fecha +
                 '}';

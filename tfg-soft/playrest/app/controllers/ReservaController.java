@@ -23,18 +23,20 @@ public class ReservaController extends Controller {
 
     public Result create(Http.Request request) throws SQLException, ClassNotFoundException {
         JsonNode json = request.body().asJson();
+        System.out.println(json);
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting JSON data", false));
         }
         logger.debug("In ReservaBD.create(), input is: {}", json.toString());
-        ReservaElementoReservable reservaElementoReservable = ReservaBD.getInstance().addReservaElementoReservable(Json.fromJson(json, ReservaElementoReservable.class));
-        JsonNode jsonObject = Json.toJson(reservaElementoReservable);
-        System.out.println("La reserva es: " + reservaElementoReservable);
-        return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION, reservaElementoReservable.getUrl());
+        Reserva reserva = ReservaBD.getInstance().addReserva(Json.fromJson(json, Reserva.class));
+
+        JsonNode jsonObject = Json.toJson(reserva);
+        System.out.println("La reserva es: " + reserva);
+        return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION, reserva.getUrl());
     }
 
     public Result retrieve (int reservaID) {
-        ReservaElementoReservable result = ReservaBD.getInstance().getReserva(reservaID);
+        Reserva result = ReservaBD.getInstance().getReserva(reservaID);
 
         if  (result == null) {
             return notFound(ApplicationUtil.createResponse("Reserva with id:" + reservaID + " not found", false));
@@ -47,7 +49,7 @@ public class ReservaController extends Controller {
     }
 
     public Result retrieveAll (){
-        Collection<ReservaElementoReservableShort> result = ReservaBD.getInstance().getAllReservas();
+        Collection<ReservaShort> result = ReservaBD.getInstance().getAllReservas();
 
         JsonNode jsonObjects = Json.toJson(result);
         logger.debug("In ReservaController.getAllReservas(), result is: {}",result.toString());
@@ -57,7 +59,7 @@ public class ReservaController extends Controller {
 
     public Result delete(int reservaID) throws SQLException, ClassNotFoundException {
         logger.debug("In ReservaController.retrieve(), delete reserva with id: {}",reservaID);
-        if (!ReservaBD.getInstance().deleteReservaElementoReservable(reservaID)) {
+        if (!ReservaBD.getInstance().deleteReserva(reservaID)) {
             return notFound(ApplicationUtil.createResponse("Reserva with id:" + reservaID + " not found", false));
         }
         return ok(ApplicationUtil.createResponse("Reserva with id:" + reservaID + " deleted", true));
@@ -70,7 +72,7 @@ public class ReservaController extends Controller {
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
         }
-        CambioFecha cambioFecha = (CambioFecha) ReservaBD.getInstance().modifyReservaElementoReservable(Json.fromJson(json, CambioFecha.class),reservaID);
+        CambioFecha cambioFecha = (CambioFecha) ReservaBD.getInstance().modifyReserva(Json.fromJson(json, CambioFecha.class),reservaID);
         if (cambioFecha == null) {
             return notFound(ApplicationUtil.createResponse("Reserva not found", false));
         }
@@ -86,13 +88,13 @@ public class ReservaController extends Controller {
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
         }
-        ReservaElementoReservable reservaElementoReservable = ReservaBD.getInstance().update(Json.fromJson(json, ReservaElementoReservable.class),reservaID);
-        logger.debug("In ReservaController.update(), reserva  is: {}", reservaElementoReservable);
-        if (reservaElementoReservable == null) {
+        Reserva reserva = ReservaBD.getInstance().update(Json.fromJson(json, Reserva.class),reservaID);
+        logger.debug("In ReservaController.update(), reserva  is: {}", reserva);
+        if (reserva == null) {
             return notFound(ApplicationUtil.createResponse("Reserva not found", false));
         }
 
-        JsonNode jsonObject = Json.toJson(reservaElementoReservable);
+        JsonNode jsonObject = Json.toJson(reserva);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 

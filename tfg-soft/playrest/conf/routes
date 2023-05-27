@@ -628,13 +628,13 @@ PATCH /usuarios/:id     controllers.UsuarioController.modify(id:Int, request:Req
   #      name: reserva
   #      description: La reserva a crear.
   #      schema:
-  #         $ref: '#/definitions/entities.ReservaElementoReservable'
+  #         $ref: '#/definitions/entities.Reserva'
   #  responses:
   #    201:
   #      description: success
   #      content:application/json:
   #      schema:
-  #        $ref: '#/definitions/entities.ReservaElementoReservable'
+  #        $ref: '#/definitions/entities.Reserva'
   ###
 POST /reservas      controllers.ReservaController.create(request:Request)
 
@@ -648,7 +648,7 @@ POST /reservas      controllers.ReservaController.create(request:Request)
  #      description: success
  #      content:application/json:
  #      schema:
- #        $ref: '#/definitions/entities.ReservaElementoReservable'
+ #        $ref: '#/definitions/entities.Reserva'
  ###
  GET /reservas        controllers.ReservaController.retrieveAll()
 
@@ -662,7 +662,7 @@ POST /reservas      controllers.ReservaController.create(request:Request)
  #      description: success
  #      content:application/json:
  #      schema:
- #        $ref: '#/definitions/entities.ReservaElementoReservable'
+ #        $ref: '#/definitions/entities.Reserva'
  ###
 GET /reservas/:reservaID    controllers.ReservaController.retrieve(reservaID:Int)
 
@@ -675,13 +675,13 @@ GET /reservas/:reservaID    controllers.ReservaController.retrieve(reservaID:Int
  #      name: reserva
  #      description: La reserva a eliminar.
  #      schema:
- #         $ref: '#/definitions/entities.ReservaElementoReservable'
+ #         $ref: '#/definitions/entities.Reserva'
  #  responses:
  #    201:
  #      description: success
  #      content:application/json:
  #      schema:
- #        $ref: '#/definitions/entities.ReservaElementoReservable'
+ #        $ref: '#/definitions/entities.Reserva'
  ###
 DELETE /reservas/:reservaID    controllers.ReservaController.delete(reservaID:Int)
 
@@ -694,13 +694,13 @@ DELETE /reservas/:reservaID    controllers.ReservaController.delete(reservaID:In
  #      name: reserva
  #      description: La reserva a actualizar.
  #      schema:
- #         $ref: '#/definitions/entities.ReservaElementoReservable'
+ #         $ref: '#/definitions/entities.Reserva'
  #  responses:
  #    201:
  #      description: success
  #      content:application/json:
  #      schema:
- #        $ref: '#/definitions/entities.ReservaElementoReservable'
+ #        $ref: '#/definitions/entities.Reserva'
  ###
 PUT /reservas/:reservaID    controllers.ReservaController.update(request:Request, reservaID:Int)
 
@@ -713,12 +713,12 @@ PUT /reservas/:reservaID    controllers.ReservaController.update(request:Request
  #      name: cambioReserva
  #      description: La reserva a realizar
  #      schema:
- #         $ref: '#/definitions/entities.ReservaElementoReservable'
+ #         $ref: '#/definitions/entities.Reserva'
  #  responses:
  #    201:
  #      description: success
  #      content:application/json:
  #      schema:
- #        $ref: '#/definitions/entities.ReservaElementoReservable'
+ #        $ref: '#/definitions/entities.Reserva'
  ###
 PATCH /reservas/:reservaID     controllers.ReservaController.modify(reservaID:Int, request:Request)
