@@ -120,16 +120,36 @@ public class ReservaExtraBD extends ConexionBD{
         return disponible;
     }
 
-    public Reserva getReservaExtra ( int reservaExtraID){ //TODO reservaExtraID no existe, sería combinación de reservaID y recursoExtraID
+    public Reserva getReserva ( int reservaID){
         Reserva reserva = new Reserva();
+        String query = "";
+        String queryExtra = "";
         try {
             if (conector() == true) {
-                String queryBD = "select reservaID, from reservaextra where recursoExtraID = '" + reservaExtraID + "';"; //TODO idem
                 try {
-                    rS = createStatement.executeQuery(queryBD);
-                    while (rS.next()) {
-                        reserva.setId(rS.getInt("reservaID"));
-                        reserva.setRecursoExtraID(rS.getInt("RecursoExtraID"));
+
+                    while (rS.next()) { //TODO mal ??¿?¿¿
+                        TipoElementoReservable tipo = TipoElementoReservable.valueOf(rS.getString("tipo"));
+                        TipoRecursoExtra tipoRecursoExtra = TipoRecursoExtra.valueOf(rS.getString("tipo"));
+                        if (tipo.equals(TipoElementoReservable.S) || tipo.equals(TipoElementoReservable.P)) {
+                            Reserva reservaNormal = new Reserva();
+                            reservaNormal.setElementoReservableID(rS.getInt("elementoReservableID"));
+                            reservaNormal.setId(rS.getInt("reservaID"));
+                            reservaNormal.setUsuarioID(rS.getInt("usuarioID"));
+                            reservaNormal.setFecha(rS.getObject("fecha", LocalDateTime.class));
+                            reserva = reservaNormal;
+                            query = "select url, usuarioID, elementoReservableID, fecha from reserva where reservaID = '" + reservaID + "';";
+                            rS = createStatement.executeQuery(query);
+                        } else if (tipoRecursoExtra.equals(TipoRecursoExtra.O) || tipoRecursoExtra.equals(TipoRecursoExtra.L)) {
+                            Reserva reservaExtra = new Reserva();
+                            reservaExtra.setRecursoExtraID(rS.getInt("recursoExtraID"));
+                            reservaExtra.setId(rS.getInt("reservaID"));
+                            reserva = reservaExtra;
+                            queryExtra = "select RecursoExtraID, url from reservaextra where reservaID = '" + reservaID + "';";
+                            rS = createStatement.executeQuery(queryExtra);
+
+                        }
+
                     }
                 } catch (SQLException ex) {
                     System.out.println("Error acceso base de datos - getReserva");
@@ -152,15 +172,41 @@ public class ReservaExtraBD extends ConexionBD{
 
     public Collection<ReservaShort> getAllReservasExtra () {
         List<ReservaShort> reservas = new ArrayList();
-
+        Reserva reserva = new Reserva();
+        Integer reservaID = reserva.getId();
+        String query = "";
+        String queryExtra = "";
         try {
             if (conector() == true) {
                 String queryBD = "select reservaID, url from reserva";
+                String queryBD2 = "select reservaID, RecursoExtraID from reservaextra";
 
                 try {
                     rS = createStatement.executeQuery(queryBD);
 
                     while (rS.next()) {
+                        TipoElementoReservable tipo = TipoElementoReservable.valueOf(rS.getString("tipo"));
+                        TipoRecursoExtra tipoRecursoExtra = TipoRecursoExtra.valueOf(rS.getString("tipo"));
+                        if (tipo.equals(TipoElementoReservable.S) || tipo.equals(TipoElementoReservable.P)) {
+                            Reserva reservaNormal = new Reserva();
+                            reservaNormal.setElementoReservableID(rS.getInt("elementoReservableID"));
+                            reservaNormal.setId(rS.getInt("reservaID"));
+                            reservaNormal.setUsuarioID(rS.getInt("usuarioID"));
+                            reservaNormal.setFecha(rS.getObject("fecha", LocalDateTime.class));
+                            reserva = reservaNormal;
+                            query = "select url, reservaID from reserva;";
+                            rS = createStatement.executeQuery(query);
+                        } else if (tipoRecursoExtra.equals(TipoRecursoExtra.O) || tipoRecursoExtra.equals(TipoRecursoExtra.L)) {
+                            Reserva reservaExtra = new Reserva();
+                            reservaExtra.setRecursoExtraID(rS.getInt("recursoExtraID"));
+                            reservaExtra.setId(rS.getInt("reservaID"));
+                            reserva = reservaExtra;
+                            queryExtra = "select RecursoExtraID, url from reservaextra where reservaID = '" + reservaID + "';";
+                            rS = createStatement.executeQuery(queryExtra);
+
+                        }
+
+
                         //Cada vuelta while es un línea del resultado de la consulta -> Reserva
                         ReservaShort reserva = new ReservaShort();
                         reserva.setId(rS.getInt("reservaID"));
@@ -270,11 +316,7 @@ public class ReservaExtraBD extends ConexionBD{
         return getReservaExtra(reservaExtraID);
     }
 
-
 }
 
 
-
-
-
-*/
+ */

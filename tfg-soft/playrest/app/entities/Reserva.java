@@ -16,7 +16,7 @@ public class Reserva extends RecursoWeb {
         super();
     }
 
-    public Reserva(int id, String url, int usuarioID, Integer elementoReservableID, Integer recursoExtraID, LocalDateTime fecha) {   //TODO recursoExtra
+    public Reserva(Integer id, String url, int usuarioID, Integer elementoReservableID, Integer recursoExtraID, LocalDateTime fecha) {   //TODO recursoExtra
         super(id, url);
         this.usuarioID = usuarioID;
         this.elementoReservableID = elementoReservableID;
@@ -85,11 +85,11 @@ public class Reserva extends RecursoWeb {
         return "/reservas/" + this.id;
     }
 
-    public void setId ( int id){
+    public void setId ( Integer id){
         this.id = id;
     }
 
-    public int getId () {
+    public Integer getId () {
         return this.id;
     }
 

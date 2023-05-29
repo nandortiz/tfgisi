@@ -60,7 +60,7 @@ public class Sala extends ElementoReservable {
     public void setId(int id) {
         this.id = id;
     }
-*/
+
 /*    public String getDescripcionElementoReservable() {
         return descripcionElementoReservable;
     }

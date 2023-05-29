@@ -2,7 +2,7 @@ package entities;
 
 public class RecursoWeb {
 
-    protected int id;
+    protected Integer id;
     protected String url;
 
     public RecursoWeb(){
@@ -12,17 +12,17 @@ public class RecursoWeb {
 
 
 
-    public RecursoWeb(int id, String url){
+    public RecursoWeb(Integer id, String url){
         this.id = id;
         this.url = url;
     }
 
-    public int getId(){
+    public Integer getId(){
         return id;
 
     }
 
-    public void setId(int id){
+    public void setId(Integer id){
         this.id = id;
     }
 

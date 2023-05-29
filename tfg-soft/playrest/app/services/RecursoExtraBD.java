@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -97,7 +98,6 @@ public class RecursoExtraBD extends ConexionBD {
             if (conector() == true) {
                 String queryBD = "select id, nombre, descripcion, tipo, bibliotecaID, numSerie, ISBN from recursoExtra where id='"+id+"';";
                 try {
-
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()) {
                         TipoRecursoExtra tipo = TipoRecursoExtra.valueOf(rS.getString("tipo"));
@@ -110,7 +110,6 @@ public class RecursoExtraBD extends ConexionBD {
                             libro.setIsbn(rS.getInt("ISBN"));
                             recursoExtra = libro;
                         }
-
                         recursoExtra.setId(rS.getInt("id")); //TODO PENSAR EL CAMBIO
                         recursoExtra.setNombre(rS.getString("nombre"));
                         recursoExtra.setDescripcion(rS.getString("descripcion"));
@@ -134,7 +133,6 @@ public class RecursoExtraBD extends ConexionBD {
         else {
             return recursoExtra;
         }
-
     }
 
     //TODO necesita id, no hace falta diferenciar entre puesto y sala
