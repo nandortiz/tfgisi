@@ -38,47 +38,42 @@ public class ReservaBD extends ConexionBD {
         Integer identificador = -1;
         LocalDateTime fecha;
         boolean disponibilidad;
+        Connection cn = connect();
         Integer reservaID = reserva.getId();
-        String tipoReserva = comprobarTipoReserva(reserva);
+        //String tipoReserva = comprobarTipoReserva(reserva);
+        TipoReserva tipoReserva = TipoReserva.N; //Valor predeterminado
 
-        //TODO tipo de reserva?
-
-
+        // Obtener el tipo de reserva
+        if (reserva.getRecursoExtraID() != null) {
+            tipoReserva = TipoReserva.E;
+        }
 
         if (conector() == true) {
+
             try {
-
-
-                disponibilidad = comprobarDisponibilidad(reserva);
-
+                disponibilidad = comprobarDisponibilidad(reserva, tipoReserva);
                 System.out.println(disponibilidad);
 
-                if (disponibilidad == true && tipoReserva == "reservaNormal") {
+                if (disponibilidad && tipoReserva == TipoReserva.N) {
                     elementoReservableID = reserva.getElementoReservableID();
                     usuarioID = reserva.getUsuarioID();
                     fecha = reserva.getFecha();
                     String query = "INSERT INTO reserva (usuarioID, elementoReservableID, fecha) VALUES ('" + usuarioID + "','" + elementoReservableID + "', '" + fecha + "');";
-                    //System.out.println(query);
-                    // createStatement.executeUpdate("set foreign_key_checks = 0;");
                     createStatement.executeUpdate(query, RETURN_GENERATED_KEYS);
                     ResultSet prueba = createStatement.getGeneratedKeys();
                     prueba.next();
                     identificador = prueba.getInt(1);
+                    System.out.println(identificador);
                     String url = "/reserva/" + identificador;
                     createStatement.executeUpdate("UPDATE  reserva set url ='" + url + "' where reservaID = " + identificador + ";");
-                } else if (disponibilidad == true && tipoReserva == "reservaExtra"){
-                    String query = "INSERT INTO reservaextra (reservaID, RecursoExtraID) VALUES ('" + reservaID  + "','" + recursoExtraID + "');";
-                 //  System.out.println(query);
-                    // createStatement.executeUpdate("set foreign_key_checks = 0;");
+                } else if (disponibilidad && tipoReserva == TipoReserva.E) {
+                    String query = "INSERT INTO reservaextra (reservaID, RecursoExtraID) VALUES ('" + reservaID + "','" + recursoExtraID + "');";
                     createStatement.executeUpdate(query, RETURN_GENERATED_KEYS);
-                    /*ResultSet prueba = createStatement.getGeneratedKeys();
-                    prueba.next();
-                    identificador = prueba.getInt(1);
-                    String url = "/reserva/" + identificador;
-                    createStatement.executeUpdate("UPDATE  reservaextra set url ='" + url + "' where reservaID = " + identificador + ";");
-                    */
-
-                }else{
+                    identificador = reservaID;
+                    //String url = "/reserva/" + identificador;
+                  //  createStatement.executeUpdate("UPDATE  reservaextra set url ='" + url + "' where reservaID = " + identificador + ";");
+                    //System.out.println(identificador);
+                } else {
                     System.out.println("Error al realizar la reserva");
                     return getReserva(identificador);
                 }
@@ -87,11 +82,11 @@ public class ReservaBD extends ConexionBD {
                 con.close();
                 e.printStackTrace();
             }
-
         }
         return getReserva(identificador);
     }
 
+/*
     public String comprobarTipoReserva (Reserva reserva){
         String tipoReserva = "indefinido";
         if (reserva.getRecursoExtraID() != null){
@@ -103,38 +98,37 @@ public class ReservaBD extends ConexionBD {
         }
         return tipoReserva;
     }
+*/
 
-
-    public boolean comprobarDisponibilidad(Reserva reserva) {
+    public boolean comprobarDisponibilidad(Reserva reserva, TipoReserva tipoReserva) { //TODO añadido parámetro tipoReserva
         int cuenta;
         int id;
         LocalDateTime fecha;
         boolean disponible = false;
         String tabla;
         String primarykey;
-        String tipoReserva = "indefinido";
+        // String tipoReserva = "indefinido";
         int idRecursoExtra;
-        tipoReserva = comprobarTipoReserva(reserva);
-
+        // tipoReserva = comprobarTipoReserva(reserva); //TODO añadido como parámetro en comprobarDisponibilidad
 
         try {
-            if (tipoReserva == "reservaNormal") {
+
+            if (tipoReserva == TipoReserva.N) {
                 id = reserva.getElementoReservableID();
                 fecha = reserva.getFecha();
                 tabla = "reserva";
                 primarykey = "elementoReservableID";
-                System.out.println(fecha);
-                System.out.println(id);
+
                 try {
                     if (conector() == true) {
-                        String queryBD = "select count(*) as disponibilidad from " + tabla +  " where "  + primarykey + " = '" + id + "' and fecha = '" + fecha + "';";
-                        System.out.println(queryBD);
+                        String queryBD = "select count(*) as disponibilidad from " + tabla + " where " + primarykey + " = '" + id + "' and fecha = '" + fecha + "';";
+
                         try {
-                            System.out.println(tipoReserva);
+
                             rS = createStatement.executeQuery(queryBD);
                             while (rS.next()) {
                                 cuenta = rS.getInt("disponibilidad");
-                                System.out.println(cuenta);
+
                                 if (cuenta > 0) {
                                     disponible = false;
                                 } else {
@@ -152,45 +146,44 @@ public class ReservaBD extends ConexionBD {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-            } else if (tipoReserva == "reservaExtra") {
+            } else if (tipoReserva == TipoReserva.E) {
 
 
-                    id = reserva.getId();
-                    idRecursoExtra = reserva.getRecursoExtraID();
+                id = reserva.getId();
+                idRecursoExtra = reserva.getRecursoExtraID();
 
-                    tabla = "reservaextra";
-                    primarykey = "RecursoExtraID";
-                    try {
-                        if (conector() == true) {
-                            String queryBD = "select count(*) as disponibilidad from " + tabla + " where " + primarykey + " = '" + idRecursoExtra + "' and reservaID =  '" + id +  "';";
-                            System.out.println(queryBD);
-                            try {
-                                rS = createStatement.executeQuery(queryBD);
-                                while (rS.next()) {
-                                    cuenta = rS.getInt("disponibilidad");
-                                    System.out.println(cuenta);
-                                    if (cuenta > 0) {
-                                        disponible = false;
-                                    } else {
-                                        disponible = true;
-                                    }
+                tabla = "reservaextra";
+                primarykey = "RecursoExtraID";
+                try {
+                    if (conector() == true) {
+                        String queryBD = "select count(*) as disponibilidad from " + tabla + " where " + primarykey + " = '" + idRecursoExtra + "' and reservaID =  '" + id + "';";
+                        System.out.println(queryBD);
+                        try {
+                            rS = createStatement.executeQuery(queryBD);
+                            while (rS.next()) {
+                                cuenta = rS.getInt("disponibilidad");
+
+                                if (cuenta > 0) {
+                                    disponible = false;
+                                } else {
+                                    disponible = true;
                                 }
-
-                            } catch (SQLException e) {
-                                System.out.println("Error de disponibilidad");
-                                e.printStackTrace();
-                                Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, e);
                             }
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
 
-            }
-                else {
-                    return disponible;
+                        } catch (SQLException e) {
+                            System.out.println("Error de disponibilidad");
+                            e.printStackTrace();
+                            Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, e);
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                return disponible;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -198,170 +191,111 @@ public class ReservaBD extends ConexionBD {
         return disponible;
     }
 
-    public Reserva getReserva ( int reservaID){ //todo tipo
+    //TODO Una reserva única, getReserva muestra tabla reserva, y si hay reserva extra, muestra reserva+columna recurosExtraID --> innerjoin
+    public Reserva getReserva(int reservaID) { //todo tipo
         Reserva reserva = new Reserva();
 
-
-        String tipoReserva = "indefinido";
-        if (reserva.getRecursoExtraID() != null){
-            System.out.println(reserva.getRecursoExtraID());
-            tipoReserva = "reservaExtra";
-            System.out.println(tipoReserva);
-        }else{
-            tipoReserva = "elementoReservable";
-        }
-
-
+        Integer RecursoExtraID = reserva.getRecursoExtraID();
         try {
             if (conector() == true) {
-                String queryBD = "select reservaID, usuarioID, elementoReservableID, fecha from reserva where reservaID = '" + reservaID + "';";
+                try {
+                    String query;
+                        query =" select reserva.reservaID, usuarioID, elementoReservableID, fecha, RecursoExtraID from reserva left join reservaextra on reserva.reservaID = reservaextra.reservaID where reserva.reservaID =" +reservaID+";";
+                        rS = createStatement.executeQuery(query);
+                        while (rS.next()) {
+                            reserva.setId(rS.getInt("reservaID"));
+                            reserva.setUsuarioID(rS.getInt("usuarioID"));
+                            reserva.setElementoReservableID(rS.getInt("elementoReservableID"));
+                            reserva.setFecha(rS.getObject("fecha", LocalDateTime.class));
+                            reserva.setRecursoExtraID(rS.getInt("RecursoExtraID"));
+                        }
+
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - getReserva");
+                    ex.printStackTrace();
+                    Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (reserva.getId() == -1) {
+            return null;
+
+        } else {
+            return reserva;
+        }
+    }
+
+
+    public Collection<ReservaShort> getAllReservas() { //TODO tipo, select* reserva extra --> DONE, verify?
+        List<ReservaShort> reservas = new ArrayList();
+        // Reserva reserva = new Reserva();
+        // String tipoReserva = comprobarTipoReserva(reserva);
+        try {
+            if (conector() == true) {
+                String queryBD = "select reservaID, url from reserva";
                 try {
                     rS = createStatement.executeQuery(queryBD);
-                            while (rS.next()) {
-                                reserva.setId(rS.getInt("reservaID"));
-                                reserva.setUsuarioID(rS.getInt("usuarioID"));
-                                reserva.setElementoReservableID(rS.getInt("elementoReservableID"));
-                                reserva.setFecha(rS.getObject("fecha", LocalDateTime.class));
-                            }
-                        } catch (SQLException ex) {
-                            System.out.println("Error acceso base de datos - getReserva");
-                            ex.printStackTrace();
-                            Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                if (reserva.getId() == -1) {
-                    return null;
-
-                } else {
-                    return reserva;
-                }
-            }
-
-            public Collection<ReservaShort> getAllReservas () { //TODO tipo, select* reserva extra
-                List<ReservaShort> reservas = new ArrayList();
-
-                try {
-                    if (conector() == true) {
-                        String queryBD = "select reservaID, url from reserva";
-
-                        try {
-                            rS = createStatement.executeQuery(queryBD);
-
-                            while (rS.next()) {
-                                //Cada vuelta while es un línea del resultado de la consulta -> Reserva
-                                ReservaShort reserva = new ReservaShort();
-                                reserva.setId(rS.getInt("reservaID"));
-                                reserva.setUrl(rS.getString("url"));
-
-                                reservas.add(reserva);
-
-                            }
-
-                        } catch (SQLException ex) {
-                            System.out.println("Error acceso base de datos - getAllReservas");
-                            ex.printStackTrace();
-                            Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                    while (rS.next()) {
+                        //Cada vuelta while es un línea del resultado de la consulta -> Reserva
+                        int reservaID = rS.getInt("reservaID");
+                        String url = rS.getString("url");
+                        ReservaShort reserva = new ReservaShort();
+                        reserva.setId(reservaID);
+                        reserva.setUrl(url);
+                        reservas.add(reserva);
                     }
 
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                return reservas;
-            }
-
-            public boolean deleteReserva ( int reservaID) throws SQLException, ClassNotFoundException { //TODO tipo
-                boolean valor = false;
-                try {
-                    if (conector() == true) {
-
-                        String queryBD = "delete from reserva where reservaID = '" + reservaID + "';";
-
-                        try {
-                            createStatement.executeUpdate(queryBD);
-                            valor = true;
-                            return valor;
-                        } catch (SQLException ex) {
-                            Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                        try {
-
-                            con.close();
-                        } catch (SQLException ex) {
-                            System.out.println("Error acceso base de datos - deleteReserva");
-                            Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } else {
-
-                    }
                 } catch (SQLException ex) {
-                    Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                return valor;
-            }
-
-            public Cambio modifyReserva (CambioFecha cam,int reservaID) throws //TODO no tipo, dejar asi
-            SQLException, ClassNotFoundException {
-                try {
-                    if (conector()) {
-
-                        CambioFecha cfr = cam;
-                        LocalDateTime fecha = cfr.getFecha();
-
-                        createStatement.executeUpdate("update reserva set fecha = '" + fecha + "'  where reservaID = '" + reservaID + "';");
-                    }
-                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - getAllReservas");
+                    ex.printStackTrace();
                     Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                return cam;
             }
-
-            public Reserva update (Reserva reserva,int reservaID) throws //todo tipo
-            SQLException, ClassNotFoundException {
-                try {
-                    if (conector() == true) {
-                        //int id = biblioteca.getId();
-                        //String url = biblioteca.getUrl();
-                        int usuarioID = reserva.getUsuarioID();
-                        int elementoReservableID = reserva.getElementoReservableID();
-                        LocalDateTime fecha = reserva.getFecha();
-
-
-                        String queryBD = "update reserva set usuarioID = '" + usuarioID + "', elementoReservableID = '" + elementoReservableID + "', fecha = '" + fecha + "' where reservaID = '" + reservaID + "';";
-
-                        try {
-                            createStatement.executeUpdate(queryBD);
-                        } catch (SQLException ex) {
-                            Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        try {
-                            con.close();
-                        } catch (SQLException ex) {
-                            Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } else {
-                        return null; //TODO cambiar todos nulls por exception
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                return getReserva(reservaID);
-            }
-
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        return reservas;
+    }
+
+    public boolean deleteReserva(int reservaID) throws SQLException, ClassNotFoundException {
+        boolean valor = false;
+        try {
+
+            if (conector() == true) {
+
+                String queryBDReservaExtra = "delete from reservaextra where reservaID= '"+ reservaID +"';";
+                String queryBDReservaNormal = "delete from reserva where reservaID = '" + reservaID + "';";
+
+                try {
+                    createStatement.executeUpdate(queryBDReservaExtra);
+                    createStatement.executeUpdate(queryBDReservaNormal);
+                    valor = true;
+                    return valor;
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    System.out.println("Error acceso base de datos - deleteReserva");
+                    Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ReservaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return valor;
+    }
+
+}
 

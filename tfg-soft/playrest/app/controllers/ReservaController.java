@@ -65,38 +65,5 @@ public class ReservaController extends Controller {
         return ok(ApplicationUtil.createResponse("Reserva with id:" + reservaID + " deleted", true));
     }
 
-    public Result modify(int reservaID, Http.Request request) throws SQLException, ClassNotFoundException {
-        logger.debug("In ReservaController.update()");
-        JsonNode json = request.body().asJson();
-
-        if (json == null) {
-            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
-        }
-        CambioFecha cambioFecha = (CambioFecha) ReservaBD.getInstance().modifyReserva(Json.fromJson(json, CambioFecha.class),reservaID);
-        if (cambioFecha == null) {
-            return notFound(ApplicationUtil.createResponse("Reserva not found", false));
-        }
-
-        JsonNode jsonObject = Json.toJson(cambioFecha);
-        return ok(ApplicationUtil.createResponse(jsonObject, true));
-    }
-
-    public Result update(Http.Request request,int reservaID) throws SQLException, ClassNotFoundException {
-        logger.debug("In ReservaController.update()");
-        JsonNode json = request.body().asJson();
-
-        if (json == null) {
-            return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
-        }
-        Reserva reserva = ReservaBD.getInstance().update(Json.fromJson(json, Reserva.class),reservaID);
-        logger.debug("In ReservaController.update(), reserva  is: {}", reserva);
-        if (reserva == null) {
-            return notFound(ApplicationUtil.createResponse("Reserva not found", false));
-        }
-
-        JsonNode jsonObject = Json.toJson(reserva);
-        return ok(ApplicationUtil.createResponse(jsonObject, true));
-    }
-
 
 }

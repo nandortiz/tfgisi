@@ -55,6 +55,63 @@ public class SalaController extends Controller {
                 //TODO IDEM EltoResBD?????
         return ok(ApplicationUtil.createResponse(jsonObjects, true));
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     public Result delete(int bibliotecaID, int id ) throws SQLException, ClassNotFoundException {
         logger.debug("In SalaController.retrieve(), delete sala with id: {}",id);
