@@ -31,7 +31,6 @@ public class UsuarioBD extends ConexionBD{
         Connection cn = connect();
         int identificador = -1;
 
-        String url = ""; //TODO no se usa, borrar?
         if (conector() == true) {
 
             try {
@@ -64,11 +63,8 @@ public class UsuarioBD extends ConexionBD{
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         }
-        //return biblioteca;
         return getUsuario(identificador);
-        //return url;
     }
 
     public Usuario getUsuario(int id) {
@@ -119,6 +115,7 @@ public class UsuarioBD extends ConexionBD{
                     while (rS.next()) {
                         //Cada vuelta while es un línea del resultado de la consulta -> Usuario
                         UsuarioShort usuario = new UsuarioShort();
+
                         usuario.setId(rS.getInt("id"));
                         usuario.setUrl(rS.getString("url"));
 
@@ -132,13 +129,11 @@ public class UsuarioBD extends ConexionBD{
                     Logger.getLogger(UsuarioBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
         return usuarios;
     }
 
@@ -148,7 +143,6 @@ public class UsuarioBD extends ConexionBD{
             if (conector() == true) {
 
                 String queryBD = "delete from usuario where id = '"+id+"';";
-
                 try {
                     createStatement.executeUpdate(queryBD);
                     valor = true;
@@ -156,9 +150,7 @@ public class UsuarioBD extends ConexionBD{
                 } catch (SQLException ex) {
                     Logger.getLogger(UsuarioBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 try {
-
                     con.close();
                 } catch (SQLException ex) {
                     System.out.println("Error acceso base de datos - deleteUsuario");
@@ -166,7 +158,6 @@ public class UsuarioBD extends ConexionBD{
                 }
             }
             else{
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -188,37 +179,31 @@ public class UsuarioBD extends ConexionBD{
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return cam;
     }
 
     public Usuario update(Usuario usuario, int id) throws SQLException, ClassNotFoundException {
         try {
             if (conector() == true) {
-                //int id = biblioteca.getId();
-                //String url = biblioteca.getUrl();
                 String nombre = usuario.getNombre();
                 String apellidos = usuario.getApellidos();
                 String grado = usuario.getGrado();
 
 
                 String queryBD = "update usuario set nombre = '"+nombre+"', apellidos = '"+apellidos+"', grado = '"+grado+"'  where id = '"+id+"';";
-
                 try {
                     createStatement.executeUpdate(queryBD);
                 } catch (SQLException ex) {
                     Logger.getLogger(UsuarioBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 try {
-
                     con.close();
                 } catch (SQLException ex) {
                     Logger.getLogger(BibliotecaBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else{
-                return null; //TODO cambiar todos nulls por exception
+                return null;
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioBD.class.getName()).log(Level.SEVERE, null, ex);

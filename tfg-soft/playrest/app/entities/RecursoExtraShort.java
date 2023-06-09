@@ -6,7 +6,7 @@ public class RecursoExtraShort extends RecursoWeb {
         super();
     }
 
-    public RecursoExtraShort(int id, String url) { //TODO añadir nombre?
+    public RecursoExtraShort(int id, String url) {
         super(id, url);
 
     }

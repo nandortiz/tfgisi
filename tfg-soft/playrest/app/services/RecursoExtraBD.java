@@ -35,7 +35,7 @@ public class RecursoExtraBD extends ConexionBD {
     public RecursoExtra addRecursoExtra(RecursoExtra recursoExtra, int bibliotecaID) throws SQLException, ClassNotFoundException {
         Connection cn = connect();
         int identificador = -1;
-        String url = ""; //TODO no se usa, borrar?
+
         String query ="";
         if (conector() == true) {
             try {
@@ -57,8 +57,7 @@ public class RecursoExtraBD extends ConexionBD {
                     tipoRecursoExtra = "libros";
                     query = "INSERT INTO recursoExtra (nombre, descripcion, tipo, bibliotecaID, ISBN) VALUES ('"+nombre+"', '"+descripcion+"','"+tipo+"','"+bibliotecaID+"','"+isbnLibro+"');";
                 }
-                //ArrayList<LocalDateTime> disponibilidad = new ArrayList<>();
-                //  disponibilidad = biblioteca.getListaDisponibilidadBiblioteca();
+
                 Statement st = cn.createStatement();
                 System.out.println(query);
                 st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
@@ -75,7 +74,6 @@ public class RecursoExtraBD extends ConexionBD {
                 st.executeUpdate("UPDATE recursoExtra set url='"+urlNuevoRecursoExtra+"' where id= "+identificador+";");
 
                 try {
-
                     con.close();
                 } catch (SQLException ex) {
                     System.out.println("Error acceso base de datos - addRecursoExtra");
@@ -86,12 +84,9 @@ public class RecursoExtraBD extends ConexionBD {
             }
 
         }
-        //return biblioteca;
         return getRecursoExtra(identificador);
-        //return url;
     }
 
-    //TODO necesita id, no hace falta diferenciar entre puesto y sala
     public RecursoExtra getRecursoExtra(int id) {
         RecursoExtra recursoExtra = new RecursoExtra();
         try {
@@ -110,7 +105,7 @@ public class RecursoExtraBD extends ConexionBD {
                             libro.setIsbn(rS.getInt("ISBN"));
                             recursoExtra = libro;
                         }
-                        recursoExtra.setId(rS.getInt("id")); //TODO PENSAR EL CAMBIO
+                        recursoExtra.setId(rS.getInt("id"));
                         recursoExtra.setNombre(rS.getString("nombre"));
                         recursoExtra.setDescripcion(rS.getString("descripcion"));
                         recursoExtra.setBibliotecaID(rS.getInt("bibliotecaID"));
@@ -135,7 +130,7 @@ public class RecursoExtraBD extends ConexionBD {
         }
     }
 
-    //TODO necesita id, no hace falta diferenciar entre puesto y sala
+
     public Collection<RecursoExtraShort> getAllRecursosExtras(int bibliotecaID, TipoRecursoExtra tipo) {
         List<RecursoExtraShort> recursosExtras = new ArrayList();
 
@@ -147,6 +142,7 @@ public class RecursoExtraBD extends ConexionBD {
                     while (rS.next()) {
                         //Cada vuelta while es un línea del resultado de la consulta -> Biblioteca
                         RecursoExtraShort recursoExtra = new RecursoExtraShort();
+
                         recursoExtra.setId(rS.getInt("id"));
                         recursoExtra.setUrl(rS.getString("url"));
 
@@ -167,7 +163,7 @@ public class RecursoExtraBD extends ConexionBD {
         return recursosExtras;
     }
 
-    //TODO necesita id, no hace falta diferenciar entre puesto y sala
+
     public boolean deleteRecursoExtra(int id) throws SQLException, ClassNotFoundException {
         boolean valor= false;
         try {
@@ -182,9 +178,7 @@ public class RecursoExtraBD extends ConexionBD {
                 } catch (SQLException ex) {
                     Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 try {
-
                     con.close();
                 } catch (SQLException ex) {
                     System.out.println("Error acceso base de datos - deleteRecursoExtra");
@@ -223,9 +217,9 @@ public class RecursoExtraBD extends ConexionBD {
             Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (recursoExtra instanceof Ordenador) {
-            return (Ordenador) RecursoExtraBD.getInstance().getRecursoExtra(id);
+            return RecursoExtraBD.getInstance().getRecursoExtra(id);
         } else if (recursoExtra instanceof Libro) {
-            return (Libro) RecursoExtraBD.getInstance().getRecursoExtra(id);
+            return RecursoExtraBD.getInstance().getRecursoExtra(id);
         } else {
             return null;
         }
@@ -239,28 +233,23 @@ public class RecursoExtraBD extends ConexionBD {
                     CambioNombre cne = (CambioNombre) cam;
                     String nombre = cne.getNombre();
                     createStatement.executeUpdate("update recursoextra set nombre = '" + nombre + "' where id = '" + id + "';");
-
                 }
                 if (cam instanceof CambioDescripcion) {
                     CambioDescripcion cer = (CambioDescripcion) cam;
                     String descripcion = cer.getDescripcion();
                     createStatement.executeUpdate("update recursoextra set descripcion = '" + descripcion + "' where id = '" + id + "';");
-
                 }
                 if (cam instanceof CambioNumSerieOrdenador){
                     CambioNumSerieOrdenador cip = (CambioNumSerieOrdenador) cam;
                     String numSerieOrdenador = cip.getNumSerieOrdenador();
                     createStatement.executeUpdate("update recursoextra set numSerie = '"+ numSerieOrdenador+"' where id = '"+id+"';");
-
                 }
                 if (cam instanceof CambioIsbnLibro){
                     CambioIsbnLibro cas = (CambioIsbnLibro) cam;
                     int isbnLibro = cas.getIsbnLibro();
                     createStatement.executeUpdate("update recursoextra set ISBN = '"+ isbnLibro+"' where id = '"+id+"';");
-
                 }
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(RecursoExtraBD.class.getName()).log(Level.SEVERE, null, ex);
         }

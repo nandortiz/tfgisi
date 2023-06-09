@@ -38,12 +38,11 @@ public class OrdenadorController extends Controller{
     public Result retrieve (int bibliotecaID, int id) {
         Ordenador result = (Ordenador) RecursoExtraBD.getInstance().getRecursoExtra(id);
 
-        if  (result == null) {                                  //TODO frase de abajo se podría dejar con "Ordenador de id x not found"
+        if  (result == null) {
             return notFound(ApplicationUtil.createResponse("Ordenador with id:" + id + " not found", false));
         } else {
             JsonNode jsonObjects = Json.toJson(result);
             logger.debug("In OrdenadorController.getRecursoExtra(id), result is: {}", result.toString());
-            //TODO no sería "In RecursoExtraBD?????"
             return ok(ApplicationUtil.createResponse(jsonObjects, true));
         }
     }
@@ -53,7 +52,6 @@ public class OrdenadorController extends Controller{
 
         JsonNode jsonObjects = Json.toJson(result);
         logger.debug("In OrdenadorController.getAllRecursosExtras(), result is: {}",result.toString());
-        //TODO IDEM RecExtraBD?????
         return ok(ApplicationUtil.createResponse(jsonObjects, true));
     }
 

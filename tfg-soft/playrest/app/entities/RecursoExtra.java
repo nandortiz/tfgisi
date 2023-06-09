@@ -9,8 +9,6 @@ public class RecursoExtra extends RecursoWeb {
     protected TipoRecursoExtra tipo;
     private int bibliotecaID;
 
-   // private ArrayList<OrdenadorShort> ordenadores = new ArrayList<>();
-
     public RecursoExtra() {
         super();
     }
@@ -51,11 +49,6 @@ public class RecursoExtra extends RecursoWeb {
             this.bibliotecaID = bibliotecaID;
         }
 
-       // public ArrayList<OrdenadorShort> getOrdenadores() { return ordenadores; }
-
-       // public void setOrdenadores(ArrayList<OrdenadorShort> ordenadores) { this.ordenadores = ordenadores; }
-
-       // public void annadirListaOrdenador(OrdenadorShort ordenador){ ordenadores.add(ordenador); }
 
     @Override
     public String toString () { //TODO Date para apertura y cierre?
@@ -65,7 +58,7 @@ public class RecursoExtra extends RecursoWeb {
                 "', descripción ='" + descripcion +
                 "', tipo ='" + tipo +
                 "', bibliotecaID ='" + bibliotecaID +
-                ", url = '" + getUrl() +//", horarios disponibles='" + listaDisponibilidadBiblioteca+
+                ", url = '" + getUrl() +
                 '}';
     }
 
@@ -77,7 +70,7 @@ public class RecursoExtra extends RecursoWeb {
         this.id = id;
     }
 
-    public int getId () {
+    public Integer getId () {
         return this.id;
     }
 }

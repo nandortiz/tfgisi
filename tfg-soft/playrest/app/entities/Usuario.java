@@ -63,7 +63,7 @@ public class Usuario extends RecursoWeb{
     public void setId ( int id){
         this.id = id;
     }
-    public int getId () {
+    public Integer getId () {
         return this.id;
     }
 

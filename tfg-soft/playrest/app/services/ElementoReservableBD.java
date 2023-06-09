@@ -261,9 +261,9 @@ public class ElementoReservableBD  extends ConexionBD {
             Logger.getLogger(ElementoReservableBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (elementoReservable instanceof Sala) {
-            return (Sala) ElementoReservableBD.getInstance().getElementoReservable(id);
+            return ElementoReservableBD.getInstance().getElementoReservable(id);
         } else if (elementoReservable instanceof Puesto) {
-            return (Puesto) ElementoReservableBD.getInstance().getElementoReservable(id);
+            return  ElementoReservableBD.getInstance().getElementoReservable(id);
         } else {
             return null;
         }
