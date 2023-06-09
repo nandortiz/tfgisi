@@ -1,7 +1,7 @@
 package entities;
 
 
-public class CambioDescripcion extends Cambio { //TODO DONE, CambioElementoReservable cambiado a CambioDescripcion, así como variable cambioElementoReservable de EltoREsController
+public class CambioDescripcion extends Cambio {
     private String descripcion;
 
     public CambioDescripcion(String descripcion) {

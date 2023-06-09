@@ -37,12 +37,11 @@ public class SalaController extends Controller {
     public Result retrieve (int bibliotecaID, int id) {
         Sala result = (Sala) ElementoReservableBD.getInstance().getElementoReservable(id);
 
-        if  (result == null) {                                  //TODO frase de abajo se podría dejar con "Sala de id x not found"
+        if  (result == null) {
             return notFound(ApplicationUtil.createResponse("Sala with id:" + id + " not found", false));
         } else {
             JsonNode jsonObjects = Json.toJson(result);
             logger.debug("In SalaController.getElementoReservable(id), result is: {}", result.toString());
-                        //TODO no sería "In ElementoReservableBD?????"
             return ok(ApplicationUtil.createResponse(jsonObjects, true));
         }
     }
@@ -52,7 +51,6 @@ public class SalaController extends Controller {
 
         JsonNode jsonObjects = Json.toJson(result);
         logger.debug("In SalaController.getAllElementosReservables(), result is: {}",result.toString());
-                //TODO IDEM EltoResBD?????
         return ok(ApplicationUtil.createResponse(jsonObjects, true));
     }
     
