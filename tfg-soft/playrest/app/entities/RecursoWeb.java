@@ -2,8 +2,8 @@ package entities;
 
 public class RecursoWeb {
 
-    protected Integer id;
-    protected String url;
+    public Integer id;
+    public String url;
 
     public RecursoWeb(){
         this.id=-1;

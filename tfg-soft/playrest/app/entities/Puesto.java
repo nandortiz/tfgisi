@@ -6,12 +6,9 @@ public class Puesto extends ElementoReservable {
 
     private String info;
 
-
     public Puesto(String descripcion, String infoPuesto, int bibliotecaID) {
         super(descripcion, TipoElementoReservable.P, bibliotecaID);
         this.info = infoPuesto;
-
-       // setDisponibilidad(new DisponibilidadElementoReservable()); //TODO disponibilidad
 
     }
 
@@ -40,7 +37,9 @@ public class Puesto extends ElementoReservable {
                 '}';
     }
 
+
     public String getUrl() {
+        System.out.println(getId());
         return "/bibliotecas/" + getBibliotecaID() + "/puestos/" + this.id;
     }
 

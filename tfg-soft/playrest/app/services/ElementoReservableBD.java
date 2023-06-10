@@ -18,7 +18,7 @@ import static consistency.ConexionJDBC.connect;
 
 public class ElementoReservableBD  extends ConexionBD {
     private static services.ElementoReservableBD instance;
-    public static List<LocalTime> horariosDisponibles = new ArrayList<>();
+
 
 
     public static services.ElementoReservableBD getInstance() {
@@ -215,22 +215,6 @@ public class ElementoReservableBD  extends ConexionBD {
                     createStatement.executeUpdate("update elementoreservable set aforoSala = '"+ aforoSala+"' where id = '"+id+"';");
 
                 }
-             /*   if (cam instanceof CambioReservarHorario) {
-                    CambioReservarHorario crh = (CambioReservarHorario) cam;
-                    String reservarHorario = crh.getReservarHorario();  //TODO a reserva???
-                    createStatement.executeUpdate("update disponibilidadelementoreservable set fecha= '" + reservarHorario + "' where id = '" + id + "';");
-                    LocalTime horarioReservado = ElementoReservable.parsearHorario(reservarHorario);
-                    ElementoReservable.liberarHorario(horarioReservado);
-                }
-                if (cam instanceof CambioLiberarHorario){
-                    CambioLiberarHorario clh = (CambioLiberarHorario) cam;
-                    String liberarHorario = clh.getLiberarHorario();  //TODO aquí delete en vez de updates
-                    createStatement.executeUpdate("update disponibilidadelementoreservable set fecha = null where id = '" + id + "';");
-                    LocalTime horarioLiberado = ElementoReservable.parsearHorario(liberarHorario);
-                    ElementoReservable.agregarHorarioDisponible(horarioLiberado);
-                }
-
-              */
 
             }
 

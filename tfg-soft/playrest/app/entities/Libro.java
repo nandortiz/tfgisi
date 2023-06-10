@@ -29,13 +29,14 @@ public class Libro extends RecursoExtra{
                 "'id = '" + id +
                 "', nombre = '" + getNombre() +
                 "', isbnLibro = '" + isbn +
-                "', descripcio'" + getDescripcion() + '\'' +
+                "', descripcion" + getDescripcion() + '\'' +
                 "', tipo ='" + tipo +
                 "', bibliotecaID = '" + getBibliotecaID() +
                 "', url = '" + getUrl() +
                 '}';
     }
     public String getUrl() {
+        System.out.println(getId());
         return "/bibliotecas/" + getBibliotecaID() + "/libros/" + this.id;
     }
 

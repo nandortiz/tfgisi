@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Sala extends ElementoReservable {
 
-
     private int aforo;
 
     public Sala(String descripcion, int aforoSala, int bibliotecaID) {
@@ -39,7 +38,8 @@ public class Sala extends ElementoReservable {
     }
 
     public String getUrl () {
-        return "/bibliotecas/"+getBibliotecaID()+"/salas/" + this.id; }
+        return "/bibliotecas/" + getBibliotecaID() + "/salas/" + this.id;
+    }
 
 }
 

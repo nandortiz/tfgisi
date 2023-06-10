@@ -10,19 +10,12 @@ import java.util.List;
 
 
 public class ElementoReservable extends RecursoWeb{ //TODO public abstract class? disponibilidad
-  //  private DisponibilidadElementoReservable disponibilidad; //TODO disponibilidad
 
     private String descripcion = "";
     protected TipoElementoReservable tipo;
     private int bibliotecaID;
-    private List <LocalTime> horariosDisponibles = new ArrayList<>();
 
 
-    //horas de apertura y cierre 01/01/2021-10:00 ?¿?¿?¿?¿?¿
-    // private ArrayList<Puesto> listaPuesto = new ArrayList<>();
-    //  private ArrayList<String> listaPuesto = new ArrayList<>();
-
-    private ArrayList<SalaShort> salas = new ArrayList<>();
 
     public ElementoReservable() {
        super();
@@ -32,7 +25,7 @@ public class ElementoReservable extends RecursoWeb{ //TODO public abstract class
         this.descripcion = descripcionElementoReservable;
         this.tipo = tipoElementoReservable;
         this.bibliotecaID = bibliotecaID;
-        //this.horariosDisponibles = horariosDisponibles;
+
     }
 
     //TODO cambiar en workbench s y p por S y P
@@ -76,12 +69,6 @@ public class ElementoReservable extends RecursoWeb{ //TODO public abstract class
         this.bibliotecaID = bibliotecaID;
     }
 
-    public ArrayList<SalaShort> getSalas() { return salas; }
-
-    public void setSalas(ArrayList<SalaShort> salas) { this.salas = salas; }
-
-    public void annadirListaSala(SalaShort sala){ salas.add(sala); }
-
     @Override
     public String toString () { //TODO Date para apertura y cierre?
         return "ElementoReservable{" +
@@ -90,8 +77,6 @@ public class ElementoReservable extends RecursoWeb{ //TODO public abstract class
                 "', tipo ='" + tipo +
                 "', bibliotecaID ='" + bibliotecaID +
                 ", url = '" + getUrl() +
-                ", disponibilidad = '" + getHorariosDisponibles()+ //TODO disponibilidad
-                //", horarios disponibles='" + listaDisponibilidadBiblioteca+
                 '}';
     }
 
@@ -106,47 +91,6 @@ public class ElementoReservable extends RecursoWeb{ //TODO public abstract class
     public Integer getId () {
         return this.id;
     }
-
-        //TODO disponibiliad
-
-
-
-//TODO if contains horario, remove horario. else false
-public boolean reservarHorario(LocalTime horario) {
-    if (horariosDisponibles.contains(horario)) {
-        horariosDisponibles.remove(horario);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-//TODO ss
-
-
-
-    // getters y setters
-        public List<LocalTime> getHorariosDisponibles() {
-            return horariosDisponibles;
-        }
-
-        public void setHorariosDisponibles(List<LocalTime> horariosDisponibles) {
-            this.horariosDisponibles = horariosDisponibles;
-        }
-      public static LocalTime parsearHorario(String horario) { //TODO es todo localtime, no necesario parsear
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        return LocalTime.parse(horario, formatter);
-    }
-
-    public static void liberarHorario(LocalTime horario) {
-        ElementoReservableBD.horariosDisponibles.add(horario);
-        ElementoReservableBD.horariosDisponibles.sort(Comparator.naturalOrder());
-    }
-
-    public static void agregarHorarioDisponible(LocalTime horario) {
-        ElementoReservableBD.horariosDisponibles.add(horario);
-    }
-
 
 }
 
