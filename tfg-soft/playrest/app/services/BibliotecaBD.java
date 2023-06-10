@@ -40,8 +40,6 @@ public class BibliotecaBD extends ConexionBD {
 
 
                 Statement st = cn.createStatement();
-               System.out.println("INSERT INTO biblioteca (nombre,descripcion) VALUES ('" + nombre + "', '" + descripcion + "');");
-
                 st.executeUpdate("INSERT INTO biblioteca (nombre,descripcion) VALUES ('" + nombre + "', '" + descripcion + "');", Statement.RETURN_GENERATED_KEYS);
 
                 // A la nueva entidad hay que "establecerla la URL"
@@ -75,9 +73,8 @@ public class BibliotecaBD extends ConexionBD {
 
         try {
             if (conector() == true) {
-                String queryBD = "select id, nombre, descripcion, apertura, cierre from biblioteca where id = '"+id+"';";
+                String queryBD = "select id, nombre, descripcion from biblioteca where id = '"+id+"';";
                 try {
-
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()){
                         biblioteca.setId(rS.getInt("id"));
@@ -154,7 +151,6 @@ public class BibliotecaBD extends ConexionBD {
                 }
 
                 try {
-
                     con.close();
                 } catch (SQLException ex) {
                     System.out.println("Error acceso base de datos - deleteBiblioteca");

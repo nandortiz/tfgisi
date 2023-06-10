@@ -39,7 +39,7 @@ public class ConexionBD {
                   String crear = "create database if not exists gestion;";
                 String uso = "use gestion;";
                 String crearUsuario = "create table if not exists usuario(\n" +
-                        "id int(100)primary key auto_increment not null, \n" +
+                        "id int(100) primary key auto_increment not null, \n" +
                         "url varchar (40), \n" +
                         "nombre varchar (40) not null, \n" +
                         "apellidos varchar (40) not null, \n" +
@@ -50,10 +50,9 @@ public class ConexionBD {
                         "id int(100) primary key auto_increment not null,\n" +
                         "url varchar (40) default null,\n" +
                         "nombre varchar (40) not null,\n" +
-                        "descripcion varchar (100) not null,\n" +
-                        //"apertura datetime not null,\n" +
-                        //"cierre datetime not null \n" +
-                        ")";
+                        "descripcion varchar (100) not null\n" +
+                        ");";
+
                 String crearElementoReservable = "create table if not exists elementoreservable(\n" +
                         "id int (100) primary key auto_increment not null,\n" +
                         "url varchar (50) default null,\n" +
@@ -86,15 +85,15 @@ public class ConexionBD {
                         "fecha datetime,\n" +
                         "foreign key (usuarioID) references usuario (id) on delete cascade,\n" +
                         "foreign key (elementoReservableID) references elementoReservable(id) on delete cascade \n" +
-                        ")";
+                        ");";
 
-                String crearReservaExtra = "create table if not exists reservaExtra(\n" +
+                String crearReservaExtra = "create table if not exists reservaextra(\n" +
                         "RecursoExtraID int (100) not null,\n" +
                         "reservaID int (100) not null,\n" +
                         "foreign key (RecursoExtraID) references recursoextra (id) on delete cascade,\n" +
                         "foreign key (reservaID) references reserva(reservaID) on delete cascade, \n" +
                         "primary key (reservaID, RecursoExtraID)\n" +
-                        ")";
+                        ");";
 
 
 
@@ -105,7 +104,7 @@ public class ConexionBD {
                 createStatement.executeUpdate(crearRecursoExtra);
                 createStatement.executeUpdate(crearUsuario);
                 createStatement.executeUpdate(crearReserva);
-                 createStatement.executeUpdate(crearReservaExtra);
+                createStatement.executeUpdate(crearReservaExtra);
 
                 valor = true;
             }
