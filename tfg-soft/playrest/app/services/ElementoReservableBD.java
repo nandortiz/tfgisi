@@ -54,7 +54,6 @@ public class ElementoReservableBD  extends ConexionBD {
                 }
 
                 Statement st = cn.createStatement();
-                System.out.println(query);
                 st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 
                 // A la nueva entidad hay que "establecerla la URL"
