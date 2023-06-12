@@ -45,7 +45,7 @@ POST /bibliotecas       controllers.BibliotecaController.create(request:Request)
  #      schema:
  #        $ref: '#/definitions/entities.Biblioteca'
  ###
- GET /bibliotecas        controllers.BibliotecaController.retrieveAll()
+ GET /bibliotecas/        controllers.BibliotecaController.retrieveAll()
 
  ###
  #  summary: Obtener una biblioteca. (GET)

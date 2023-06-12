@@ -52,7 +52,6 @@ public class ReservaBD extends ConexionBD {
 
             try {
                 disponibilidad = comprobarDisponibilidad(reserva, tipoReserva);
-                System.out.println(disponibilidad);
 
                 if (disponibilidad && tipoReserva == TipoReserva.N) {
                     elementoReservableID = reserva.getElementoReservableID();
@@ -63,7 +62,6 @@ public class ReservaBD extends ConexionBD {
                     ResultSet prueba = createStatement.getGeneratedKeys();
                     prueba.next();
                     identificador = prueba.getInt(1);
-                    System.out.println(identificador);
                     String url = "/reserva/" + identificador;
                     createStatement.executeUpdate("UPDATE  reserva set url ='" + url + "' where reservaID = " + identificador + ";");
                 } else if (disponibilidad && tipoReserva == TipoReserva.E) {
@@ -157,7 +155,6 @@ public class ReservaBD extends ConexionBD {
                 try {
                     if (conector() == true) {
                         String queryBD = "select count(*) as disponibilidad from " + tabla + " where " + primarykey + " = '" + idRecursoExtra + "' and reservaID =  '" + id + "';";
-                        System.out.println(queryBD);
                         try {
                             rS = createStatement.executeQuery(queryBD);
                             while (rS.next()) {
