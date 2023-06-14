@@ -8,7 +8,7 @@ public class Biblioteca extends RecursoWeb {
 
     private String nombre = "";
     private String descripcion = "";
-
+private ArrayList<ElementoReservableShort> listaElementosReservables = new ArrayList<>();   //TODO usado en interfaz
     public Biblioteca() {
         super();
     }
@@ -34,6 +34,17 @@ public class Biblioteca extends RecursoWeb {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public ArrayList<ElementoReservableShort> getListaElementosReservables() {
+        return listaElementosReservables;
+    }  //TODO usado en interfaz
+
+    public void setListaElementosReservables(ArrayList<ElementoReservableShort> listaElementosReservables) {//TODO usado en interfaz
+        this.listaElementosReservables = listaElementosReservables;//TODO usado en interfaz
+    }
+    public void annadirListaElementosReservables(ElementoReservableShort elementoReservable){//TODO usado en interfaz
+        listaElementosReservables.add(elementoReservable);//TODO usado en interfaz
     }
 
         @Override
