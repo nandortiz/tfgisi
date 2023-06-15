@@ -33,7 +33,7 @@ public class BibliotecaController extends Controller {
     }
     public Result retrieve (int id) {
         Biblioteca result = BibliotecaBD.getInstance().getBiblioteca(id);
-
+            //plantilla else:
         if  (result == null) {
             return notFound(ApplicationUtil.createResponse("Biblioteca with id:" + id + " not found", false));
         } else {

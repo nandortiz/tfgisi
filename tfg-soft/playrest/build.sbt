@@ -16,6 +16,7 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "org.freemarker" % "freemarker" % "2.3.31"
+
 )
 
 libraryDependencies += guice
