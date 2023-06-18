@@ -169,7 +169,7 @@ public class BibliotecaBD extends ConexionBD {
     }
 
 
-
+/*
     public CambioBiblioteca modify(CambioBiblioteca cam, int id) throws SQLException, ClassNotFoundException {
         try {
             if (conector() == true) {
@@ -193,7 +193,7 @@ public class BibliotecaBD extends ConexionBD {
 
         return cam;
     }
-
+*/
     public Biblioteca update(Biblioteca biblioteca, int id) throws SQLException, ClassNotFoundException {
         try {
             if (conector() == true) {

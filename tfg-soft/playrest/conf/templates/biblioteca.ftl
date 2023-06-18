@@ -30,30 +30,6 @@ xhr.send(data);
 }
 </script>
 
-<script>
-function makePATCHRequest(url){
-
-
-var xhr = new XMLHttpRequest();
-xhr.open("PATCH", url);
-
-xhr.setRequestHeader("Accept", "application/json");
-xhr.setRequestHeader("Content-Type", "application/json");
-
-xhr.onreadystatechange = function () {
-   if (xhr.readyState === 4) {
-      console.log(xhr.status);
-      console.log(xhr.responseText);
-   }};
-var form = document.querySelector("#formularioPATCH");
-var data = `{
-                    "type": "`+form.querySelector('input[name="tipo"]').value+`",
-                 <!--   "franja": "`+form.querySelector('input[name="franja"]').value+`"  -->
-            }`;
-console.log(data)
-xhr.send(data);
-}
-</script>
 
 <script>
 function makeDELETERequest(url){
@@ -92,12 +68,6 @@ xhr.send(data);
   <p id="nombre">EL nombre de la biblioteca es ${Biblioteca.nombre} </p> <br>
   <p id="descripcion">La descripción de la biblioteca es ${Biblioteca.descripcion} </p> <br>
 
-<!-- <div> <b>La disponibilidad del laboratorio es: </b>  <br> -->
- <!-- <#list listaDisponibilidadLaboratorio as horario> -->
-   <!-- <p> ${horario} -->
-   <!-- <#else> NO tiene disponiblidad asignada -->
-  <!-- </#list> -->
- <!-- </div> <br> -->
 
   <div> <b> La lista de elementos reservables de la biblioteca es: </b><br> <br>
     <#list listaElementosReservables as elementoReservable>
@@ -128,22 +98,6 @@ xhr.send(data);
 </form>
 <p >------------------------------------------------- </p> <br>
 
- <!--<form action="#" onSubmit="makePATCHRequest('${laboratorio.url}'); return false;" id="formularioPATCH" > -->
- <!-- <b> <p>Este formulario es para modificar la disponibilidad de este laboratorio </p> </b> -->
- <!--  <div> -->
-    <!-- <label for="laboratorio.nombre">Introduzca ADD si quiere añadir o REMOVE si quiere eliminar una franja de disponibilidad</label> -->
-  <!--   <input name="tipo" id="Tipo" value=""> -->
-  <!-- </div> -->
-   <!--<div> -->
-   <!--  <label for="laboratorio.descripcion">Introduzca la hora que quiera modificar</label> -->
-   <!--  <input name="franja" id="Franja" value="2021-05-01T09:30:00"> -->
-  <!-- </div> -->
-
-  <!-- <div> -->
-   <!--  <button id="modificarDisponibilidad">Modificar disponiblidad</button> -->
-  <!-- </div> -->
- <!--</form> -->
- <!-- <p >------------------------------------------------- </p> <br> -->
 
 <form action="#" onSubmit="makeDELETERequest('${biblioteca.getUrl()}'); return false;" id="formularioDELETE" >
  <b> <p>Si quiere borrar esta biblioteca pulse el botón </p> </b>

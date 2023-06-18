@@ -12,6 +12,10 @@ import play.mvc.Http;
 import play.mvc.Result;
 import services.BibliotecaBD;
 import utils.ApplicationUtil;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -59,7 +63,7 @@ public class BibliotecaController extends Controller {
         }
         return ok(ApplicationUtil.createResponse("Biblioteca with id:" + id + " deleted", true));
     }
-
+/*
     public Result modify(int id, Http.Request request) throws SQLException, ClassNotFoundException {
         logger.debug("In BibliotecaController.update()");
         JsonNode json = request.body().asJson();
@@ -75,6 +79,7 @@ public class BibliotecaController extends Controller {
         JsonNode jsonObject = Json.toJson(cambioBiblioteca);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
+    */
 
     public Result update(Http.Request request,int id) throws SQLException, ClassNotFoundException {
         logger.debug("In BibliotecaController.update()");

@@ -26,11 +26,11 @@ xhr.onreadystatechange = function () {
 <!-- var arrayBienDisp= arrayDisp.join('","'); -->
 <!-- console.log(arrayDisp); -->
 
-<!--var data = `{ -->
- <!--                   "nombreLab": "`+form.querySelector('input[name="nombre"]').value+`", -->
-    <!--                "descripcionLab": "`+form.querySelector('input[name="descripcion"]').value+`", -->
-  <!--                 "listaDisponibilidadLaboratorio": ["`+arrayBienDisp+`"] -->
-   <!--         }`; -->
+var data = `{
+               "nombre": "`+form.querySelector('input[name="nombre"]').value+`",
+              "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`",
+
+           }`;
 console.log(data)
 xhr.send(data);
 }
@@ -43,8 +43,8 @@ xhr.send(data);
 <p >------------------------------------------------- </p> <br><br>
 
 <div> <b> La lista de bibliotecas es: </b><br> <br>
-    <#list laboratorios as biblioteca>
-        <p id="identificador" >  El ID del laboratorio es ${Biblioteca.id} </p> <br>
+    <#list bibliotecas as biblioteca>
+        <p id="identificador" >  El ID de la biblioteca es ${Biblioteca.id} </p> <br>
          <p id="url"> La URI de la biblioteca es <a href="${Biblioteca.getUrl()}">${Biblioteca.getUrl()} </a></p> <br>
          <p id="nombre">EL nombre de la biblioteca es ${biblioteca.nombre} </p> <br>
          <p id="descripcion">La descripción de la biblioteca es ${biblioteca.descripcion} </p> <br>
@@ -61,10 +61,7 @@ xhr.send(data);
     <label for="Biblioteca.descripcion">Introduzca la descripción de la biblioteca</label>
     <input name="descripcion" id="descripcion" value="">
   </div>
-  <!-- <div> -->
-     <!--  <label for="laboratorio.descripcion">Introduzca la disponibilidad del laboratorio separada por comas</label> -->
-      <!-- <input name="disponibilidad" id="disponibilidadLab" value="2021-05-01T09:30:00"> -->
-   <!--  </div> -->
+
   <div>
     <button id="creacion">Crear biblioteca</button>
   </div>
