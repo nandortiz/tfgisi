@@ -45,7 +45,7 @@ POST /bibliotecas       controllers.BibliotecaController.create(request:Request)
  #      schema:
  #        $ref: '#/definitions/entities.Biblioteca'
  ###
- GET /bibliotecas/        controllers.BibliotecaController.retrieveAll()
+ GET /bibliotecas        controllers.BibliotecaController.retrieveAll(request:Request)
 
  ###
  #  summary: Obtener una biblioteca. (GET)
@@ -59,7 +59,7 @@ POST /bibliotecas       controllers.BibliotecaController.create(request:Request)
  #      schema:
  #        $ref: '#/definitions/entities.Biblioteca'
  ###
-GET /bibliotecas/:id    controllers.BibliotecaController.retrieve(id:Int)
+GET /bibliotecas/:id    controllers.BibliotecaController.retrieve(request:Request, id:Int)
 
 ###
  #  summary: Eliminar una biblioteca. (DELETE)
@@ -684,3 +684,6 @@ GET /reservas/:reservaID    controllers.ReservaController.retrieve(reservaID:Int
  #        $ref: '#/definitions/entities.Reserva'
  ###
 DELETE /reservas/:reservaID    controllers.ReservaController.delete(reservaID:Int)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

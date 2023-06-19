@@ -63,10 +63,10 @@ xhr.send(data);
   <p >  Si quiere ver <b>todos los puestos</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/puestos"> aquí </a></p> <br>
   <p >  Si quiere ver <b>todas las salas</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/salas"> aquí </a></p> <br>
   <p >------------------------------------------------- </p> <br><br>
-  <p id="identificador" >  El ID de la biblitoeca es ${Biblioteca.id} </p> <br>
-  <p id="url">La URI del biblioteca es ${Biblioteca.getUrl()} </p> <br>
-  <p id="nombre">EL nombre de la biblioteca es ${Biblioteca.nombre} </p> <br>
-  <p id="descripcion">La descripción de la biblioteca es ${Biblioteca.descripcion} </p> <br>
+  <p id="identificador" >  El ID de la biblioteca es ${biblioteca.id} </p> <br>
+  <p id="url">La URI del biblioteca es ${biblioteca.getUrl()} </p> <br>
+  <p id="nombre">EL nombre de la biblioteca es ${biblioteca.nombre} </p> <br>
+  <p id="descripcion">La descripción de la biblioteca es ${biblioteca.descripcion} </p> <br>
 
 
   <div> <b> La lista de elementos reservables de la biblioteca es: </b><br> <br>

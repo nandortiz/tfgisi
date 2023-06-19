@@ -14,9 +14,9 @@ private ArrayList<ElementoReservableShort> listaElementosReservables = new Array
     }
 
 
-    public Biblioteca(String nombreBiblioteca, String descripcionBiblioteca) {
-        this.nombre = nombreBiblioteca;
-        this.descripcion = descripcionBiblioteca;
+    public Biblioteca(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
 
     }
 
