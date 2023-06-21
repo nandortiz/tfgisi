@@ -45,7 +45,7 @@ POST /bibliotecas       controllers.BibliotecaController.create(request:Request)
  #      schema:
  #        $ref: '#/definitions/entities.Biblioteca'
  ###
- GET /bibliotecas        controllers.BibliotecaController.retrieveAll(request:Request)
+ GET /bibliotecas/        controllers.BibliotecaController.retrieveAll(request:Request)
 
  ###
  #  summary: Obtener una biblioteca. (GET)
@@ -149,7 +149,7 @@ POST /bibliotecas/:id/salas       controllers.SalaController.create(id:Int, requ
  #      schema:
  #        $ref: '#/definitions/entities.Sala'
  ###
- GET /bibliotecas/:id/salas/        controllers.SalaController.retrieveAll(id:Int)
+ GET /bibliotecas/:id/salas/        controllers.SalaController.retrieveAll(request:Request, id:Int)
 
  ###
  #  summary: Obtener una sala. (GET)
@@ -163,7 +163,7 @@ POST /bibliotecas/:id/salas       controllers.SalaController.create(id:Int, requ
  #      schema:
  #        $ref: '#/definitions/entities.Sala'
  ###
-GET /bibliotecas/:id/salas/:idSala    controllers.SalaController.retrieve( id:Int, idSala:Int)
+GET /bibliotecas/:id/salas/:idSala    controllers.SalaController.retrieve(request:Request, id:Int, idSala:Int)
 
 ###
  #  summary: Eliminar una sala. (DELETE)
@@ -248,7 +248,7 @@ POST /bibliotecas/:id/puestos       controllers.PuestoController.create(id:Int, 
  #      schema:
  #        $ref: '#/definitions/entities.Puesto'
  ###
- GET /bibliotecas/:id/puestos/        controllers.PuestoController.retrieveAll(id:Int)
+ GET /bibliotecas/:id/puestos/        controllers.PuestoController.retrieveAll(request:Request, id:Int)
 
  ###
  #  summary: Obtener un puesto. (GET)
@@ -262,7 +262,7 @@ POST /bibliotecas/:id/puestos       controllers.PuestoController.create(id:Int, 
  #      schema:
  #        $ref: '#/definitions/entities.Puesto'
  ###
-GET /bibliotecas/:id/puestos/:idPuesto    controllers.PuestoController.retrieve( id:Int, idPuesto:Int)
+GET /bibliotecas/:id/puestos/:idPuesto    controllers.PuestoController.retrieve(request:Request, id:Int, idPuesto:Int)
 
 ###
  #  summary: Eliminar un puesto. (DELETE)
@@ -375,7 +375,7 @@ GET /bibliotecas/:id/ordenadores/:idOrdenador    controllers.OrdenadorController
  #      schema:
  #        $ref: '#/definitions/entities.Ordenador'
  ###
-DELETE /bibliotecas/:id/ordenadores/:idOrdenador controllers.OrdenadorController.delete(id:Int, idOrdenador:Int)
+DELETE /bibliotecas/:id/ordenadores/:idOrdenador        controllers.OrdenadorController.delete(id:Int, idOrdenador:Int)
 
 ###
  #  summary: Actualizar un ordenador. (UPDATE)
@@ -394,7 +394,7 @@ DELETE /bibliotecas/:id/ordenadores/:idOrdenador controllers.OrdenadorController
  #      schema:
  #        $ref: '#/definitions/entities.Ordenador'
  ###
-PUT /ordenadores/:idOrdenador    controllers.OrdenadorController.update(request:Request, idOrdenador:Int)
+PUT /ordenadores/:idOrdenador      controllers.OrdenadorController.update(request:Request, idOrdenador:Int)
 
 ###
  #  summary: Actualizar parcialmente un ordenador. (PATCH)
@@ -413,7 +413,7 @@ PUT /ordenadores/:idOrdenador    controllers.OrdenadorController.update(request:
  #      schema:
  #        $ref: '#/definitions/entities.CambioNumSerieOrdenador'
  ###
-PATCH /ordenadores/:idOrdenador    controllers.OrdenadorController.modify(idOrdenador:Int, request:Request)
+PATCH /ordenadores/:idOrdenador     controllers.OrdenadorController.modify(idOrdenador:Int, request:Request)
 
 ###
  #  summary: Crear un libro. (POST)
@@ -460,7 +460,7 @@ POST /bibliotecas/:id/libros       controllers.LibroController.create(id:Int, re
  #      schema:
  #        $ref: '#/definitions/entities.Libro'
  ###
-GET /bibliotecas/:id/libros/:idLibro    controllers.LibroController.retrieve( id:Int, idLibro:Int)
+GET /bibliotecas/:id/libros/:idLibro             controllers.LibroController.retrieve( id:Int, idLibro:Int)
 
 ###
  #  summary: Eliminar un libro. (DELETE)
@@ -474,7 +474,7 @@ GET /bibliotecas/:id/libros/:idLibro    controllers.LibroController.retrieve( id
  #      schema:
  #        $ref: '#/definitions/entities.Libro'
  ###
-DELETE /bibliotecas/:id/libros/:idLibro controllers.LibroController.delete(id:Int, idLibro:Int)
+DELETE /bibliotecas/:id/libros/:idLibro          controllers.LibroController.delete(id:Int, idLibro:Int)
 
 ###
  #  summary: Actualizar un libro. (UPDATE)
@@ -545,7 +545,7 @@ POST /usuarios       controllers.UsuarioController.create(request:Request)
  #      schema:
  #        $ref: '#/definitions/entities.Usuario'
  ###
- GET /usuarios        controllers.UsuarioController.retrieveAll()
+ GET /usuarios        controllers.UsuarioController.retrieveAll(request:Request)
 
  ###
  #  summary: Obtener un usuario. (GET)
@@ -559,7 +559,7 @@ POST /usuarios       controllers.UsuarioController.create(request:Request)
  #      schema:
  #        $ref: '#/definitions/entities.Usuario'
  ###
-GET /usuarios/:id    controllers.UsuarioController.retrieve(id:Int)
+GET /usuarios/:id    controllers.UsuarioController.retrieve(request:Request, id:Int)
 
 ###
  #  summary: Eliminar un usuario. (DELETE)
@@ -650,7 +650,7 @@ POST /reservas      controllers.ReservaController.create(request:Request)
  #      schema:
  #        $ref: '#/definitions/entities.Reserva'
  ###
- GET /reservas        controllers.ReservaController.retrieveAll()
+ GET /reservas        controllers.ReservaController.retrieveAll(request:Request)
 
  ###
  #  summary: Obtener una reserva. (GET)
@@ -664,7 +664,7 @@ POST /reservas      controllers.ReservaController.create(request:Request)
  #      schema:
  #        $ref: '#/definitions/entities.Reserva'
  ###
-GET /reservas/:reservaID    controllers.ReservaController.retrieve(reservaID:Int)
+GET /reservas/:reservaID    controllers.ReservaController.retrieve(request:Request, reservaID:Int)
 
 ###
  #  summary: Eliminar una reserva. (DELETE)

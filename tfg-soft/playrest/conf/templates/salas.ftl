@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+  <title>/bibliotecas/${bibliotecaID}/salas/</title>
+</head>
+
+<script>
+function makePOSTRequest(url){
+
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", url);
+
+xhr.setRequestHeader("Accept", "application/json");
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+   }};
+var form = document.querySelector("#formulario");
+var data = `{
+                    "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`",
+                    "tipo": "`+form.querySelector('input[name="tipo"]').value+`"
+                    "bibliotecaID": "`+form.querySelector('input[name="bibliotecaID"]').value+`"
+                    "aforoSala": "`+form.querySelector('input[name="aforoSala"]').value+`"
+
+            }`;
+console.log(data)
+xhr.send(data);
+}
+</script>
+
+<body>
+
+<p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
+<p >   Si quiere volver a ver <b>todas las bibliotecas</b> pinche <a href="/bibliotecas/">aquí </a></p> <br>
+ <p >------------------------------------------------- </p><br> <br>
+<div> <b> La lista de salas es: </b><br> <br>
+<#list salas as sala>
+  <p id="identificador">El ID de la sala es ${sala.id} </p> <br>
+  <p >   Si quiere acceder a la <b>información relativa de la sala ${sala.id}</b> pinche <a href="/bibliotecas/${bibliotecaID}/salas/${sala.id}">aquí </a></p> <br>
+
+ <p >------------------------------------------------- </p> <br>
+ </#list>
+</div>
+
+
+<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/salas'); return false;" id="formulario" >
+
+  <div>
+    <label for="sala.descripcion">Introduzca la descripción de la sala a crear</label>
+    <input name="descripcion" id="descripcion" value="">
+  </div>
+  <div>
+      <label for="sala.tipo">Introduzca el tipo de elemento reservable a crear</label>
+      <input name="tipo" id="tipo" value="">
+    </div>
+  <div>
+      <label for="sala.bibliotecaID">Introduzca el ID de la biblioteca a la que pertenece la sala a crear</label>
+      <input name="bibliotecaID" id="bibliotecaID" value="">
+   </div>
+    <div>
+        <label for="sala.aforoSala">Introduzca el aforo de la sala a crear</label>
+          <input name="aforoSala" id="aforoSala" value="">
+    </div>
+  <div>
+    <button id="creacionSala">Crear sala</button>
+  </div>
+</form>
+
+<p >-------------------------------------------------------------------------------</p> <br>
+
+
+</body>
+</html>

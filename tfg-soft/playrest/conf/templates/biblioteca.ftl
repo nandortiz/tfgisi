@@ -58,37 +58,32 @@ xhr.send(data);
 <body>
 
 
-<p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
-  <p >  Si quiere volver a ver <b>todas las bibliotecas</b> pinche <a href="/bibliotecas"> aquí </a></p> <br>
-  <p >  Si quiere ver <b>todos los puestos</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/puestos"> aquí </a></p> <br>
-  <p >  Si quiere ver <b>todas las salas</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/salas"> aquí </a></p> <br>
+  <p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
+  <p >  Si quiere volver a ver <b>todas las bibliotecas</b> pinche <a href="/bibliotecas/"> aquí </a></p> <br>
+  <p >  Si quiere ver <b>todos los puestos</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/puestos/"> aquí </a></p> <br>
+  <p >  Si quiere ver <b>todas las salas</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/salas/"> aquí </a></p> <br>
   <p >------------------------------------------------- </p> <br><br>
+   <b> <p>Esta es la información de la biblioteca ${biblioteca.id}:</p> </b>
   <p id="identificador" >  El ID de la biblioteca es ${biblioteca.id} </p> <br>
-  <p id="url">La URI del biblioteca es ${biblioteca.getUrl()} </p> <br>
+  <p id="url">La URI de la biblioteca es ${biblioteca.url} </p> <br>
   <p id="nombre">EL nombre de la biblioteca es ${biblioteca.nombre} </p> <br>
   <p id="descripcion">La descripción de la biblioteca es ${biblioteca.descripcion} </p> <br>
 
 
-  <div> <b> La lista de elementos reservables de la biblioteca es: </b><br> <br>
-    <#list listaElementosReservables as elementoReservable>
-       <p >El id del elementoReservable es ${ElementoReservable.id} </p> <br>
-         <p> La URI del puesto es <a href="${Puesto.getUrl()}">${Puesto.getUrl()} </a></p> <br>
-         <p> La URI de la sala es <a href="${Sala.getUrl()}">${Sala.getUrl()} </a></p> <br>
-         <p>La descripción del elementoReservable es ${ElementoReservable.descripcion} </p> <br>
-         <p >El ID del biblioteca del elementoReservable es ${ElementoReservable.bibliotecaID} </p> <br>
-         <p >------------------------------------------------- </p> <br>
-    <#else> No tiene elementos reservables asignados
-    </#list>
-    </div>
 
-<form action="#" onSubmit="makePUTRequest('${Biblioteca.getUrl()}'); return false;" id="formulario" >
- <b> <p>Este formulario es para modificar la información del nombre y la descripción de esta biblioteca </p> </b>
+
+
+
+
+
+<form action="#" onSubmit="makePUTRequest('${biblioteca.url}'); return false;" id="formulario" >
+ <b> <p>Este formulario es para modificar el nombre y la descripción de la biblioteca en cuestión. Introduzca: </p> </b>
   <div>
-    <label for="Biblioteca.nombre">Introduzca el nombre de la biblioteca</label>
+    <label for="biblioteca.nombre">- El nuevo nombre de la biblioteca</label>
     <input name="nombre" id="nombre" value="">
   </div>
   <div>
-    <label for="Biblioteca.descripcion">Introduzca la descripción de la biblioteca</label>
+    <label for="biblioteca.descripcion">- La nueva descripción de la biblioteca</label>
     <input name="descripcion" id="descripcion" value="">
   </div>
 
@@ -99,8 +94,8 @@ xhr.send(data);
 <p >------------------------------------------------- </p> <br>
 
 
-<form action="#" onSubmit="makeDELETERequest('${biblioteca.getUrl()}'); return false;" id="formularioDELETE" >
- <b> <p>Si quiere borrar esta biblioteca pulse el botón </p> </b>
+<form action="#" onSubmit="makeDELETERequest('${biblioteca.url}'); return false;" id="formularioDELETE" >
+ <b> <p>Si quiere borrar esta biblioteca pulse el siguiente botón:</p> </b>
 
   <div>
     <button id="borrar">Borrar biblioteca</button>

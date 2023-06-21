@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <html>
 <head>
-  <title>/Bibliotecas</title>
+  <title>/bibliotecas/</title>
 </head>
 <script>
 function makePOSTRequest(url){
@@ -47,13 +47,14 @@ xhr.send(data);
     </#list>
     </div>
 
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas'); return false;" id="formulario" >
+<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/'); return false;" id="formulario" >
+  <b> <p>Este formulario es para añadir una biblioteca. Introduzca: </p> </b>
   <div>
-    <label for="biblioteca.nombre">Introduzca el nombre de la biblioteca</label>
+    <label for="biblioteca.nombre">- Nombre de la biblioteca a crear</label>
     <input name="nombre" id="nombre" value="">
   </div>
   <div>
-    <label for="biblioteca.descripcion">Introduzca la descripción de la biblioteca</label>
+    <label for="biblioteca.descripcion">- Descripción de la biblioteca a crear</label>
     <input name="descripcion" id="descripcion" value="">
   </div>
 
