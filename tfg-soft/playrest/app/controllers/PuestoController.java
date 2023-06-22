@@ -161,10 +161,7 @@ public class PuestoController extends Controller {
                 Map<String, Object> mapa = new TreeMap<String, Object>();
                 mapa.put("puesto", result);
                 mapa.put("bibliotecaID", bibliotecaID);
-                mapa.put("descripcion", result.getDescripcion());
-                mapa.put("tipo", result.getTipo());
                 mapa.put("puestoID", id);
-                mapa.put("infoPuesto", result.getInfo());
                 template.process(mapa, sw);
                 output = sw.toString();
             } catch (Exception e) {

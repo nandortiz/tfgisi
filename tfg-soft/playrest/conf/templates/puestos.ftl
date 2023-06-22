@@ -25,7 +25,7 @@ var data = `{
                     "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`",
                     "tipo": "`+form.querySelector('input[name="tipo"]').value+`",
                     "bibliotecaID": "`+form.querySelector('input[name="bibliotecaID"]').value+`",
-                    "info": "`+form.querySelector('input[name="info"]').value+`"
+                    "infoPuesto": "`+form.querySelector('input[name="infoPuesto"]').value+`"
 
             }`;
 console.log(data);
@@ -42,7 +42,7 @@ xhr.send(data);
 <div> <b> La lista de puestos de la biblioteca ${bibliotecaID} es: </b><br> <br>
     <#list puestos as puesto>
         <p id="identificador" >  El ID del puesto es ${puesto.id} </p> <br>
-         <p id="url"> Pinche en la URI del puesto para obtener más información <a href="${puesto.url}">${puesto.url} </a></p> <br>
+         <p id="url"> Si quiere obtener más información de este puesto pinche <a href="/bibliotecas/${bibliotecaID}/puestos/${puesto.id}">aquí</a></p> <br>
 
          <p >------------------------------------------------- </p> <br>
     </#list>
@@ -62,8 +62,8 @@ xhr.send(data);
      <input name="bibliotecaID" id="bibliotecaID" value="">
     </div>
   <div>
-     <label for="puesto.info">- La información del puesto a crear</label>
-     <input name="info" id="info" value="">
+     <label for="puesto.infoPuesto">- La información del puesto a crear</label>
+     <input name="infoPuesto" id="infoPuesto" value="">
   </div>
 
   <div>

@@ -22,8 +22,8 @@ xhr.onreadystatechange = function () {
    }};
 var form = document.querySelector("#formulario");
 var data = `{
-                    "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`"
-                     "infoPuesto": "`+form.querySelector('input[name="infoPuesto"]').value+`"
+                    "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`",
+                     "info": "`+form.querySelector('input[name="info"]').value+`"
             }`;
 console.log(data)
 xhr.send(data);
@@ -48,7 +48,7 @@ xhr.onreadystatechange = function () {
    }};
 var form = document.querySelector("#formulario");
 var data = `{
-                    "infoPuesto": "`+form.querySelector('input[name="infoPuesto"]').value+`"
+                    "info": "`+form.querySelector('input[name="info"]').value+`"
             }`;
 console.log(data)
 xhr.send(data);
@@ -97,13 +97,13 @@ xhr.send(data);
            <p >La info del puesto es ${puesto.info} </p> <br>
       <p >------------------------------------------------- </p> <br>
 
-<form action="#" onSubmit="makePATCHRequest('${puesto.url}'); return false;" id="formulario" >
+<form action="#" onSubmit="makePATCHRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/puestos/${puesto.id}'); return false;" id="formulario" >
   <b> <p>Si quiere realizar una modificación en el puesto, tiene dos opciones: </p> </b>
 
       <b> <p>1) Actualizar solamente la info del puesto. Introduzca: </p> </b>
        <div>
          <label for="puesto.info">- La nueva info del puesto</label>
-         <input name="infoPuesto" id="infoPuesto" value="">
+         <input name="info" id="info" value="">
        </div>
        <div>
          <button id="modificarPuesto">Modificar puesto</button>
@@ -118,7 +118,7 @@ xhr.send(data);
        </div>
        <div>
          <label for="puesto.info">- La nueva info del puesto</label>
-         <input name="infoPuesto" id="infoPuesto" value="">
+         <input name="info" id="info" value="">
        </div>
 
 

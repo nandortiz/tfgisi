@@ -23,9 +23,9 @@ xhr.onreadystatechange = function () {
 var form = document.querySelector("#formulario");
 var data = `{
                     "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`",
-                    "tipo": "`+form.querySelector('input[name="tipo"]').value+`"
-                    "bibliotecaID": "`+form.querySelector('input[name="bibliotecaID"]').value+`"
-                    "aforoSala": "`+form.querySelector('input[name="aforoSala"]').value+`"
+                    "tipo": "`+form.querySelector('input[name="tipo"]').value+`",
+                    "bibliotecaID": "`+form.querySelector('input[name="bibliotecaID"]').value+`",
+                    "aforo": "`+form.querySelector('input[name="aforo"]').value+`"
 
             }`;
 console.log(data)
@@ -38,10 +38,10 @@ xhr.send(data);
 <p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
 <p >   Si quiere volver a ver <b>todas las bibliotecas</b> pinche <a href="/bibliotecas/">aquí </a></p> <br>
  <p >------------------------------------------------- </p><br> <br>
-<div> <b> La lista de salas es: </b><br> <br>
+<div> <b> La lista de salas de la biblioteca ${bibliotecaID} es:</b><br> <br>
 <#list salas as sala>
   <p id="identificador">El ID de la sala es ${sala.id} </p> <br>
-  <p >   Si quiere acceder a la <b>información relativa de la sala ${sala.id}</b> pinche <a href="/bibliotecas/${bibliotecaID}/salas/${sala.id}">aquí </a></p> <br>
+  <p id="url"> Si quiere obtener más información de esta sala pinche <a href="/bibliotecas/${bibliotecaID}/salas/${sala.id}">aquí</a></p> <br>
 
  <p >------------------------------------------------- </p> <br>
  </#list>
@@ -49,22 +49,21 @@ xhr.send(data);
 
 
 <form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/salas'); return false;" id="formulario" >
-
+<b> <p>Este formulario es para añadir una sala a la biblioteca. Introduzca: </p> </b>
   <div>
-    <label for="sala.descripcion">Introduzca la descripción de la sala a crear</label>
+    <label for="sala.descripcion">- La descripción de la sala a crear</label>
     <input name="descripcion" id="descripcion" value="">
   </div>
-  <div>
-      <label for="sala.tipo">Introduzca el tipo de elemento reservable a crear</label>
-      <input name="tipo" id="tipo" value="">
+ <div>
+      <input name="tipo" id="tipo" type="hidden" value="S">
     </div>
   <div>
-      <label for="sala.bibliotecaID">Introduzca el ID de la biblioteca a la que pertenece la sala a crear</label>
+      <label for="sala.bibliotecaID">- El ID de la biblioteca a la que pertenece la sala a crear</label>
       <input name="bibliotecaID" id="bibliotecaID" value="">
    </div>
     <div>
-        <label for="sala.aforoSala">Introduzca el aforo de la sala a crear</label>
-          <input name="aforoSala" id="aforoSala" value="">
+        <label for="sala.aforo">- El número de personas que caben en la sala sala a crear</label>
+          <input name="aforo" id="aforo" value="" type="number">
     </div>
   <div>
     <button id="creacionSala">Crear sala</button>
