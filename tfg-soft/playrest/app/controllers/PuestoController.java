@@ -30,6 +30,7 @@ public class PuestoController extends Controller {
 
     public Result create(int bibliotecaID, Http.Request request) throws SQLException, ClassNotFoundException {
         JsonNode json = request.body().asJson();
+        System.out.println(json);
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting JSON data", false));
         }

@@ -90,12 +90,12 @@ xhr.send(data);
 <b> <p>La información del puesto ${puesto.id} es la siguiente:</p> </b>
 
            <p >El id del puesto es ${puesto.id} </p> <br>
-             <p> La URI del puesto es <a href="${puesto.url}">${puesto.url} </a></p> <br>
-             <p>El tipo de elemento reservable es ${puesto.tipo} </p> <br>
-             <p>La descripción del puesto es ${puesto.descripcion} </p> <br>
-             <p >El puesto está en la biblioteca con ID <a href="/bibliotecas/${puesto.bibliotecaID}">${puesto.bibliotecaID} </a> </p> <br>
-             <p >La info del puesto es ${puesto.info} </p> <br>
-             <p >------------------------------------------------- </p> <br>
+           <p> La URI del puesto es ${puesto.url} </p> <br>
+           <p>El tipo de elemento reservable es ${puesto.tipo} </p> <br>
+           <p>La descripción del puesto es ${puesto.descripcion} </p> <br>
+           <p >El puesto está en la biblioteca con ID <a href="/bibliotecas/${puesto.bibliotecaID}">${puesto.bibliotecaID} </a> </p> <br>
+           <p >La info del puesto es ${puesto.info} </p> <br>
+      <p >------------------------------------------------- </p> <br>
 
 <form action="#" onSubmit="makePATCHRequest('${puesto.url}'); return false;" id="formulario" >
   <b> <p>Si quiere realizar una modificación en el puesto, tiene dos opciones: </p> </b>

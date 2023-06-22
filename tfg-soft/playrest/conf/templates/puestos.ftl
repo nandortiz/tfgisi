@@ -7,7 +7,7 @@
 
 <script>
 function makePOSTRequest(url){
-
+console.log("Iniciamos la request POST");
 
 var xhr = new XMLHttpRequest();
 xhr.open("POST", url);
@@ -23,12 +23,12 @@ xhr.onreadystatechange = function () {
 var form = document.querySelector("#formulario");
 var data = `{
                     "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`",
-                    "tipo": "`+form.querySelector('input[name="tipo"]').value+`"
-                    "bibliotecaID": "`+form.querySelector('input[name="bibliotecaID"]').value+`"
-                    "infoPuesto": "`+form.querySelector('input[name="infoPuesto"]').value+`"
+                    "tipo": "`+form.querySelector('input[name="tipo"]').value+`",
+                    "bibliotecaID": "`+form.querySelector('input[name="bibliotecaID"]').value+`",
+                    "info": "`+form.querySelector('input[name="info"]').value+`"
 
             }`;
-console.log(data)
+console.log(data);
 xhr.send(data);
 }
 </script>
@@ -37,37 +37,37 @@ xhr.send(data);
 
 <p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
 <p >   Si quiere volver a ver <b>todas las bibliotecas</b> pinche <a href="/bibliotecas/">aquí </a></p> <br>
- <p >------------------------------------------------- </p><br> <br>
-<div> <b> La lista de puestos es: </b><br> <br>
-<#list puestos as puesto>
-  <p id="identificador">El ID del puesto es ${puesto.id} </p> <br>
- <p >   Si quiere acceder a la <b>información relativa del puesto ${puesto.id}</b> pinche <a href="/bibliotecas/${bibliotecaID}/puestos/${puesto.id}">aquí </a></p> <br>
+<p >------------------------------------------------- </p> <br><br>
 
- <p >------------------------------------------------- </p> <br>
- </#list>
-</div>
+<div> <b> La lista de puestos de la biblioteca ${bibliotecaID} es: </b><br> <br>
+    <#list puestos as puesto>
+        <p id="identificador" >  El ID del puesto es ${puesto.id} </p> <br>
+         <p id="url"> Pinche en la URI del puesto para obtener más información <a href="${puesto.url}">${puesto.url} </a></p> <br>
 
+         <p >------------------------------------------------- </p> <br>
+    </#list>
+    </div>
 
 <form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/puestos'); return false;" id="formulario" >
-
+  <b> <p>Este formulario es para añadir un puesto a la biblioteca. Introduzca: </p> </b>
   <div>
-    <label for="puesto.descripcion">Introduzca la descripción del puesto a crear</label>
+    <label for="puesto.descripcion">- Descripción del puesto a crear</label>
     <input name="descripcion" id="descripcion" value="">
   </div>
   <div>
-      <label for="puesto.tipo">Introduzca el tipo de elemento reservable a crear</label>
-      <input name="tipo" id="tipo" value="">
-    </div>
-  <div>
-      <label for="puesto.bibliotecaID">Introduzca el ID de la biblioteca a la que pertenece el puesto a crear</label>
-      <input name="bibliotecaID" id="bibliotecaID" value="">
+     <input name="tipo" id="tipo" type="hidden" value="P">
    </div>
-    <div>
-        <label for="puesto.infoPuesto">Introduzca la información relativa al puesto a crear</label>
-          <input name="infoPuesto" id="infoPuesto" value="">
+  <div>
+     <label for="puesto.bibliotecaID">- La biblioteca a la que pertenece el puesto a crear</label>
+     <input name="bibliotecaID" id="bibliotecaID" value="">
     </div>
   <div>
-    <button id="creacionPuesto">Crear puesto</button>
+     <label for="puesto.info">- La información del puesto a crear</label>
+     <input name="info" id="info" value="">
+  </div>
+
+  <div>
+    <button id="creacion">Crear puesto</button>
   </div>
 </form>
 
