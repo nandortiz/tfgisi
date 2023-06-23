@@ -20,14 +20,18 @@ xhr.onreadystatechange = function () {
       console.log(xhr.status);
       console.log(xhr.responseText);
    }};
-var form = document.querySelector("#formulario");
-var data = `{
-                    "nombre": "`+form.querySelector('input[name="nombre"]').value+`",
-                    "apellidos": "`+form.querySelector('input[name="apellidos"]').value+`",
-                    "grado": "`+form.querySelector('input[name="grado"]').value+`"
-            }`;
-console.log(data)
+var form = document.querySelector("#formularioPUT");
+var nombre = form.querySelector('input[name="nombre"]').value;
+var apellidos = form.querySelector('input[name="apellidos"]').value;
+var grado = form.querySelector('input[name="grado"]').value;
+var data = JSON.stringify({
+  nombre: nombre,
+  apellidos: apellidos,
+  grado: grado
+});
+console.log(data);
 xhr.send(data);
+
 }
 </script>
 
@@ -46,10 +50,11 @@ xhr.onreadystatechange = function () {
       console.log(xhr.status);
       console.log(xhr.responseText);
    }};
-var form = document.querySelector("#formulario");
-var data = `{
-                    "grado": "`+form.querySelector('input[name="grado"]').value+`"
-            }`;
+var form = document.querySelector("#formularioPATCH");
+var grado = form.querySelector('input[name="grado"]').value;
+var data = JSON.stringify({
+   grado: grado
+});
 console.log(data)
 xhr.send(data);
 }
@@ -95,50 +100,48 @@ xhr.send(data);
   <p id="grado">El grado que cursa el usuario  es ${usuario.grado} </p> <br> <br>
 
 <p >------------------------------------------------- </p> <br><br>
-  <form action="#" onSubmit="makePATCHRequest('${usuario.url}'); return false;" id="formulario" >
-  <b> <p>Si quiere realizar una modificación en el usuario, tiene dos opciones: </p> </b>
+<b> <p>Si quiere realizar una modificación en el usuario, tiene dos opciones: </p> </b>
+<b> <p>1) Modificar toda la información del usuario. Introduzca: </p> </b>
+ <form action="#" onSubmit="makePUTRequest('${usuario.url}'); return false;" id="formularioPUT" >
+        <div>
+          <label for="usuario.nombre">- El nuevo nombre del usuario</label>
+          <input name="nombre" id="nombre" value="">
+        </div>
+        <div>
+          <label for="usuario.apellidos">- Los nuevos apellidos del usuario</label>
+          <input name="apellidos" id="apellidos" value="">
+        </div>
+        <div>
+            <label for="usuario.grado">- El nuevo grado que cursa el usuario</label>
+            <input name="grado" id="grado" value="">
+        </div>
 
-      <b> <p>1) Actualizar solamente el grado del usuario. Introduzca: </p> </b>
+        <div>
+          <button id="modificarUsuarioPut">Modificar usuario</button>
+        </div>
+ </form>
+
+    <b> <p>2) Actualizar solamente el grado del usuario. Introduzca: </p> </b>
+ <form action="#" onSubmit="makePATCHRequest('${usuario.url}'); return false;" id="formularioPATCH" >
        <div>
          <label for="usuario.grado">- El nuevo grado del usuario</label>
-         <input name="grado" id="grado" value="">
+         <input name="grado" id="gradoPatch" value="">
        </div>
-       <div>
-<div>
-         <button id="modificarUsuario">Modificar usuario</button>
+        <div>
+         <button id="modificarUsuarioPatch">Modificar usuario</button>
        </div>
+</form>
 
 
-     <form action="#" onSubmit="makePUTRequest('${usuario.url}'); return false;" id="formulario" >
-      <b> <p>2) Modificar toda la información del usuario. Introduzca: </p> </b>
-       <div>
-         <label for="usuario.nombre">- El nuevo nombre del usuario</label>
-         <input name="nombre" id="nombre" value="">
-       </div>
-       <div>
-         <label for="usuario.apellidos">- Los nuevos apellidos del usuario</label>
-         <input name="apellidos" id="apellidos" value="">
-       </div>
-       <div>
-                <label for="usuario.grado">- El nuevo grado que cursa el usuario</label>
-                <input name="grado" id="grado" value="">
-              </div>
-
-       <div>
-         <button id="modificarUsuario">Modificar usuario</button>
-       </div>
-     </form>
      <p >------------------------------------------------- </p> <br>
 
 
-
-     <form action="#" onSubmit="makeDELETERequest('${usuario.url}'); return false;" id="formularioDELETE" >
-      <b> <p>Si quiere borrar este usuario pulse el botón </p> </b>
-
+<b> <p>Si quiere borrar este usuario pulse el botón </p> </b>
+<form action="#" onSubmit="makeDELETERequest('${usuario.url}'); return false;" id="formularioDELETE" >
        <div>
          <button id="borrarUsuario">Borrar usuario</button>
        </div>
-     </form>
+</form>
      <p >------------------------------------------------- </p> <br>
 
 </body>

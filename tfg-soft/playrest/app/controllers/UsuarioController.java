@@ -107,6 +107,9 @@ public class UsuarioController extends  Controller {
                 StringWriter sw = new StringWriter();
                 Map<String, Object> mapa = new TreeMap<String, Object>();
                 mapa.put("usuario", result);
+                mapa.put("nombre", result.getNombre());
+                mapa.put("apellidos", result.getApellidos());
+                mapa.put("grado", result.getGrado());
                 template.process(mapa, sw);
                 output = sw.toString();
             } catch (Exception e) {

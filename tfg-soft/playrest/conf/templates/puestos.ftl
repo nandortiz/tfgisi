@@ -25,7 +25,7 @@ var data = `{
                     "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`",
                     "tipo": "`+form.querySelector('input[name="tipo"]').value+`",
                     "bibliotecaID": "`+form.querySelector('input[name="bibliotecaID"]').value+`",
-                    "infoPuesto": "`+form.querySelector('input[name="infoPuesto"]').value+`"
+                    "info": "`+form.querySelector('input[name="info"]').value+`"
 
             }`;
 console.log(data);
@@ -62,8 +62,8 @@ xhr.send(data);
      <input name="bibliotecaID" id="bibliotecaID" value="">
     </div>
   <div>
-     <label for="puesto.infoPuesto">- La información del puesto a crear</label>
-     <input name="infoPuesto" id="infoPuesto" value="">
+     <label for="puesto.info">- La información del puesto a crear</label>
+     <input name="info" id="info" value="">
   </div>
 
   <div>
