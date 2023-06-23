@@ -446,7 +446,7 @@ POST /bibliotecas/:id/libros       controllers.LibroController.create(id:Int, re
  #      schema:
  #        $ref: '#/definitions/entities.Libro'
  ###
- GET /bibliotecas/:id/libros/        controllers.LibroController.retrieveAll(id:Int)
+ GET /bibliotecas/:id/libros/        controllers.LibroController.retrieveAll(request:Request,id:Int)
 
  ###
  #  summary: Obtener un libro. (GET)
@@ -460,7 +460,7 @@ POST /bibliotecas/:id/libros       controllers.LibroController.create(id:Int, re
  #      schema:
  #        $ref: '#/definitions/entities.Libro'
  ###
-GET /bibliotecas/:id/libros/:idLibro             controllers.LibroController.retrieve( id:Int, idLibro:Int)
+GET /bibliotecas/:id/libros/:idLibro             controllers.LibroController.retrieve(request:Request, id:Int, idLibro:Int)
 
 ###
  #  summary: Eliminar un libro. (DELETE)

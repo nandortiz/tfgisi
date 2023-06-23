@@ -62,6 +62,7 @@ xhr.send(data);
   <p >  Si quiere volver a ver <b>todas las bibliotecas</b> pinche <a href="/bibliotecas/"> aquí </a></p> <br>
   <p >  Si quiere ver <b>todos los puestos</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/puestos/"> aquí </a></p> <br>
   <p >  Si quiere ver <b>todas las salas</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/salas/"> aquí </a></p> <br>
+  <p >  Si quiere ver <b>todos los libros</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/libros/"> aquí </a></p> <br>
   <p >------------------------------------------------- </p> <br><br>
    <b> <p>Esta es la información de la biblioteca ${biblioteca.id}:</p> </b>
   <p id="identificador" >  El ID de la biblioteca es ${biblioteca.id} </p> <br>

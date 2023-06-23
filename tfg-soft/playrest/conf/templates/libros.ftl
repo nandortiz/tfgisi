@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <html>
 <head>
-  <title>/bibliotecas/${bibliotecaID}/puestos/</title>
+  <title>/bibliotecas/${bibliotecaID}/libros/</title>
 </head>
 
 <script>
@@ -20,12 +20,13 @@ xhr.onreadystatechange = function () {
       console.log(xhr.status);
       console.log(xhr.responseText);
    }};
-var form = document.querySelector("#formulario");
+var form = document.querySelector("#formularioPOST");
 var data = `{
+                    "nombre": "`+form.querySelector('input[name="nombre"]').value+`",
                     "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`",
                     "tipo": "`+form.querySelector('input[name="tipo"]').value+`",
                     "bibliotecaID": "`+form.querySelector('input[name="bibliotecaID"]').value+`",
-                    "info": "`+form.querySelector('input[name="info"]').value+`"
+                    "isbn": "`+form.querySelector('input[name="isbn"]').value+`"
 
             }`;
 console.log(data);
@@ -40,35 +41,39 @@ xhr.send(data);
 <p >   Si quiere volver a ver <b>todas las bibliotecas</b> pinche <a href="/bibliotecas/">aquí </a></p> <br>
 <p >------------------------------------------------- </p> <br><br>
 
-<div> <b> La lista de puestos de la biblioteca ${bibliotecaID} es: </b><br> <br>
-    <#list puestos as puesto>
-        <p id="identificador" >  El ID del puesto es ${puesto.id} </p> <br>
-         <p id="url"> Si quiere obtener más información de este puesto pinche <a href="/bibliotecas/${bibliotecaID}/puestos/${puesto.id}">aquí</a></p> <br>
+<div> <b> La lista de libros de la biblioteca ${bibliotecaID} es: </b><br> <br>
+    <#list libros as libro>
+        <p id="identificador" >  El ID del libro es ${libro.id} </p> <br>
+         <p id="url"> Si quiere obtener más información de este libro pinche <a href="/bibliotecas/${bibliotecaID}/libros/${libro.id}">aquí</a></p> <br>
 
          <p >------------------------------------------------- </p> <br>
     </#list>
     </div>
 
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/puestos'); return false;" id="formulario" >
-  <b> <p>Este formulario es para añadir un puesto a la biblioteca. Introduzca: </p> </b>
+<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/libros'); return false;" id="formularioPOST" >
+  <b> <p>Este formulario es para añadir un libro a la biblioteca. Introduzca: </p> </b>
   <div>
-    <label for="puesto.descripcion">- Descripción del puesto a crear</label>
+      <label for="libro.nombre">- Título del libro a crear</label>
+      <input name="nombre" id="nombre" value="">
+    </div>
+  <div>
+    <label for="libro.descripcion">- Descripción del libro a crear</label>
     <input name="descripcion" id="descripcion" value="">
   </div>
   <div>
-     <input name="tipo" id="tipo" type="hidden" value="P">
+     <input name="tipo" id="tipo" type="hidden" value="L">
    </div>
   <div>
-     <label for="puesto.bibliotecaID">- La biblioteca a la que pertenece el puesto a crear</label>
+     <label for="libro.bibliotecaID">- La biblioteca a la que pertenece el libro a crear</label>
      <input name="bibliotecaID" id="bibliotecaID" value="">
     </div>
   <div>
-     <label for="puesto.info">- La información del puesto a crear</label>
-     <input name="info" id="info" value="">
+     <label for="libro.isbn">- La información del libro a crear</label>
+     <input name="isbn" id="isbn" value="">
   </div>
 
   <div>
-    <button id="creacion">Crear puesto</button>
+    <button id="creacion">Crear libro</button>
   </div>
 </form>
 

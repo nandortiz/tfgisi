@@ -36,6 +36,7 @@ xhr.send(data);
 <body>
 
 <p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
+<p >  Si quiere volver a ver <b>la información de la biblioteca ${bibliotecaID}</b> pinche <a href="/bibliotecas/${bibliotecaID}"> aquí </a></p> <br>
 <p >   Si quiere volver a ver <b>todas las bibliotecas</b> pinche <a href="/bibliotecas/">aquí </a></p> <br>
  <p >------------------------------------------------- </p><br> <br>
 <div> <b> La lista de salas de la biblioteca ${bibliotecaID} es:</b><br> <br>
