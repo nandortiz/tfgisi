@@ -21,7 +21,7 @@ xhr.onreadystatechange = function () {
    }};
 
 
- var form = document.querySelector("#formulario");
+ var form = document.querySelector("#formularioPOST");
  var data = `{
                    "nombre": "`+form.querySelector('input[name="nombre"]').value+`",
                    "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`"
@@ -43,12 +43,11 @@ xhr.send(data);
         <p id="identificador" >  El ID de la biblioteca es ${biblioteca.id} </p> <br>
          <p id="url"> La URI de la biblioteca es <a href="${biblioteca.url}">${biblioteca.url} </a></p> <br>
 
-         <p >------------------------------------------------- </p> <br>
     </#list>
     </div>
-
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/'); return false;" id="formulario" >
-  <b> <p>Este formulario es para añadir una biblioteca. Introduzca: </p> </b>
+ <p >------------------------------------------------- </p> <br>
+<b> <p>Este formulario es para añadir una biblioteca. Introduzca: </p> </b>
+<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas'); return false;" id="formularioPOST" >
   <div>
     <label for="biblioteca.nombre">- Nombre de la biblioteca a crear</label>
     <input name="nombre" id="nombre" value="">
@@ -57,16 +56,12 @@ xhr.send(data);
     <label for="biblioteca.descripcion">- Descripción de la biblioteca a crear</label>
     <input name="descripcion" id="descripcion" value="">
   </div>
-
   <div>
     <button id="creacion">Crear biblioteca</button>
   </div>
 </form>
 
 <p >-------------------------------------------------------------------------------</p> <br>
-
-
-
 
 </body>
 </html>

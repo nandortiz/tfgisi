@@ -20,11 +20,14 @@ xhr.onreadystatechange = function () {
       console.log(xhr.status);
       console.log(xhr.responseText);
    }};
-var form = document.querySelector("#formulario");
-var data = `{
-                    "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`",
-                     "info": "`+form.querySelector('input[name="info"]').value+`"
-            }`;
+var form = document.querySelector("#formularioPUT");
+var descripcion = form.querySelector('input[name="descripcion"]').value;
+var info = form.querySelector('input[name="info"]').value;
+var data = JSON.stringify({
+  descripcion: descripcion,
+  info: info
+});
+
 console.log(data)
 xhr.send(data);
 }
@@ -46,10 +49,11 @@ xhr.onreadystatechange = function () {
       console.log(xhr.status);
       console.log(xhr.responseText);
    }};
-var form = document.querySelector("#formulario");
-var data = `{
-                    "info": "`+form.querySelector('input[name="info"]').value+`"
-            }`;
+var form = document.querySelector("#formularioPATCH");
+var infoPuesto = form.querySelector('input[name="infoPuesto"]').value;
+var data = JSON.stringify({
+   infoPuesto: infoPuesto
+});
 console.log(data)
 xhr.send(data);
 }
@@ -96,22 +100,21 @@ xhr.send(data);
            <p >El puesto está en la biblioteca con ID <a href="/bibliotecas/${puesto.bibliotecaID}">${puesto.bibliotecaID} </a> </p> <br>
            <p >La info del puesto es ${puesto.info} </p> <br>
       <p >------------------------------------------------- </p> <br>
+<b> <p>Si quiere realizar una modificación en el puesto, tiene dos opciones: </p> </b>
+ <b> <p>1) Actualizar solamente la info del puesto. Introduzca: </p> </b>
 
-<form action="#" onSubmit="makePATCHRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/puestos/${puesto.id}'); return false;" id="formulario" >
-  <b> <p>Si quiere realizar una modificación en el puesto, tiene dos opciones: </p> </b>
-
-      <b> <p>1) Actualizar solamente la info del puesto. Introduzca: </p> </b>
+<form action="#" onSubmit="makePATCHRequest('/puestos/' + ${puesto.id}); return false;" id="formularioPATCH" >
        <div>
-         <label for="puesto.info">- La nueva info del puesto</label>
-         <input name="info" id="info" value="">
+         <label for="puesto.infoPuesto">- La nueva info del puesto</label>
+         <input name="infoPuesto" id="infoPuesto" value="">
        </div>
        <div>
          <button id="modificarPuesto">Modificar puesto</button>
        </div>
+</form>
 
-
-     <form action="#" onSubmit="makePUTRequest('${puesto.url}'); return false;" id="formulario" >
-      <b> <p>2) Modificar toda la información del puesto. Introduzca: </p> </b>
+<b> <p>2) Modificar toda la información del puesto. Introduzca: </p> </b>
+ <form action="#" onSubmit="makePUTRequest('/puestos/${puesto.id}'); return false;" id="formularioPUT" >
        <div>
          <label for="puesto.descripcion">- La nueva descripción del puesto</label>
          <input name="descripcion" id="descripcion" value="">
@@ -120,12 +123,10 @@ xhr.send(data);
          <label for="puesto.info">- La nueva info del puesto</label>
          <input name="info" id="info" value="">
        </div>
-
-
        <div>
          <button id="modificarPuesto">Modificar puesto</button>
        </div>
-     </form>
+</form>
 
 <p >------------------------------------------------- </p> <br>
 

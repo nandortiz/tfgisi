@@ -20,7 +20,7 @@ xhr.onreadystatechange = function () {
       console.log(xhr.status);
       console.log(xhr.responseText);
    }};
-var form = document.querySelector("#formulario");
+var form = document.querySelector("#formularioPUT");
 var data = `{
                     "nombre": "`+form.querySelector('input[name="nombre"]').value+`",
                     "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`"
@@ -76,7 +76,7 @@ xhr.send(data);
 
 
 
-<form action="#" onSubmit="makePUTRequest('${biblioteca.url}'); return false;" id="formulario" >
+<form action="#" onSubmit="makePUTRequest('${biblioteca.url}'); return false;" id="formularioPUT" >
  <b> <p>Este formulario es para modificar el nombre y la descripción de la biblioteca en cuestión. Introduzca: </p> </b>
   <div>
     <label for="biblioteca.nombre">- El nuevo nombre de la biblioteca</label>
