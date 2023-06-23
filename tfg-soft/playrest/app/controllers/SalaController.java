@@ -64,7 +64,7 @@ public class SalaController extends Controller {
                     StringWriter sw = new StringWriter();
                     Map<String, Object> mapa = new TreeMap<String, Object>();
                     mapa.put("bibliotecaID", bibliotecaID);
-                    mapa.put("sala.id", id);
+                    mapa.put("salaID", id);
                     template.process(mapa, sw);
                     output = sw.toString();
                 } catch (Exception e) {
@@ -99,9 +99,6 @@ public class SalaController extends Controller {
                 mapa.put("sala", result);
                 mapa.put("bibliotecaID", bibliotecaID);
                 mapa.put("salaID", id);
-                mapa.put("descripcion", result.getDescripcion());
-                mapa.put("tipo", result.getTipo());
-                mapa.put("aforoSala", result.getAforo());
                 template.process(mapa, sw);
                 output = sw.toString();
             } catch (Exception e) {

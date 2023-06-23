@@ -20,11 +20,13 @@ xhr.onreadystatechange = function () {
       console.log(xhr.status);
       console.log(xhr.responseText);
    }};
-var form = document.querySelector("#formulario");
-var data = `{
-                    "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`"
-                     "aforoSala": "`+form.querySelector('input[name="aforoSala"]').value+`"
-            }`;
+var form = document.querySelector("#formularioPUT");
+var descripcion = form.querySelector('input[name="descripcion"]').value;
+var aforo = form.querySelector('input[name="aforo"]').value;
+var data = JSON.stringify({
+  descripcion: descripcion,
+  aforo: aforo
+});
 console.log(data)
 xhr.send(data);
 }
@@ -46,10 +48,11 @@ xhr.onreadystatechange = function () {
       console.log(xhr.status);
       console.log(xhr.responseText);
    }};
-var form = document.querySelector("#formulario");
-var data = `{
-                    "aforoSala": "`+form.querySelector('input[name="aforoSala"]').value+`"
-            }`;
+var form = document.querySelector("#formularioPATCH");
+var aforoSala = form.querySelector('input[name="aforoSala"]').value;
+var data = JSON.stringify({
+  aforoSala: aforoSala
+});
 console.log(data)
 xhr.send(data);
 }
@@ -96,32 +99,29 @@ xhr.send(data);
              <p >La sala está en la biblioteca con ID <a href="/bibliotecas/${sala.bibliotecaID}">${sala.bibliotecaID} </a> </p> <br>
              <p >El aforo de la sala es ${sala.aforo} </p> <br>
              <p >------------------------------------------------- </p> <br>
-
-<form action="#" onSubmit="makePATCHRequest('${sala.url}'); return false;" id="formulario" >
-  <b> <p>Si quiere realizar una modificación en la sala, tiene dos opciones: </p> </b>
-
+<b> <p>Si quiere realizar una modificación en la sala, tiene dos opciones: </p> </b>
       <b> <p>1) Actualizar solamente el aforo de la sala. Introduzca: </p> </b>
-       <div>
-         <label for="sala.aforo">- El nuevo aforo de la sala</label>
-         <input name="aforoSala" id="aforoSala" value="">
+
+<form action="#" onSubmit="makePATCHRequest('/salas/' + ${sala.id}); return false;" id="formularioPATCH" >
+         <div>
+         <label for="sala.aforoSala">- El nuevo aforo de la sala</label>
+         <input name="aforoSala" id="aforoSala" value="" type="number">
        </div>
        <div>
          <button id="modificarSala">Modificar sala</button>
        </div>
+</form>
 
-
-     <form action="#" onSubmit="makePUTRequest('${sala.url}'); return false;" id="formulario" >
-      <b> <p>2) Modificar toda la información de la sala. Introduzca: </p> </b>
+    <b> <p>2) Modificar toda la información de la sala. Introduzca: </p> </b>
+     <form action="#" onSubmit="makePUTRequest('/salas/${sala.id}'); return false;" id="formularioPUT" >
        <div>
          <label for="sala.descripcion">- La nueva descripción de la sala</label>
          <input name="descripcion" id="descripcion" value="">
        </div>
        <div>
          <label for="sala.aforo">- El nuevo aforo de la sala</label>
-         <input name="aforoSala" id="aforoSala" value="">
+         <input name="aforo" id="aforo" value="" type="number">
        </div>
-
-
        <div>
          <button id="modificarSala">Modificar sala</button>
        </div>
@@ -129,9 +129,8 @@ xhr.send(data);
 
 <p >------------------------------------------------- </p> <br>
 
+<b> <p>Si quiere borrar esta sala pulse el botón </p> </b>
 <form action="#" onSubmit="makeDELETERequest('${sala.url}'); return false;" id="formularioDELETE" >
- <b> <p>Si quiere borrar esta sala pulse el botón </p> </b>
-
   <div>
     <button id="borrarSala">Borrar sala</button>
   </div>
