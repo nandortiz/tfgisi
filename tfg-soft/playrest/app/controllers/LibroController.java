@@ -101,7 +101,7 @@ public class LibroController extends Controller {
                     StringWriter sw = new StringWriter();
                     Map<String, Object> mapa = new TreeMap<String, Object>();
                     mapa.put("bibliotecaID", bibliotecaID);
-                    mapa.put("LibroID", id);
+                    mapa.put("libroID", id);
                     template.process(mapa, sw);
                     output = sw.toString();
                 } catch (Exception e) {

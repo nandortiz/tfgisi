@@ -347,7 +347,7 @@ POST /bibliotecas/:id/ordenadores       controllers.OrdenadorController.create(i
  #      schema:
  #        $ref: '#/definitions/entities.Ordenador'
  ###
- GET /bibliotecas/:id/ordenadores/        controllers.OrdenadorController.retrieveAll(id:Int)
+ GET /bibliotecas/:id/ordenadores/        controllers.OrdenadorController.retrieveAll(request:Request, id:Int)
 
  ###
  #  summary: Obtener un ordenador. (GET)
@@ -361,7 +361,7 @@ POST /bibliotecas/:id/ordenadores       controllers.OrdenadorController.create(i
  #      schema:
  #        $ref: '#/definitions/entities.Ordenador'
  ###
-GET /bibliotecas/:id/ordenadores/:idOrdenador    controllers.OrdenadorController.retrieve( id:Int, idOrdenador:Int)
+GET /bibliotecas/:id/ordenadores/:idOrdenador    controllers.OrdenadorController.retrieve(request:Request, id:Int, idOrdenador:Int)
 
 ###
  #  summary: Eliminar un ordenador. (DELETE)

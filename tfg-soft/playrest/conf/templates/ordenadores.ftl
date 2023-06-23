@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <html>
 <head>
-  <title>/bibliotecas/${bibliotecaID}/libros/</title>
+  <title>/bibliotecas/${bibliotecaID}/ordenadores/</title>
 </head>
 
 <script>
@@ -26,7 +26,7 @@ var data = `{
                     "descripcion": "`+form.querySelector('input[name="descripcion"]').value+`",
                     "tipo": "`+form.querySelector('input[name="tipo"]').value+`",
                     "bibliotecaID": "`+form.querySelector('input[name="bibliotecaID"]').value+`",
-                    "isbn": "`+form.querySelector('input[name="isbn"]').value+`"
+                    "numSerie": "`+form.querySelector('input[name="numSerie"]').value+`"
 
             }`;
 console.log(data);
@@ -41,39 +41,39 @@ xhr.send(data);
 <p >   Si quiere volver a ver <b>todas las bibliotecas</b> pinche <a href="/bibliotecas/">aquí </a></p> <br>
 <p >------------------------------------------------- </p> <br><br>
 
-<div> <b> La lista de libros de la biblioteca ${bibliotecaID} es: </b><br> <br>
-    <#list libros as libro>
-        <p id="identificador" >  El ID del libro es ${libro.id} </p> <br>
-         <p id="url"> Si quiere obtener más información de este libro pinche <a href="/bibliotecas/${bibliotecaID}/libros/${libro.id}">aquí</a></p> <br>
+<div> <b> La lista de ordenadores de la biblioteca ${bibliotecaID} es: </b><br> <br>
+    <#list ordenadores as ordenador>
+        <p id="identificador" >  El ID del ordenador es ${ordenador.id} </p> <br>
+         <p id="url"> Si quiere obtener más información de este ordenador pinche <a href="/bibliotecas/${bibliotecaID}/ordenadores/${ordenador.id}">aquí</a></p> <br>
 
          <p >------------------------------------------------- </p> <br>
     </#list>
     </div>
 
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/libros'); return false;" id="formularioPOST" >
-  <b> <p>Este formulario es para añadir un libro a la biblioteca. Introduzca: </p> </b>
+<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/ordenadores'); return false;" id="formularioPOST" >
+  <b> <p>Este formulario es para añadir un ordenador a la biblioteca. Introduzca: </p> </b>
   <div>
-      <label for="libro.nombre">- Título del libro a crear</label>
+      <label for="ordenador.nombre">- Modelo del ordenador a crear</label>
       <input name="nombre" id="nombre" value="">
     </div>
   <div>
-    <label for="libro.descripcion">- Descripción del libro a crear</label>
+    <label for="ordenador.descripcion">- Descripción del ordenador a crear</label>
     <input name="descripcion" id="descripcion" value="">
   </div>
   <div>
-     <input name="tipo" id="tipo" type="hidden" value="L">
+     <input name="tipo" id="tipo" type="hidden" value="O">
    </div>
   <div>
-     <label for="libro.bibliotecaID">- La biblioteca a la que pertenece el libro a crear</label>
+     <label for="ordenador.bibliotecaID">- La biblioteca a la que pertenece el ordenador a crear</label>
      <input name="bibliotecaID" id="bibliotecaID" value="">
     </div>
   <div>
-     <label for="libro.isbn">- El ISBN del libro a crear (4 dígitos)</label>
-     <input name="isbn" id="isbn" value="">
+     <label for="ordenador.numSerie">- El número de serie del ordenador a crear (máximo 10 caracteres)</label>
+     <input name="numSerie" id="numSerie" value="">
   </div>
 
   <div>
-    <button id="creacion">Crear libro</button>
+    <button id="creacion">Crear ordenador</button>
   </div>
 </form>
 

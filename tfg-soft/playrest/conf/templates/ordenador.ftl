@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <html>
 <head>
-  <title>/bibliotecas/${libro.bibliotecaID}/libros/${libro.id}</title>
+  <title>/bibliotecas/${ordenador.bibliotecaID}/ordenadores/${ordenador.id}</title>
 </head>
 
 <script>
@@ -23,11 +23,11 @@ xhr.onreadystatechange = function () {
 var form = document.querySelector("#formularioPUT");
 var nombre = form.querySelector('input[name="nombre"]').value;
 var descripcion = form.querySelector('input[name="descripcion"]').value;
-var isbn = form.querySelector('input[name="isbn"]').value;
+var numSerie = form.querySelector('input[name="numSerie"]').value;
 var data = JSON.stringify({
   nombre: nombre,
   descripcion: descripcion,
-  isbn: isbn
+  numSerie: numSerie
 });
 
 console.log(data)
@@ -52,9 +52,9 @@ xhr.onreadystatechange = function () {
       console.log(xhr.responseText);
    }};
 var form = document.querySelector("#formularioPATCH");
-var isbnLibro = form.querySelector('input[name="isbnLibro"]').value;
+var numSerieOrdenador = form.querySelector('input[name="numSerieOrdenador"]').value;
 var data = JSON.stringify({
-   isbnLibro: isbnLibro
+   numSerieOrdenador: numSerieOrdenador
 });
 console.log(data)
 xhr.send(data);
@@ -90,54 +90,54 @@ xhr.send(data);
 
 
 <p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
-<p >   Si quiere volver a ver <b>todas los libros de la biblioteca</b> pinche <a href="/bibliotecas/${libro.bibliotecaID}/libros/">aquí </a></p> <br>
+<p >   Si quiere volver a ver <b>todas los ordenadores de la biblioteca</b> pinche <a href="/bibliotecas/${ordenador.bibliotecaID}/ordenadores/">aquí </a></p> <br>
 
     <p >------------------------------------------------- </p><br><br>
-<b> <p>La información del libro ${libro.id} es la siguiente:</p> </b>
+<b> <p>La información del ordenador ${ordenador.id} es la siguiente:</p> </b>
 
-           <p> El id del libro es ${libro.id} </p> <br>
-           <p> La URI del libro es ${libro.url} </p> <br>
-           <p> El título del libro es ${libro.nombre} </p> <br>
-           <p El tipo del recurso extra es ${libro.tipo} </p> <br>
-           <p> La descripción del libro es ${libro.descripcion} </p> <br>
-           <p> El libro está en la biblioteca con ID <a href="/bibliotecas/${libro.bibliotecaID}">${libro.bibliotecaID} </a> </p> <br>
-           <p> El ISBN del libro es ${libro.isbn} </p> <br>
+           <p> El id del ordenador es ${ordenador.id} </p> <br>
+           <p> La URI del ordenador es ${ordenador.url} </p> <br>
+           <p> El modelo del ordenador es ${ordenador.nombre} </p> <br>
+           <p El tipo del recurso extra es ${ordenador.tipo} </p> <br>
+           <p> La descripción del ordenador es ${ordenador.descripcion} </p> <br>
+           <p> El ordenador está en la biblioteca con ID <a href="/bibliotecas/${ordenador.bibliotecaID}">${ordenador.bibliotecaID} </a> </p> <br>
+           <p> El número de serie del ordenador es ${ordenador.numSerie} </p> <br>
       <p >------------------------------------------------- </p> <br>
-<b> <p>Si quiere realizar una modificación en el libro, tiene dos opciones: </p> </b>
- <b> <p>1) Actualizar solamente el ISBN del libro. Introduzca: </p> </b>
+<b> <p>Si quiere realizar una modificación en el ordenador, tiene dos opciones: </p> </b>
+ <b> <p>1) Actualizar solamente el número de serie del ordenador. Introduzca: </p> </b>
 
-<form action="#" onSubmit="makePATCHRequest('/libros/' + ${libro.id}); return false;" id="formularioPATCH" >
+<form action="#" onSubmit="makePATCHRequest('/ordenadores/' + ${ordenador.id}); return false;" id="formularioPATCH" >
        <div>
-         <label for="libro.isbnLibro">- El nuevo ISBN del libro (4 dígitos)</label>
-         <input name="isbnLibro" id="isbnLibro" value="">
+         <label for="ordenador.numSerieOrdenador">- El nuevo número de serie del ordenador (máximo 10 dígitos)</label>
+         <input name="numSerieOrdenador" id="numSerieOrdenador" value="">
        </div>
        <div>
-         <button id="modificarLibro">Modificar libro</button>
+         <button id="modificarOrdenador">Modificar ordenador</button>
        </div>
 </form>
 
-<b> <p>2) Modificar toda la información del libro. Introduzca: </p> </b>
- <form action="#" onSubmit="makePUTRequest('/libros/${libro.id}'); return false;" id="formularioPUT" >
+<b> <p>2) Modificar toda la información del ordenador. Introduzca: </p> </b>
+ <form action="#" onSubmit="makePUTRequest('/ordenadores/${ordenador.id}'); return false;" id="formularioPUT" >
         <div>
-          <label for="libro.nombre">- El nuevo título del libro</label>
+          <label for="ordenador.nombre">- El nuevo modelo de ordenador</label>
           <input name="nombre" id="nombre" value="">
         </div>
        <div>
-         <label for="libro.descripcion">- La nueva descripción del libro</label>
+         <label for="ordenador.descripcion">- La nueva descripción del ordenador</label>
          <input name="descripcion" id="descripcion" value="">
        </div>
        <div>
-         <label for="libro.isbn">- El nuevo ISBN del libro (4 dígitos)</label>
-         <input name="isbn" id="isbn" value="">
+         <label for="ordenador.numSerie">- El nuevo número de serie del ordenador (máximo 10 dígitos)</label>
+         <input name="numSerie" id="numSerie" value="">
        </div>
        <div>
-         <button id="modificarLibro">Modificar libro</button>
+         <button id="modificarOrdenador">Modificar ordenador</button>
        </div>
 </form>
 
 <p >------------------------------------------------- </p> <br>
 
-<form action="#" onSubmit="makeDELETERequest('${libro.url}'); return false;" id="formularioDELETE" >
+<form action="#" onSubmit="makeDELETERequest('${ordenador.url}'); return false;" id="formularioDELETE" >
  <b> <p>Si quiere borrar este libro pulse el botón </p> </b>
 
   <div>
