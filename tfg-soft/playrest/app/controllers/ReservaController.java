@@ -99,10 +99,6 @@ public class ReservaController extends Controller {
                 StringWriter sw = new StringWriter();
                 Map<String, Object> mapa = new TreeMap<String, Object>();
                 mapa.put("reserva", result);
-                mapa.put("url", result.getUrl());
-                mapa.put("usuarioID", result.getUsuarioID());
-                mapa.put("elementoReservableID", result.getElementoReservableID());
-                mapa.put("fecha", result.getFecha());
                 template.process(mapa, sw);
                 output = sw.toString();
             } catch (Exception e) {
