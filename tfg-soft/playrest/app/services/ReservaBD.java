@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,7 +63,7 @@ public class ReservaBD extends ConexionBD {
                     ResultSet prueba = createStatement.getGeneratedKeys();
                     prueba.next();
                     identificador = prueba.getInt(1);
-                    String url = "/reserva/" + identificador;
+                    String url = "/reservas/" + identificador;
                     createStatement.executeUpdate("UPDATE  reserva set url ='" + url + "' where reservaID = " + identificador + ";");
                 } else if (disponibilidad && tipoReserva == TipoReserva.E) {
                     String query = "INSERT INTO reservaextra (reservaID, RecursoExtraID) VALUES ('" + reservaID + "','" + recursoExtraID + "');";
@@ -146,7 +147,7 @@ public class ReservaBD extends ConexionBD {
                 }
             } else if (tipoReserva == TipoReserva.E) {
 
-
+                String mifecha = null;
                 id = reserva.getId();
                 idRecursoExtra = reserva.getRecursoExtraID();
 
@@ -154,17 +155,29 @@ public class ReservaBD extends ConexionBD {
                 primarykey = "RecursoExtraID";
                 try {
                     if (conector() == true) {
-                        String queryBD = "select count(*) as disponibilidad from " + tabla + " where " + primarykey + " = '" + idRecursoExtra + "' and reservaID =  '" + id + "';";
+                        //String queryBD = "select count(*) as disponibilidad from " + tabla + " where " + primarykey + " = '" + idRecursoExtra + "' and reservaID =  '" + id + "';";
+                        String queryBD= "select fecha from reserva where reservaID = '" + id + "' ;";
                         try {
                             rS = createStatement.executeQuery(queryBD);
                             while (rS.next()) {
-                                cuenta = rS.getInt("disponibilidad");
-
-                                if (cuenta > 0) {
-                                    disponible = false;
-                                } else {
-                                    disponible = true;
+                                mifecha = rS.getString("fecha");
+                            }
+                        String queryBD2 = "select count(*) as cuenta from reservaextra inner join reserva on reservaextra.reservaID = reserva.reservaID " +
+                                " where recursoExtraID = '"+ idRecursoExtra +"' and fecha = '" + mifecha +"'    ;" ;
+                            try {
+                                rS = createStatement.executeQuery(queryBD2);
+                                System.out.println(queryBD2);
+                                while (rS.next()) {
+                                    cuenta = rS.getInt("cuenta");
+                                    System.out.println(cuenta);
+                                    if (cuenta > 0) {
+                                        disponible = false;
+                                    } else {
+                                        disponible = true;
+                                    }
                                 }
+                            } catch (SQLException e) {
+                                e.printStackTrace();
                             }
 
                         } catch (SQLException e) {
