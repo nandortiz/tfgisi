@@ -29,6 +29,8 @@ var data = JSON.stringify({
 });
 console.log(data)
 xhr.send(data);
+alert ("Sala actualizado correctamente");
+location.reload();
 }
 </script>
 
@@ -55,6 +57,8 @@ var data = JSON.stringify({
 });
 console.log(data)
 xhr.send(data);
+alert ("Sala modificado correctamente");
+location.reload();
 }
 
 </script>
@@ -80,25 +84,43 @@ var data = `{
             }`;
 console.log(data)
 xhr.send(data);
+alert ("Sala borrado correctamente");
+window.location.replace(
+  "/bibliotecas/${sala.bibliotecaID}/salas/"
+);
 }
 </script>
+<style>
+.negrita{
+font-weight:bold;
+font-size:23px;
+}
+</style>
 
 <body>
+<div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal blanco">SGB</h1>
+    <p class="lead font-weight-normal blanco">Sistema de Gestión de Bibliotecas USP CEU</p>
+</div>
 
+<p>   <a href="/inicio">INICIO </a> | <a href="/usuarios">USUARIOS </a> | <a href="/bibliotecas/">BIBLIOTECAS </a> | <a href="/reservas">RESERVAS </a></p>
+<br>
+<hr> <br><br>
 
-<p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
+<!-- <p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br> -->
 <p >   Si quiere volver a ver <b>todas las salas de la biblioteca</b> pinche <a href="/bibliotecas/${sala.bibliotecaID}/salas/">aquí </a></p> <br>
 
-    <p >------------------------------------------------- </p><br><br>
+    <hr>
 <b> <p>La información de la sala ${sala.id} es la siguiente:</p> </b>
 
-           <p >El id de la sala es ${sala.id} </p> <br>
-             <p> La URI de la sala es <a href="${sala.url}">${sala.url} </a></p> <br>
-             <p>El tipo de elemento reservable es ${sala.tipo} </p> <br>
-             <p>La descripción de la sala es ${sala.descripcion} </p> <br>
-             <p >La sala está en la biblioteca con ID <a href="/bibliotecas/${sala.bibliotecaID}">${sala.bibliotecaID} </a> </p> <br>
-             <p >El aforo de la sala es ${sala.aforo} </p> <br>
-             <p >------------------------------------------------- </p> <br>
+           <p >El id de la sala es<b> ${sala.id} </b></p>
+             <p> La URI de la sala es <b><a href="${sala.url}">${sala.url} </a></b></p>
+             <p>El tipo de elemento reservable es<b> ${sala.tipo} </b></p>
+             <p>La descripción de la sala es <b>${sala.descripcion} </b></p>
+             <p >La sala está en la biblioteca con ID <b><a href="/bibliotecas/${sala.bibliotecaID}">${sala.bibliotecaID} </a></b> </p>
+             <p >El aforo de la sala es <b>${sala.aforo} </b></p>
+             <hr>
 <b> <p>Si quiere realizar una modificación en la sala, tiene dos opciones: </p> </b>
       <b> <p>1) Actualizar solamente el aforo de la sala. Introduzca: </p> </b>
 
@@ -108,7 +130,8 @@ xhr.send(data);
          <input name="aforoSala" id="aforoSala" value="" type="number">
        </div>
        <div>
-         <button id="modificarSala">Modificar sala</button>
+       <div style="margin-top:25px;">
+         <button class="boton1" id="modificarSala">Modificar sala</button>
        </div>
 </form>
 
@@ -123,19 +146,61 @@ xhr.send(data);
          <input name="aforo" id="aforo" value="" type="number">
        </div>
        <div>
-         <button id="modificarSala">Modificar sala</button>
+       <div style="margin-top:25px;">
+         <button class="boton1" id="modificarSala">Modificar sala</button>
        </div>
      </form>
 
-<p >------------------------------------------------- </p> <br>
+<hr>
 
 <b> <p>Si quiere borrar esta sala pulse el botón </p> </b>
 <form action="#" onSubmit="makeDELETERequest('${sala.url}'); return false;" id="formularioDELETE" >
   <div>
-    <button id="borrarSala">Borrar sala</button>
+  <div style="margin-top:25px;">
+    <button class="boton1" id="borrarSala">Borrar sala</button>
   </div>
 </form>
-<p >------------------------------------------------- </p> <br>
+<hr>
+
+<style>
+table {
+    width:40%;
+    font:normal 25px Arial;
+    text-align:center;
+    border-collapse:collapse;
+}
+
+table th {
+    font:bold 25px Arial;
+    background-color:lightblue;
+}
+
+.fila_impar {
+    background-color:#c0c0c0;
+}
+
+.fila_par {
+    background-color:#fffff;
+}
+
+.fila_resaltada {
+    color:blue;
+    background-color:red;
+}
+p {
+    font-size:20pt;
+}
+
+h1 {
+    font-size:30pt;
+}
+label {
+    font-size:15pt;
+}
+.boton1 {
+    font-size:15pt;
+}
+</style>
 
 </body>
 </html>

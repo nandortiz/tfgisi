@@ -32,6 +32,8 @@ var data = JSON.stringify({
 
 console.log(data)
 xhr.send(data);
+alert ("Ordenador actualizado correctamente");
+location.reload();
 }
 </script>
 
@@ -58,6 +60,8 @@ var data = JSON.stringify({
 });
 console.log(data)
 xhr.send(data);
+alert ("Ordenador modificado correctamente");
+location.reload();
 }
 
 </script>
@@ -83,26 +87,46 @@ var data = `{
             }`;
 console.log(data)
 xhr.send(data);
+alert ("Ordenador borrado correctamente");
+window.location.replace(
+ "/bibliotecas/${ordenador.bibliotecaID}/ordenadores/"
+);
 }
 </script>
 
 <body>
 
+<style>
+.negrita{
+font-weight:bold;
+font-size:23px;
+}
+</style>
 
-<p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
+<div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal blanco">SGB</h1>
+    <p class="lead font-weight-normal blanco">Sistema de Gestión de Bibliotecas USP CEU</p>
+</div>
+
+<p>   <a href="/inicio">INICIO </a> | <a href="/usuarios">USUARIOS </a> | <a href="/bibliotecas/">BIBLIOTECAS </a> | <a href="/reservas">RESERVAS </a></p>
+<br>
+<hr> <br><br>
+
+<!-- <p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br> -->
 <p >   Si quiere volver a ver <b>todas los ordenadores de la biblioteca</b> pinche <a href="/bibliotecas/${ordenador.bibliotecaID}/ordenadores/">aquí </a></p> <br>
 
-    <p >------------------------------------------------- </p><br><br>
+   <hr>
 <b> <p>La información del ordenador ${ordenador.id} es la siguiente:</p> </b>
 
-           <p> El id del ordenador es ${ordenador.id} </p> <br>
-           <p> La URI del ordenador es ${ordenador.url} </p> <br>
-           <p> El modelo del ordenador es ${ordenador.nombre} </p> <br>
-           <p El tipo del recurso extra es ${ordenador.tipo} </p> <br>
-           <p> La descripción del ordenador es ${ordenador.descripcion} </p> <br>
-           <p> El ordenador está en la biblioteca con ID <a href="/bibliotecas/${ordenador.bibliotecaID}">${ordenador.bibliotecaID} </a> </p> <br>
-           <p> El número de serie del ordenador es ${ordenador.numSerie} </p> <br>
-      <p >------------------------------------------------- </p> <br>
+           <p> El id del ordenador es<b> ${ordenador.id} </b></p>
+           <p> La URI del ordenador es<b> ${ordenador.url}</b> </p>
+           <p> El modelo del ordenador es <b>${ordenador.nombre}</b> </p>
+           <p El recurso extra es de tipo <b> ${ordenador.tipo}</b> </p>
+           <p> La descripción del ordenador es <b>${ordenador.descripcion}</b> </p>
+           <p> El ordenador está en la biblioteca con ID <b><a href="/bibliotecas/${ordenador.bibliotecaID}">${ordenador.bibliotecaID} </a> </b></p>
+           <p> El número de serie del ordenador es <b>${ordenador.numSerie}</b> </p>
+      <hr>
 <b> <p>Si quiere realizar una modificación en el ordenador, tiene dos opciones: </p> </b>
  <b> <p>1) Actualizar solamente el número de serie del ordenador. Introduzca: </p> </b>
 
@@ -112,7 +136,8 @@ xhr.send(data);
          <input name="numSerieOrdenador" id="numSerieOrdenador" value="">
        </div>
        <div>
-         <button id="modificarOrdenador">Modificar ordenador</button>
+       <div style="margin-top:25px;">
+         <button class="boton1" id="modificarOrdenador">Modificar ordenador</button>
        </div>
 </form>
 
@@ -131,20 +156,62 @@ xhr.send(data);
          <input name="numSerie" id="numSerie" value="">
        </div>
        <div>
-         <button id="modificarOrdenador">Modificar ordenador</button>
+       <div style="margin-top:25px;">
+         <button class="boton1" id="modificarOrdenador">Modificar ordenador</button>
        </div>
 </form>
 
-<p >------------------------------------------------- </p> <br>
+<hr>
 
 <form action="#" onSubmit="makeDELETERequest('${ordenador.url}'); return false;" id="formularioDELETE" >
  <b> <p>Si quiere borrar este libro pulse el botón </p> </b>
 
   <div>
-    <button id="borrarLibro">Borrar libro</button>
+  <div style="margin-top:25px;">
+    <button class="boton1" id="borrarOrdenador">Borrar ordenador</button>
   </div>
 </form>
-<p >------------------------------------------------- </p> <br>
+<hr>
+
+<style>
+table {
+    width:40%;
+    font:normal 25px Arial;
+    text-align:center;
+    border-collapse:collapse;
+}
+
+table th {
+    font:bold 25px Arial;
+    background-color:lightblue;
+}
+
+.fila_impar {
+    background-color:#c0c0c0;
+}
+
+.fila_par {
+    background-color:#fffff;
+}
+
+.fila_resaltada {
+    color:blue;
+    background-color:red;
+}
+p {
+    font-size:20pt;
+}
+
+h1 {
+    font-size:30pt;
+}
+label {
+    font-size:15pt;
+}
+.boton1 {
+    font-size:15pt;
+}
+</style>
 
 </body>
 </html>

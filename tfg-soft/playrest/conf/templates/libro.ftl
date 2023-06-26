@@ -32,6 +32,8 @@ var data = JSON.stringify({
 
 console.log(data)
 xhr.send(data);
+alert ("Libro actualizado correctamente");
+location.reload();
 }
 </script>
 
@@ -58,8 +60,9 @@ var data = JSON.stringify({
 });
 console.log(data)
 xhr.send(data);
+alert ("Libro modificado correctamente");
+location.reload();
 }
-
 </script>
 
 <script>
@@ -83,26 +86,46 @@ var data = `{
             }`;
 console.log(data)
 xhr.send(data);
+alert ("Libro borrado correctamente");
+window.location.replace(
+ "/bibliotecas/${libro.bibliotecaID}/libros/"
+);
 }
 </script>
 
 <body>
 
+<style>
+.negrita{
+font-weight:bold;
+font-size:23px;
+}
+</style>
 
-<p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
+<div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal blanco">SGB</h1>
+    <p class="lead font-weight-normal blanco">Sistema de Gestión de Bibliotecas USP CEU</p>
+</div>
+
+<p>   <a href="/inicio">INICIO </a> | <a href="/usuarios">USUARIOS </a> | <a href="/bibliotecas/">BIBLIOTECAS </a> | <a href="/reservas">RESERVAS </a></p>
+<br>
+<hr> <br><br>
+
+<!-- <p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br> -->
 <p >   Si quiere volver a ver <b>todas los libros de la biblioteca</b> pinche <a href="/bibliotecas/${libro.bibliotecaID}/libros/">aquí </a></p> <br>
 
-    <p >------------------------------------------------- </p><br><br>
+<hr>
 <b> <p>La información del libro ${libro.id} es la siguiente:</p> </b>
 
-           <p> El id del libro es ${libro.id} </p> <br>
-           <p> La URI del libro es ${libro.url} </p> <br>
-           <p> El título del libro es ${libro.nombre} </p> <br>
-           <p El tipo del recurso extra es ${libro.tipo} </p> <br>
-           <p> La descripción del libro es ${libro.descripcion} </p> <br>
-           <p> El libro está en la biblioteca con ID <a href="/bibliotecas/${libro.bibliotecaID}">${libro.bibliotecaID} </a> </p> <br>
-           <p> El ISBN del libro es ${libro.isbn} </p> <br>
-      <p >------------------------------------------------- </p> <br>
+           <p> El id del libro es<b> ${libro.id} </b> </p>
+           <p> La URI del libro es<b>${libro.url} </b> </p>
+           <p> El título del libro es <b>${libro.nombre}  </b></p>
+           <p El recurso extra es de tipo <b>${libro.tipo} </b> </p>
+           <p> La descripción del libro es <b>${libro.descripcion} </b> </p>
+           <p> El libro está en la biblioteca con ID <b><a href="/bibliotecas/${libro.bibliotecaID}">${libro.bibliotecaID} </a></b> </p>
+           <p> El ISBN del libro es <b>${libro.isbn}</b> </p>
+<hr>
 <b> <p>Si quiere realizar una modificación en el libro, tiene dos opciones: </p> </b>
  <b> <p>1) Actualizar solamente el ISBN del libro. Introduzca: </p> </b>
 
@@ -112,7 +135,8 @@ xhr.send(data);
          <input name="isbnLibro" id="isbnLibro" value="">
        </div>
        <div>
-         <button id="modificarLibro">Modificar libro</button>
+        <div style="margin-top:25px;">
+         <button class="boton1" id="modificarLibro">Modificar libro</button>
        </div>
 </form>
 
@@ -131,20 +155,63 @@ xhr.send(data);
          <input name="isbn" id="isbn" value="">
        </div>
        <div>
-         <button id="modificarLibro">Modificar libro</button>
+        <div style="margin-top:25px;">
+         <button class="boton1" id="modificarLibro">Modificar libro</button>
        </div>
 </form>
 
-<p >------------------------------------------------- </p> <br>
+<hr>
+
 
 <form action="#" onSubmit="makeDELETERequest('${libro.url}'); return false;" id="formularioDELETE" >
  <b> <p>Si quiere borrar este libro pulse el botón </p> </b>
-
   <div>
-    <button id="borrarLibro">Borrar libro</button>
+   <div style="margin-top:25px;">
+    <button class="boton1" id="borrarLibro">Borrar libro</button>
   </div>
 </form>
-<p >------------------------------------------------- </p> <br>
+<hr>
+
+
+<style>
+table {
+    width:40%;
+    font:normal 25px Arial;
+    text-align:center;
+    border-collapse:collapse;
+}
+
+table th {
+    font:bold 25px Arial;
+    background-color:lightblue;
+}
+
+.fila_impar {
+    background-color:#c0c0c0;
+}
+
+.fila_par {
+    background-color:#fffff;
+}
+
+.fila_resaltada {
+    color:blue;
+    background-color:red;
+}
+p {
+    font-size:20pt;
+}
+
+h1 {
+    font-size:30pt;
+}
+label {
+    font-size:15pt;
+}
+.boton1 {
+    font-size:15pt;
+}
+</style>
 
 </body>
 </html>

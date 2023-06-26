@@ -1,7 +1,7 @@
 @()
 
 @main("Página de inicio") {
-<h1>Sistema de gestión de bibliotecas USP CEU</h1>
+
 }
 
 <!DOCTYPE html>
@@ -12,34 +12,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+  <link href=@routes.Assets.versioned("/stylesheets/bootstrap.min.css") rel="stylesheet">
+  <link href="@routes.Assets.versioned("stylesheets/grid.css") rel="stylesheet">
+
+
 </head>
 
 <body>
-<h2>Bienvenido al sistema de gestión. </h2>
-<h3> A continuación, puede navegar por los diferentes submenús: </h3>
-<br>
+<!-- CABECERA -->
+<div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;background-color:#ffffff !important;" >
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal blanco">SGB</h1>
+    <p class="lead font-weight-normal blanco">Sistema de Gestión de Bibliotecas USP CEU</p>
+    <img src=@routes.Assets.versioned("images/ceu.jpg")>
 
 
-<ul>
+  <p style="text-align:center;">   <a href="/inicio">INICIO </a> | <a href="/usuarios">USUARIOS </a> | <a href="/bibliotecas/">BIBLIOTECAS </a> | <a href="/reservas">RESERVAS </a></p>
+  <br>
 
-  <b> <p>Para acceder a la lista de usuarios pinche el siguiente botón: </p> </b>
-  <form action="/usuarios" method ="GET" >
-      <button id="obtenerUsuarios" type="submit">Mostrar usuarios</button>
-    </form>
+</div>
+</div>
+  <!---- FIN CABECERA -->
 
-  <b> <p>Para acceder a la lista de reservas pinche el siguiente botón: </p> </b>
-  <form action="/reservas" method ="GET" >
-    <button id="obtenerReservas" type="submit">Mostrar reservas</button>
-  </form>
 
-  <b> <p>Para acceder a la lista de bibliotecas pinche el siguiente botón: </p> </b>
-  <form action="/bibliotecas/" method ="GET" >
-    <button id="obtenerBibliotecas" type="submit">Mostrar bibliotecas</button>
-  </form>
+<p style="text-align:center;"> Bienvenidos al sistema de gestión de bibliotecas de la Universidad CEU San Pablo.</p>
+<li style="text-align:center;">En este sistema podrá:</li>
+<li style="text-align:center;">- Añadir y eliminar usuarios, bibliotecas, elementos reservables (puestos y salas), recursos extra (libros y ordenadores)</li>
+<li style="text-align:center;">- Acceder a la información de dichos recursos, así como modificarla</li>
+<li style="text-align:center;">- Realizar reservas de los mismos, así como eliminarlas</li>
 
-</ul>
-<hr>
 
+
+<style>
+
+p {
+    font-size:20pt;
+}
+
+h1 {
+    font-size:30pt;
+}
+label {
+    font-size:15pt;
+}
+.boton1 {
+    font-size:15pt;
+}
+</style>
 </body>
 
 </html>

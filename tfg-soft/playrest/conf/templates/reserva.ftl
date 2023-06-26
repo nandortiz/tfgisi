@@ -21,12 +21,15 @@ xhr.onreadystatechange = function () {
    }};
 var form = document.querySelector("#formularioPOSTEXTRA");
 var data = `{
-                       	"recursoExtraID": {"id": `+form.querySelector('input[name="recursoExtraID"]').value+`},
-                    	"reservaID": {"id": `+form.querySelector('input[name="reservaID"]').value+`}
+                       	"recursoExtraID": `+form.querySelector('input[name="recursoExtraID"]').value+`,
+                    	"reservaID": `+form.querySelector('input[name="reservaID"]').value+`
+
 
             }`;
 console.log(data)
 xhr.send(data);
+alert ("Reserva extra añadida correctamente");
+location.reload();
 }
 </script>
 
@@ -51,22 +54,55 @@ var data = `{
             }`;
 console.log(data)
 xhr.send(data);
+alert ("Reserva eliminada correctamente");
+window.location.replace(
+  "/reservas"
+);
 }
 </script>
 
 <body>
-<p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
+
+<style>
+.negrita{
+font-weight:bold;
+font-size:23px;
+}
+</style>
+
+<div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal blanco">SGB</h1>
+    <p class="lead font-weight-normal blanco">Sistema de Gestión de Bibliotecas USP CEU</p>
+</div>
+
+<p>   <a href="/inicio">INICIO </a> | <a href="/usuarios">USUARIOS </a> | <a href="/bibliotecas/">BIBLIOTECAS </a> | <a href="/reservas">RESERVAS </a></p>
+<br>
+<hr> <br><br>
+
+<!-- <p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br> -->
 <p >  Si quiere volver a ver <b>todas las reservas</b> pinche <a href="/reservas"> aquí </a></p> <br>
-<p >------------------------------------------------- </p> <br><br>
 
-  <p id="identificador">El ID de la reserva es ${reserva.id} </p> <br>
-  <p id="url">La URI de la reserva es ${reserva.url} </p> <br>
-  <p id="usuario">El ID del usuario de la reserva es ${reserva.usuarioID} </p> <br>
-  <p id="elementoReservableID">El ID del elemento reservable de la reserva es ${reserva.elementoReservableID} </p> <br>
-   <p id="fecha">La fecha de la reserva es ${reserva.fecha} </p> <br>
+<hr>
+
+<b> <p>La información de la reserva ${reserva.id} es la siguiente:</p> </b>
+
+  <p id="identificador">El ID de la reserva es <b>${reserva.id}</b> </p>
+  <p id="url">La URI de la reserva es <b>${reserva.url}</b> </p>
+  <p id="usuario">El ID del usuario de la reserva es <b>${reserva.usuarioID}</b> </p>
+  <p id="elementoReservableID">El ID del elemento reservable de la reserva es <b>${reserva.elementoReservableID}</b> </p>
+   <p id="fecha">La fecha de la reserva es <b>${reserva.fecha}</b> </p>
+
+<div> <b> Si esta reserva tiene recurso(s) extra asociado(s) aparecerá(n) aquí: </b><br>
+  <#list recursosExtra as recursoExtra>
+     <p id="identificador">El ID del recurso extra es ${reservaextra.recursoExtraID} </p> <br>
+    <p id="url">Si quieres saber más información de recurso extra ${reservaextra.recursoExtraID} pulsa <a href="/reservas/${reservaextra.recursoExtraID}">aquí</a></p> <br>
+<hr>
+   </#list>
+  </div>
 
 
-  <p >------------------------------------------------- </p> <br>
+<hr>
  <b><p>¿Quiere añadir un recurso extra a la reserva ${reserva.id} realizada? </p> </b>
 <p> Si quiere tener preparado en su puesto o sala reservado un recurso extra, añada la siguiente información:</p>
 <form action="#" onSubmit="makePOSTRequest('http://localhost:9000/reservas'); return false;" id="formularioPOSTEXTRA" >
@@ -74,25 +110,70 @@ xhr.send(data);
     <input name="reservaID" id="reservaID" type="hidden" value="${reserva.id}">
   </div>
   <div>
-      <label for="reserva.recursoExtraID">- El ID del recurso extra que quiere reservar</label>
+      <label for="reservaextra.recursoExtraID">- El ID del recurso extra que quiere reservar</label>
       <input name="recursoExtraID" id="recursoExtraID" value="">
     </div>
 
   <div>
-    <button id="creacionReservaExtra">Crear reserva extra</button>
+  <div style="margin-top:25px;">
+    <button class="boton1" id="creacionReservaExtra">Crear reserva extra</button>
   </div>
 </form>
+<b> <p> Si quiere añadir más de un recurso extra, una vez hecha la primera reserva extra, repita el proceso con otro recursoExtraID </p> </b>
+<b> <p> (Si quiere verificar que su reserva se ha realizado correctamente, refresque la pantalla) </p> </b>
 
-<b> <p> (Si quiere añadir más de un recurso extra, una vez hecha la primera reserva extra, refresque la pantalla y repita el proceso)</p> </b>
-<p >------------------------------------------------- </p> <br>
+<hr>
 <form action="#" onSubmit="makeDELETERequest('${reserva.url}'); return false;" id="formularioDELETE" >
  <b> <p>Si quiere borrar esta reserva pulse el botón </p> </b>
 
   <div>
-    <button id="borrarReserva">Borrar reserva</button>
+  <div style="margin-top:25px;">
+    <button class="boton1" id="borrarReserva">Borrar reserva</button>
   </div>
 </form>
-<p >------------------------------------------------- </p> <br>
+<p> Compruebe que se ha borrado correctamente,</b> pinchando <a href="/reservas"> aquí </a></p>
+
+<hr>
+
+<style>
+table {
+    width:40%;
+    font:normal 25px Arial;
+    text-align:center;
+    border-collapse:collapse;
+}
+
+table th {
+    font:bold 25px Arial;
+    background-color:lightblue;
+}
+
+.fila_impar {
+    background-color:#c0c0c0;
+}
+
+.fila_par {
+    background-color:#fffff;
+}
+
+.fila_resaltada {
+    color:blue;
+    background-color:red;
+}
+p {
+    font-size:20pt;
+}
+
+h1 {
+    font-size:30pt;
+}
+label {
+    font-size:15pt;
+}
+.boton1 {
+    font-size:15pt;
+}
+</style>
 
 </body>
 </html>

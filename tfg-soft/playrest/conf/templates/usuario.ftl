@@ -31,7 +31,8 @@ var data = JSON.stringify({
 });
 console.log(data);
 xhr.send(data);
-
+alert ("Usuario actualizado correctamente");
+location.reload();
 }
 </script>
 
@@ -57,6 +58,8 @@ var data = JSON.stringify({
 });
 console.log(data)
 xhr.send(data);
+alert ("Usuario modificado correctamente");
+location.reload();
 }
 
 </script>
@@ -82,24 +85,44 @@ var data = `{
             }`;
 console.log(data)
 xhr.send(data);
+alert ("Usuario borrado correctamente");
+window.location.replace(
+  "/usuarios"
+);
 }
 </script>
 
 
 <body>
 
+<style>
+.negrita{
+font-weight:bold;
+font-size:23px;
+}
+</style>
 
-<p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
-<p >   Si quiere volver a ver <b>todos los usuarios</b> pinche <a href="/usuarios">aquí </a></p> <br>
-<p >------------------------------------------------- </p> <br><br>
+<!-- CABECERA -->
+<div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal blanco">SGB</h1>
+    <p class="lead font-weight-normal blanco">Sistema de Gestión de Bibliotecas USP CEU</p>
+</div>
+
+<p>   <a href="/inicio">INICIO </a> | <a href="/usuarios">USUARIOS </a> | <a href="/bibliotecas/">BIBLIOTECAS </a> | <a href="/reservas">RESERVAS </a></p>
+<br>
+<hr> <br><br>
+<!---- FIN CABECERA -->
+
+
 <b> <p>La información del usuario ${usuario.id} es la siguiente:</p> </b>
-  <p id="identificador">El ID del usuario es ${usuario.id} </p> <br>
-  <p id="url">La URI del usuario es ${usuario.url} </p> <br>
-  <p id="nombre">El nombre del usuario es ${usuario.nombre} </p> <br>
-  <p id="apellidosUsuario">Los apellidos del usuario son ${usuario.apellidos} </p> <br>
-  <p id="grado">El grado que cursa el usuario  es ${usuario.grado} </p> <br> <br>
+  <p id="identificador">El ID del usuario es <b>${usuario.id}</b></p>
+  <p id="url">La URI del usuario es <b>${usuario.url}</b> </p>
+  <p id="nombre">El nombre del usuario es <b>${usuario.nombre}</b> </p>
+  <p id="apellidosUsuario">Los apellidos del usuario son <b>${usuario.apellidos}</b> </p>
+  <p id="grado">El grado que cursa el usuario  es <b>${usuario.grado}</b> </p>
 
-<p >------------------------------------------------- </p> <br><br>
+<hr>
 <b> <p>Si quiere realizar una modificación en el usuario, tiene dos opciones: </p> </b>
 <b> <p>1) Modificar toda la información del usuario. Introduzca: </p> </b>
  <form action="#" onSubmit="makePUTRequest('${usuario.url}'); return false;" id="formularioPUT" >
@@ -116,8 +139,8 @@ xhr.send(data);
             <input name="grado" id="grado" value="">
         </div>
 
-        <div>
-          <button id="modificarUsuarioPut">Modificar usuario</button>
+        <div style="margin-top:25px;">
+          <button class="boton1" id="modificarUsuarioPut">Modificar usuario</button>
         </div>
  </form>
 
@@ -127,22 +150,64 @@ xhr.send(data);
          <label for="usuario.grado">- El nuevo grado del usuario</label>
          <input name="grado" id="gradoPatch" value="">
        </div>
-        <div>
-         <button id="modificarUsuarioPatch">Modificar usuario</button>
+        <div style="margin-top:25px;">
+         <button class="boton1" id="modificarUsuarioPatch">Modificar usuario</button>
        </div>
 </form>
 
 
-     <p >------------------------------------------------- </p> <br>
+<hr>
 
 
 <b> <p>Si quiere borrar este usuario pulse el botón </p> </b>
 <form action="#" onSubmit="makeDELETERequest('${usuario.url}'); return false;" id="formularioDELETE" >
-       <div>
-         <button id="borrarUsuario">Borrar usuario</button>
+       <div style="margin-top:25px;">
+         <button class="boton1" id="borrarUsuario">Borrar usuario</button>
        </div>
 </form>
-     <p >------------------------------------------------- </p> <br>
+<hr>
 
+
+
+
+<style>
+table {
+    width:40%;
+    font:normal 25px Arial;
+    text-align:center;
+    border-collapse:collapse;
+}
+
+table th {
+    font:bold 25px Arial;
+    background-color:lightblue;
+}
+
+.fila_impar {
+    background-color:#c0c0c0;
+}
+
+.fila_par {
+    background-color:#fffff;
+}
+
+.fila_resaltada {
+    color:blue;
+    background-color:red;
+}
+p {
+    font-size:20pt;
+}
+
+h1 {
+    font-size:30pt;
+}
+label {
+    font-size:15pt;
+}
+.boton1 {
+    font-size:15pt;
+}
+</style>
 </body>
 </html>
