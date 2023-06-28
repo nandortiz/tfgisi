@@ -95,12 +95,6 @@ window.location.replace(
 
 <body>
 
-<style>
-.negrita{
-font-weight:bold;
-font-size:23px;
-}
-</style>
 
 <div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >
   <div class="col-md-5 p-lg-5 mx-auto my-5">
@@ -121,7 +115,7 @@ font-size:23px;
            <p> El id del libro es<b> ${libro.id} </b> </p>
            <p> La URI del libro es<b>${libro.url} </b> </p>
            <p> El título del libro es <b>${libro.nombre}  </b></p>
-           <p El recurso extra es de tipo <b>${libro.tipo} </b> </p>
+           <p> El recurso extra es de tipo <b>${libro.tipo} </b> </p>
            <p> La descripción del libro es <b>${libro.descripcion} </b> </p>
            <p> El libro está en la biblioteca con ID <b><a href="/bibliotecas/${libro.bibliotecaID}">${libro.bibliotecaID} </a></b> </p>
            <p> El ISBN del libro es <b>${libro.isbn}</b> </p>

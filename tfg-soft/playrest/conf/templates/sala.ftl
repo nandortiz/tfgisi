@@ -90,12 +90,6 @@ window.location.replace(
 );
 }
 </script>
-<style>
-.negrita{
-font-weight:bold;
-font-size:23px;
-}
-</style>
 
 <body>
 <div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >

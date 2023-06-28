@@ -14,40 +14,38 @@
 
   <link href=@routes.Assets.versioned("/stylesheets/bootstrap.min.css") rel="stylesheet">
   <link href="@routes.Assets.versioned("stylesheets/grid.css") rel="stylesheet">
-
-
 </head>
 
 <body>
 <!-- CABECERA -->
 <div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;background-color:#ffffff !important;" >
-  <div class="col-md-5 p-lg-5 mx-auto my-5">
+ <!-- <div class="col-md-5 p-lg-5 mx-auto my-5">
     <h1 class="display-4 font-weight-normal blanco">SGB</h1>
-    <p class="lead font-weight-normal blanco">Sistema de Gestión de Bibliotecas USP CEU</p>
+    <p class="p1"  class="lead font-weight-normal blanco">Sistema de Gestión de Bibliotecas USP CEU</p> -->
     <img src=@routes.Assets.versioned("images/ceu.jpg")>
 
-
-  <p style="text-align:center;">   <a href="/inicio">INICIO </a> | <a href="/usuarios">USUARIOS </a> | <a href="/bibliotecas/">BIBLIOTECAS </a> | <a href="/reservas">RESERVAS </a></p>
-  <br>
-
+  <p class="p2" style="text-align:center;"><a href="/inicio">INICIO </a> | <a href="/usuarios">USUARIOS </a> | <a href="/bibliotecas/">BIBLIOTECAS </a> | <a href="/reservas">RESERVAS </a></p>
+    <br>
+    <hr>
+    <p class="p1" style="text-align:center;"> Bienvenidos al sistema de gestión de bibliotecas de la Universidad CEU San Pablo.<br></p>
+      <p style="text-align:center;">En este sistema podrá:<br></p>
+      <p style="text-align:center;">- Añadir y eliminar usuarios, bibliotecas, elementos reservables (puestos y salas), recursos extra (libros y ordenadores)<br></p>
+      <p style="text-align:center;">- Acceder a la información de dichos recursos, así como modificarla<br></p>
+      <p style="text-align:center;">- Realizar, <consultar></consultar> y eliminar reservas de los mismos</p>
 </div>
 </div>
   <!---- FIN CABECERA -->
 
-
-<p style="text-align:center;"> Bienvenidos al sistema de gestión de bibliotecas de la Universidad CEU San Pablo.</p>
-<li style="text-align:center;">En este sistema podrá:</li>
-<li style="text-align:center;">- Añadir y eliminar usuarios, bibliotecas, elementos reservables (puestos y salas), recursos extra (libros y ordenadores)</li>
-<li style="text-align:center;">- Acceder a la información de dichos recursos, así como modificarla</li>
-<li style="text-align:center;">- Realizar reservas de los mismos, así como eliminarlas</li>
-
-
-
 <style>
 
-p {
+.p1 {
     font-size:20pt;
 }
+
+.p2{
+    font-size:15pt;
+}
+
 
 h1 {
     font-size:30pt;

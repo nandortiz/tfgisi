@@ -32,6 +32,35 @@ public class ReservaBD extends ConexionBD {
         return instance;
     }
 
+    public  ArrayList getRecursoExtraSolicitado(int reservaID) throws SQLException, ClassNotFoundException {
+        ArrayList completo = new ArrayList<>();
+        ArrayList nombre = new ArrayList();
+        ArrayList descripcion = new ArrayList();
+        ArrayList recursoExtraID = new ArrayList();
+        ArrayList tipo = new ArrayList();
+        if (conector() == true) {
+            try {
+                    String query = "select reservaextra.recursoExtraID, recursoextra.nombre, recursoextra.descripcion, recursoextra.tipo from recursoextra inner join reservaextra on recursoextra.id = reservaextra.recursoExtraID where reservaID = '" + reservaID + "';";
+                    System.out.println(query);
+                    rS = createStatement.executeQuery(query);
+                while (rS.next()) {
+                    nombre.add(rS.getString("nombre"));
+                    descripcion.add(rS.getString("descripcion"));
+                    recursoExtraID.add (rS.getString("recursoExtraID"));
+                    tipo.add(rS.getString("tipo"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        completo.add(nombre);
+        completo.add(descripcion);
+        completo.add(recursoExtraID);
+        completo.add(tipo);
+
+        return completo;
+    }
+
     public Reserva addReserva(Reserva reserva) throws SQLException, ClassNotFoundException {
         Integer usuarioID = null;
         Integer elementoReservableID = null;
@@ -201,8 +230,8 @@ public class ReservaBD extends ConexionBD {
         return disponible;
     }
 
-    //TODO Una reserva única, getReserva muestra tabla reserva, y si hay reserva extra, muestra reserva+columna recurosExtraID --> innerjoin
-    public Reserva getReserva(int reservaID) { //todo tipo
+
+    public Reserva getReserva(int reservaID) {
         Reserva reserva = new Reserva();
 
         Integer RecursoExtraID = reserva.getRecursoExtraID();
@@ -240,7 +269,7 @@ public class ReservaBD extends ConexionBD {
     }
 
 
-    public Collection<ReservaShort> getAllReservas() { //TODO tipo, select* reserva extra --> DONE, verify?
+    public Collection<ReservaShort> getAllReservas() {
         List<ReservaShort> reservas = new ArrayList();
         // Reserva reserva = new Reserva();
         // String tipoReserva = comprobarTipoReserva(reserva);

@@ -18,7 +18,10 @@ import services.ReservaBD;
 import utils.ApplicationUtil;
 
 import java.io.StringWriter;
+import java.sql.Array;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
@@ -41,10 +44,28 @@ public class ReservaController extends Controller {
         return created(ApplicationUtil.createResponse(jsonObject, true)).withHeader(LOCATION, reserva.getUrl());
     }
 
-    public Result retrieve(Http.Request request, int reservaID) {
+    public Result retrieve(Http.Request request, int reservaID)  {
         logger.debug("In ReservaController.retrieve(), retrieve Reserva with id: {}", reservaID);
         System.out.println("In ReservaController.retrieve(), retrieve Reserva with id: {}" + reservaID);
         Reserva result = ReservaBD.getInstance().getReserva(reservaID);
+        ArrayList resultextra = null;
+        ArrayList nombre = new ArrayList();
+        ArrayList descripcion = new ArrayList();
+        ArrayList recursoExtraID = new ArrayList();
+        ArrayList tipo = new ArrayList();
+
+        try {
+            resultextra = ReservaBD.getInstance().getRecursoExtraSolicitado(reservaID);
+            nombre = (ArrayList) resultextra.get(0);
+            descripcion = (ArrayList) resultextra.get(1);
+            recursoExtraID = (ArrayList) resultextra.get(2);
+            tipo = (ArrayList) resultextra.get(3);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         if (ReservaBD.getInstance().getReserva(reservaID) == null) {
 
@@ -99,6 +120,11 @@ public class ReservaController extends Controller {
                 StringWriter sw = new StringWriter();
                 Map<String, Object> mapa = new TreeMap<String, Object>();
                 mapa.put("reserva", result);
+                mapa.put("nombre", nombre);
+                mapa.put ("descripcion", descripcion);
+                mapa.put ("recursoExtraID", recursoExtraID);
+                mapa.put("tipo", tipo);
+
                 template.process(mapa, sw);
                 output = sw.toString();
             } catch (Exception e) {

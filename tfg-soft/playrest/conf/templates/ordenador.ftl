@@ -96,12 +96,6 @@ window.location.replace(
 
 <body>
 
-<style>
-.negrita{
-font-weight:bold;
-font-size:23px;
-}
-</style>
 
 <div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >
   <div class="col-md-5 p-lg-5 mx-auto my-5">
@@ -122,7 +116,7 @@ font-size:23px;
            <p> El id del ordenador es<b> ${ordenador.id} </b></p>
            <p> La URI del ordenador es<b> ${ordenador.url}</b> </p>
            <p> El modelo del ordenador es <b>${ordenador.nombre}</b> </p>
-           <p El recurso extra es de tipo <b> ${ordenador.tipo}</b> </p>
+           <p> El recurso extra es de tipo <b> ${ordenador.tipo}</b> </p>
            <p> La descripción del ordenador es <b>${ordenador.descripcion}</b> </p>
            <p> El ordenador está en la biblioteca con ID <b><a href="/bibliotecas/${ordenador.bibliotecaID}">${ordenador.bibliotecaID} </a> </b></p>
            <p> El número de serie del ordenador es <b>${ordenador.numSerie}</b> </p>

@@ -47,7 +47,7 @@ location.reload();
 <!-- <p >  Si quiere volver al <b>inicio</b> pinche <a href="/inicio"> aquí </a></p> <br>
 <p >   Si quiere ver <b>todas las reservas</b> pinche <a href="/reservas">aquí </a></p> <br>
  <p >   Si quiere ver <b>todos las bibliotecas</b> pinche <a href="/bibliotecas/">aquí </a></p> <br> -->
-<hr>
+
 <div>
 <!-- <b> La lista de todas las reservas es: </b><br> <br>
   <#list reservas as reserva>

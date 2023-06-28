@@ -28,7 +28,7 @@ var data = `{
             }`;
 console.log(data)
 xhr.send(data);
-alert ("Reserva extra añadida correctamente");
+alert ("Reserva extra realizada correctamente");
 location.reload();
 }
 </script>
@@ -63,12 +63,6 @@ window.location.replace(
 
 <body>
 
-<style>
-.negrita{
-font-weight:bold;
-font-size:23px;
-}
-</style>
 
 <div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >
   <div class="col-md-5 p-lg-5 mx-auto my-5">
@@ -93,45 +87,63 @@ font-size:23px;
   <p id="elementoReservableID">El ID del elemento reservable de la reserva es <b>${reserva.elementoReservableID}</b> </p>
    <p id="fecha">La fecha de la reserva es <b>${reserva.fecha}</b> </p>
 
-<div> <b> Si esta reserva tiene recurso(s) extra asociado(s) aparecerá(n) aquí: </b><br>
-  <#list recursosExtra as recursoExtra>
-     <p id="identificador">El ID del recurso extra es ${reservaextra.recursoExtraID} </p> <br>
-    <p id="url">Si quieres saber más información de recurso extra ${reservaextra.recursoExtraID} pulsa <a href="/reservas/${reservaextra.recursoExtraID}">aquí</a></p> <br>
 <hr>
-   </#list>
-  </div>
 
+<div>  <b> <p> Si esta reserva tiene recurso(s) extra asociado(s) aparecerá(n) aquí: </p> </b><br>
+<b><p> - El nombre del recurso extra es: </p></b>
+<#list nombre as row>
+     <p>${row}</p>
+<#else>
+     Esta reserva no tiene ningún recurso extra asociado
+</#list>
+<b><p> - La descripción del recurso extra es: </p></b>
+<#list descripcion as column>
+     <p>${column}</p>
+<#else>
+     Esta reserva no tiene ningún recurso extra asociado
+</#list>
+<b><p> - El identificador del recurso extra es es: </p></b>
+<#list recursoExtraID as row>
+     <p>${row}</p>
+<#else>
+     Esta reserva no tiene ningún recurso extra asociado
+</#list>
+<b><p> - El recurso extra es de tipo: </p></b>
+<#list tipo as column>
+     <p>${column}</p>
+<#else>
+     Esta reserva no tiene ningún recurso extra asociado
+</#list>
 
 <hr>
+</div>
+
  <b><p>¿Quiere añadir un recurso extra a la reserva ${reserva.id} realizada? </p> </b>
 <p> Si quiere tener preparado en su puesto o sala reservado un recurso extra, añada la siguiente información:</p>
 <form action="#" onSubmit="makePOSTRequest('http://localhost:9000/reservas'); return false;" id="formularioPOSTEXTRA" >
    <div>
     <input name="reservaID" id="reservaID" type="hidden" value="${reserva.id}">
   </div>
-  <div>
-      <label for="reservaextra.recursoExtraID">- El ID del recurso extra que quiere reservar</label>
-      <input name="recursoExtraID" id="recursoExtraID" value="">
-    </div>
-
-  <div>
+ <div>
+    <label for="reserva.recursoExtraID">- El ID del recurso extra que quiere reservar</label>
+    <input name="recursoExtraID" id="recursoExtraID" value="">
+  </div>
   <div style="margin-top:25px;">
     <button class="boton1" id="creacionReservaExtra">Crear reserva extra</button>
   </div>
 </form>
 <b> <p> Si quiere añadir más de un recurso extra, una vez hecha la primera reserva extra, repita el proceso con otro recursoExtraID </p> </b>
-<b> <p> (Si quiere verificar que su reserva se ha realizado correctamente, refresque la pantalla) </p> </b>
 
 <hr>
 <form action="#" onSubmit="makeDELETERequest('${reserva.url}'); return false;" id="formularioDELETE" >
  <b> <p>Si quiere borrar esta reserva pulse el botón </p> </b>
 
-  <div>
+
   <div style="margin-top:25px;">
     <button class="boton1" id="borrarReserva">Borrar reserva</button>
   </div>
 </form>
-<p> Compruebe que se ha borrado correctamente,</b> pinchando <a href="/reservas"> aquí </a></p>
+
 
 <hr>
 

@@ -8,8 +8,6 @@
 <script>
 function makePOSTRequest(url){
 
-
-
 var xhr = new XMLHttpRequest();
 xhr.open("POST", url);
 

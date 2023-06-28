@@ -94,12 +94,6 @@ window.location.replace(
 
 <body>
 
-<style>
-.negrita{
-font-weight:bold;
-font-size:23px;
-}
-</style>
 
 <div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >
   <div class="col-md-5 p-lg-5 mx-auto my-5">

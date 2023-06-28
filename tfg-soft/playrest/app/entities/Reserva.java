@@ -9,18 +9,18 @@ public class Reserva extends RecursoWeb {
     private int usuarioID;
     private LocalDateTime fecha;
     private Integer elementoReservableID;
-    private Integer recursoExtraID;                                 //TODO recursoExtra
+    private Integer recursoExtraID;
 
 
     public Reserva() {
         super();
     }
 
-    public Reserva(Integer id, String url, int usuarioID, Integer elementoReservableID, Integer recursoExtraID, LocalDateTime fecha) {   //TODO recursoExtra
+    public Reserva(Integer id, String url, int usuarioID, Integer elementoReservableID, Integer recursoExtraID, LocalDateTime fecha) {
         super(id, url);
         this.usuarioID = usuarioID;
         this.elementoReservableID = elementoReservableID;
-        this.recursoExtraID = recursoExtraID;                                    //TODO recursoExtra
+        this.recursoExtraID = recursoExtraID;
         this.fecha = fecha;
 
     }
@@ -55,9 +55,9 @@ public class Reserva extends RecursoWeb {
 
     public Integer getRecursoExtraID() {
         return recursoExtraID;
-    }               //TODO recursoExtra
+    }
 
-    public void setRecursoExtraID(int recursoExtraID) {                     //TODO recursoExtra
+    public void setRecursoExtraID(int recursoExtraID) {
         this.recursoExtraID = recursoExtraID;
     }
 

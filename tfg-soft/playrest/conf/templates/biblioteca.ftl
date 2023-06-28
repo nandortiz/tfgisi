@@ -65,12 +65,6 @@ window.location.replace(
 
 <body>
 
-<style>
-.negrita{
-font-weight:bold;
-font-size:23px;
-}
-</style>
 
 <div class="fondo position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="text-align:center;" >
   <div class="col-md-5 p-lg-5 mx-auto my-5">
@@ -84,10 +78,10 @@ font-size:23px;
 
   <!-- <p >   Si quiere volver al <b>inicio</b> pinche <a href="/inicio">aquí </a></p> <br>
   <p >  Si quiere volver a ver <b>todas las bibliotecas</b> pinche <a href="/bibliotecas/"> aquí </a></p> <br> -->
-  <p >  Si quiere ver <b>todos los puestos</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/puestos/"> aquí </a></p> <br>
-  <p >  Si quiere ver <b>todas las salas</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/salas/"> aquí </a></p> <br>
-  <p >  Si quiere ver <b>todos los libros</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/libros/"> aquí </a></p> <br>
-  <p >  Si quiere ver <b>todos los ordenadores</b> de esta biblioteca pinche <a href="/bibliotecas/${biblioteca.id}/ordenadores/"> aquí </a></p> <br>
+  <p >  Si quiere ver <b>todos los puestos</b> de esta biblioteca pinche <b><a href="/bibliotecas/${biblioteca.id}/puestos/"> aquí </a></b></p>
+  <p >  Si quiere ver <b>todas las salas</b> de esta biblioteca pinche <b><a href="/bibliotecas/${biblioteca.id}/salas/"> aquí </a></b></p>
+  <p >  Si quiere ver <b>todos los libros</b> de esta biblioteca pinche <b><a href="/bibliotecas/${biblioteca.id}/libros/"> aquí </a></b></p>
+  <p >  Si quiere ver <b>todos los ordenadores</b> de esta biblioteca pinche <b><a href="/bibliotecas/${biblioteca.id}/ordenadores/"> aquí </a></b></p>
 <hr>
    <b> <p>Esta es la información de la biblioteca ${biblioteca.id}:</p> </b>
   <p id="identificador" >  El ID de la biblioteca es ${biblioteca.id} </p> <br>
