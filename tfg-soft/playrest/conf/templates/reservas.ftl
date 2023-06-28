@@ -65,7 +65,7 @@ location.reload();
   </div>
   <div>
       <label for="reserva.fecha">- La fecha de la reserva a realizar en el formato del ejemplo</label>
-      <input name="fecha" id="fecha" value="aaaa-mm-dd hh:mm:ss">
+      <input name="fecha" id="fecha" value="aaaa-mm-ddThh:mm">
     </div>
    <div>
        <label for="reserva.elementoReservableID">- El ID del elemento reservable que desea reservar</label>
