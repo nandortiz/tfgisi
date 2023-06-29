@@ -8,7 +8,7 @@ public class Biblioteca extends RecursoWeb {
 
     private String nombre = "";
     private String descripcion = "";
-private ArrayList<ElementoReservableShort> listaElementosReservables = new ArrayList<>();   //TODO usado en interfaz
+private ArrayList<ElementoReservableShort> listaElementosReservables = new ArrayList<>();
     public Biblioteca() {
         super();
     }

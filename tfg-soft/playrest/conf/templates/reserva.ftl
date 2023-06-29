@@ -22,7 +22,7 @@ xhr.onreadystatechange = function () {
 var form = document.querySelector("#formularioPOSTEXTRA");
 var data = `{
                        	"recursoExtraID": `+form.querySelector('input[name="recursoExtraID"]').value+`,
-                    	"reservaID": `+form.querySelector('input[name="reservaID"]').value+`
+                    	"id": `+form.querySelector('input[name="reservaID"]').value+`
 
 
             }`;
@@ -89,31 +89,15 @@ window.location.replace(
 
 <hr>
 
-<div>  <b> <p> Si esta reserva tiene recurso(s) extra asociado(s) aparecerá(n) aquí: </p> </b><br>
-<b><p> - El nombre del recurso extra es: </p></b>
-<#list nombre as row>
-     <p>${row}</p>
+<div>  <b> <p> Si esta reserva tiene recurso(s) extra asociado(s) aparecerá(n) aquí listando el nombre, la descripción, el ID, y el tipo: </p> </b><br>
+
+<#if nombre?has_content>
+<#list 0..nombre?size-1 as i>
+<p> ${nombre[i]} | ${descripcion[i]} | ${recursoExtraID[i]} | ${tipo[i]} <br></p>
 <#else>
      Esta reserva no tiene ningún recurso extra asociado
 </#list>
-<b><p> - La descripción del recurso extra es: </p></b>
-<#list descripcion as column>
-     <p>${column}</p>
-<#else>
-     Esta reserva no tiene ningún recurso extra asociado
-</#list>
-<b><p> - El identificador del recurso extra es es: </p></b>
-<#list recursoExtraID as row>
-     <p>${row}</p>
-<#else>
-     Esta reserva no tiene ningún recurso extra asociado
-</#list>
-<b><p> - El recurso extra es de tipo: </p></b>
-<#list tipo as column>
-     <p>${column}</p>
-<#else>
-     Esta reserva no tiene ningún recurso extra asociado
-</#list>
+</#if>
 
 <hr>
 </div>
