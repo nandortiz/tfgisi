@@ -51,11 +51,11 @@ public class RecursoExtraBD extends ConexionBD {
                 if (recursoExtra instanceof Ordenador) {
                     numSerieOrdenador = ((Ordenador) recursoExtra).getNumSerie();
                     tipoRecursoExtra = "ordenadores";
-                    query = "INSERT INTO recursoExtra (nombre, descripcion, tipo, bibliotecaID, numSerie) VALUES ('"+nombre+"', '"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+numSerieOrdenador+"');";
+                    query = "INSERT INTO recursoextra (nombre, descripcion, tipo, bibliotecaID, numSerie) VALUES ('"+nombre+"', '"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+numSerieOrdenador+"');";
                 } else if (recursoExtra instanceof Libro) {
                     isbnLibro = ((Libro) recursoExtra).getIsbn();
                     tipoRecursoExtra = "libros";
-                    query = "INSERT INTO recursoExtra (nombre, descripcion, tipo, bibliotecaID, ISBN) VALUES ('"+nombre+"', '"+descripcion+"','"+tipo+"','"+bibliotecaID+"','"+isbnLibro+"');";
+                    query = "INSERT INTO recursoextra (nombre, descripcion, tipo, bibliotecaID, ISBN) VALUES ('"+nombre+"', '"+descripcion+"','"+tipo+"','"+bibliotecaID+"','"+isbnLibro+"');";
                 }
 
                 Statement st = cn.createStatement();
@@ -70,7 +70,7 @@ public class RecursoExtraBD extends ConexionBD {
                 String urlNuevoRecursoExtra=patronURL+identificador;
 
                 //UPDATE del ordenador con id = id y actualizar la url con urlNuevoOrdenador
-                st.executeUpdate("UPDATE recursoExtra set url='"+urlNuevoRecursoExtra+"' where id= "+identificador+";");
+                st.executeUpdate("UPDATE recursoextra set url='"+urlNuevoRecursoExtra+"' where id= "+identificador+";");
 
                 try {
                     con.close();
@@ -90,7 +90,7 @@ public class RecursoExtraBD extends ConexionBD {
         RecursoExtra recursoExtra = new RecursoExtra();
         try {
             if (conector() == true) {
-                String queryBD = "select id, nombre, descripcion, tipo, bibliotecaID, numSerie, ISBN from recursoExtra where id='"+id+"';";
+                String queryBD = "select id, nombre, descripcion, tipo, bibliotecaID, numSerie, ISBN from recursoextra where id='"+id+"';";
                 try {
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()) {
@@ -135,7 +135,7 @@ public class RecursoExtraBD extends ConexionBD {
 
         try {
             if (conector() == true) {
-                String queryBD = "select id, url from recursoExtra where bibliotecaID = '"+bibliotecaID+"' and tipo= '"+tipo+"';";
+                String queryBD = "select id, url from recursoextra where bibliotecaID = '"+bibliotecaID+"' and tipo= '"+tipo+"';";
                 try {
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()) {
@@ -168,7 +168,7 @@ public class RecursoExtraBD extends ConexionBD {
         try {
             if (conector() == true) {
 
-                String queryBD = "delete from recursoExtra where id = '"+id+"';";
+                String queryBD = "delete from recursoextra where id = '"+id+"';";
 
                 try {
                     createStatement.executeUpdate(queryBD);

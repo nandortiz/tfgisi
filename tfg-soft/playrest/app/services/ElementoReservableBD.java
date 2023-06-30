@@ -46,11 +46,11 @@ public class ElementoReservableBD  extends ConexionBD {
                 if (elementoReservable instanceof Sala) {
                     aforoSala = ((Sala) elementoReservable).getAforo();
                     tipoElementoReservable = "salas";
-                    query = "INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, aforoSala) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+aforoSala+"');";
+                    query = "INSERT INTO elementoreservable (descripcion, tipo, bibliotecaID, aforoSala) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"', '"+aforoSala+"');";
                 } else if (elementoReservable instanceof Puesto) {
                     infoPuesto = ((Puesto) elementoReservable).getInfo();
                     tipoElementoReservable = "puestos";
-                    query = "INSERT INTO elementoReservable (descripcion, tipo, bibliotecaID, infoPuesto) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"','"+infoPuesto+"');";
+                    query = "INSERT INTO elementoreservable (descripcion, tipo, bibliotecaID, infoPuesto) VALUES ('"+descripcion+"','"+tipo+"','"+bibliotecaID+"','"+infoPuesto+"');";
                 }
 
                 Statement st = cn.createStatement();
@@ -65,7 +65,7 @@ public class ElementoReservableBD  extends ConexionBD {
                 String urlNuevoElementoReservable=patronURL+identificador;
 
                 //UPDATE de la sala con id = id y actualizar la url con urlNuevaSala
-                st.executeUpdate("UPDATE elementoReservable set url='"+urlNuevoElementoReservable+"' where id= "+identificador+";");
+                st.executeUpdate("UPDATE elementoreservable set url='"+urlNuevoElementoReservable+"' where id= "+identificador+";");
 
                 try {
                     con.close();
@@ -86,7 +86,7 @@ public class ElementoReservableBD  extends ConexionBD {
         ElementoReservable elementoReservable = new ElementoReservable();
         try {
             if (conector() == true) {
-                String queryBD = "select id, descripcion, tipo, bibliotecaID, aforoSala, infoPuesto from elementoReservable where id='"+id+"';";
+                String queryBD = "select id, descripcion, tipo, bibliotecaID, aforoSala, infoPuesto from elementoreservable where id='"+id+"';";
                 try {
 
                     rS = createStatement.executeQuery(queryBD);
@@ -132,7 +132,7 @@ public class ElementoReservableBD  extends ConexionBD {
 
         try {
             if (conector() == true) {
-                String queryBD = "select id, url from elementoReservable where bibliotecaID = '"+bibliotecaID+"' and tipo= '"+tipo+"';";
+                String queryBD = "select id, url from elementoreservable where bibliotecaID = '"+bibliotecaID+"' and tipo= '"+tipo+"';";
                 try {
                     rS = createStatement.executeQuery(queryBD);
                     while (rS.next()) {
@@ -165,7 +165,7 @@ public class ElementoReservableBD  extends ConexionBD {
         try {
             if (conector() == true) {
 
-                String queryBD = "delete from elementoReservable where id = '"+id+"';";
+                String queryBD = "delete from elementoreservable where id = '"+id+"';";
 
                 try {
                     createStatement.executeUpdate(queryBD);
@@ -232,12 +232,12 @@ public class ElementoReservableBD  extends ConexionBD {
                     Sala sala = (Sala) elementoReservable;
                     int aforo = sala.getAforo();
                     String descripcion = sala.getDescripcion();
-                    createStatement.executeUpdate("update elementoReservable set aforoSala = '"+aforo+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
+                    createStatement.executeUpdate("update elementoreservable set aforoSala = '"+aforo+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
                 } else if (elementoReservable instanceof Puesto) {
                     Puesto puesto = (Puesto) elementoReservable;
                     String info = puesto.getInfo();
                     String descripcion = puesto.getDescripcion();
-                    createStatement.executeUpdate("update elementoReservable set infoPuesto = '"+info+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
+                    createStatement.executeUpdate("update elementoreservable set infoPuesto = '"+info+"', descripcion = '"+descripcion+"' where id = '"+id+"' ;");
                 }
             }
         } catch (SQLException ex) {
