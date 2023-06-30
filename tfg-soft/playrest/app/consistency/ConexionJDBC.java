@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 public class ConexionJDBC {
     static String driver = "com.mysql.jdbc.Driver";
-    static String url ="jdbc:mysql://localhost:3306/gestion?useSSL=false";
-    static String username = "root";
-    static String pass = "root";
+    static String url ="jdbc:mysql://database.c1berg3jrqwq.eu-west-1.rds.amazonaws.com:3306/gestion?useSSL=false";
+    static String username = "admin";
+    static String pass = "12345678";
     public ResultSet closeCn(ResultSet rs, Connection cn) throws SQLException {
         try{
             return rs;

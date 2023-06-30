@@ -12,10 +12,11 @@ import com.mysql.jdbc.*;
 public class ConexionBD {
 
     protected static Connection con;
-    protected static final String driver = "com.mysql.cj.jdbc.Driver";
-    protected static final String user = "root";
-    protected static final String pass = "root";
-    protected static final String url = "jdbc:mysql://localhost:3306/gestion?useSSL=false";
+    protected static final String driver = "com.mysql.jdbc.Driver";
+    protected static final String user = "admin";
+    protected static final String pass = "12345678";
+    protected static final String url ="jdbc:mysql://database.c1berg3jrqwq.eu-west-1.rds.amazonaws.com:3306/gestion?useSSL=false";
+
 
     protected Statement createStatement;
 
