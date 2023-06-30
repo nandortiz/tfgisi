@@ -58,7 +58,7 @@ location.reload();
    </#list>-->
   </div>
 
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/usuarios'); return false;" id="formulario" >
+<form action="#" onSubmit="makePOSTRequest('/usuarios'); return false;" id="formulario" >
   <b> <p>Este formulario es añadir para añadir un usuario. Introduzca: </p> </b>
   <div>
     <label for="usuario.nombre">- El nombre del usuario a crear</label>

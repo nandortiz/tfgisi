@@ -62,7 +62,7 @@ location.reload();
     </#list> -->
     </div>
 
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/libros'); return false;" id="formularioPOST" >
+<form action="#" onSubmit="makePOSTRequest('/bibliotecas/${bibliotecaID}/libros'); return false;" id="formularioPOST" >
   <b> <p>Este formulario es para añadir un libro a la biblioteca. Introduzca: </p> </b>
   <div>
       <label for="libro.nombre">- Título del libro a crear</label>

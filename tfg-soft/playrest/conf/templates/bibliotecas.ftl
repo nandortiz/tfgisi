@@ -62,7 +62,7 @@ location.reload();
  <hr>
 
 <b> <p>Este formulario es para añadir una biblioteca. Introduzca: </p> </b>
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas'); return false;" id="formularioPOST" >
+<form action="#" onSubmit="makePOSTRequest('/bibliotecas'); return false;" id="formularioPOST" >
   <div>
     <label for="biblioteca.nombre">- Nombre de la biblioteca a crear</label>
     <input name="nombre" id="nombre" value="">

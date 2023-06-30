@@ -104,7 +104,7 @@ window.location.replace(
 
  <b><p>¿Quiere añadir un recurso extra a la reserva ${reserva.id} realizada? </p> </b>
 <p> Si quiere tener preparado en su puesto o sala reservado un recurso extra, añada la siguiente información:</p>
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/reservas'); return false;" id="formularioPOSTEXTRA" >
+<form action="#" onSubmit="makePOSTRequest('/reservas'); return false;" id="formularioPOSTEXTRA" >
    <div>
     <input name="reservaID" id="reservaID" type="hidden" value="${reserva.id}">
   </div>

@@ -62,7 +62,7 @@ location.reload();
 </div>
 
 <b> <p>Este formulario es para añadir una sala a la biblioteca. Introduzca: </p> </b>
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/salas'); return false;" id="formulario" >
+<form action="#" onSubmit="makePOSTRequest('/bibliotecas/${bibliotecaID}/salas'); return false;" id="formulario" >
   <div>
     <label for="sala.descripcion">- La descripción de la sala a crear</label>
     <input name="descripcion" id="descripcion" value="">

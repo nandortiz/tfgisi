@@ -63,7 +63,7 @@ location.reload();
     </#list> -->
     </div>
 
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/puestos'); return false;" id="formulario" >
+<form action="#" onSubmit="makePOSTRequest('/bibliotecas/${bibliotecaID}/puestos'); return false;" id="formulario" >
   <b> <p>Este formulario es para añadir un puesto a la biblioteca. Introduzca: </p> </b>
   <div>
     <label for="puesto.descripcion">- Descripción del puesto a crear</label>

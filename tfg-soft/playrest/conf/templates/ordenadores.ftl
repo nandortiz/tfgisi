@@ -63,7 +63,7 @@ location.reload();
     </#list> -->
     </div>
 
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/bibliotecas/${bibliotecaID}/ordenadores'); return false;" id="formularioPOST" >
+<form action="#" onSubmit="makePOSTRequest('/bibliotecas/${bibliotecaID}/ordenadores'); return false;" id="formularioPOST" >
   <b> <p>Este formulario es para añadir un ordenador a la biblioteca. Introduzca: </p> </b>
   <div>
       <label for="ordenador.nombre">- Modelo del ordenador a crear</label>

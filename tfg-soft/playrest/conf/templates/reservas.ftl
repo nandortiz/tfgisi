@@ -58,7 +58,7 @@ location.reload();
   </div>
 
 <b> <p>Este formulario es para crear una reserva. Introduzca: </p> </b>
-<form action="#" onSubmit="makePOSTRequest('http://localhost:9000/reservas'); return false;" id="formularioPOST" >
+<form action="#" onSubmit="makePOSTRequest('/reservas'); return false;" id="formularioPOST" >
     <div>
     <label for="reserva.usuarioID">- El ID del usuario que hace la reserva</label>
     <input name="usuarioID" id="usuarioID" value="">
